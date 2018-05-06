@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
     <group android:id="@+id/navGrMain" android:checkableBehavior="single">
-        <!--<item
+        <item
             android:id="@+id/nav_home"
-            android:icon="@drawable/ic_home_white"
-            android:title="@string/title_ask" />
+            android:icon="@drawable/ic_home"
+            android:title="@string/nav_home" />
         <item
             android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_question_answer_white"
-            android:title="@string/nav_your_questions" />-->
-
+            android:icon="@drawable/ic_task"
+            android:title="@string/nav_tasks" />
     </group>
 
     <group android:id="@+id/navGrAdditional" android:checkableBehavior="none">
