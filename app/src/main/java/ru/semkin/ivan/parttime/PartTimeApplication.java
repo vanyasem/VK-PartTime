@@ -1,10 +1,14 @@
 package ru.semkin.ivan.parttime;
 
 import android.app.Application;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
+import com.squareup.leakcanary.LeakCanary;
 import com.vk.sdk.VKSdk;
+
+import timber.log.Timber;
 
 /**
  * Created by Ivan Semkin on 5/6/18
@@ -15,19 +19,19 @@ public class PartTimeApplication extends Application {
         super.onCreate();
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
 
-        //initializeLogging();
-        //initializeLeakCanary();
+        initializeLogging();
+        initializeLeakCanary();
 
         VKSdk.initialize(getApplicationContext());
     }
 
-    /*private void initializeLogging() {
+    private void initializeLogging() {
         if (BuildConfig.TIMBER_ENABLE) {
             Timber.plant(new Timber.DebugTree());
         } else {
             Timber.plant(new Timber.DebugTree() {
                 @Override
-                protected void log(int priority, String tag, String message, Throwable t) {
+                protected void log(int priority, String tag, @NonNull String message, Throwable t) {
                     if (priority == Log.ERROR) {
                         super.log(priority, tag, message, t);
                     }
@@ -42,5 +46,5 @@ public class PartTimeApplication extends Application {
             return;
         }
         LeakCanary.install(this);
-    }*/
+    }
 }
