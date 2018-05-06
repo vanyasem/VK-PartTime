@@ -17,15 +17,21 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="ru.semkin.ivan.parttime.ui.activity.MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".ui.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
+         </activity>
+        <activity
+            android:name=".ui.activity.MainIntroActivity"
+            android:theme="@style/Theme.Intro" />
+        <activity
+            android:name="ru.semkin.ivan.parttime.ui.activity.MainActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent" />
     </application>

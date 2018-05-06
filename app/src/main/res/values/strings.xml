@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">PartTime</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Intro Slides-->
+​    <string name="intro_welcome">Welcome!</string>
+​    <string name="intro_auth">Authorization</string>
+​    <string name="intro_sign_in">Sign in</string>
+​    <string name="intro_must_login">You have to login in order to user PartTime</string>
+​    <string name="intro_success">Success!</string>
+​    <string name="intro_can_continue">You can continue now</string>
 </resources>

@@ -17,6 +17,18 @@ android {
         vectorDrawables.useSupportLibrary = true
         buildConfigField 'boolean', 'TIMBER_ENABLE', 'true'
 
+        if (rootProject.file('appKeys.properties').exists()) {
+            def apiKeysPropertiesFile = rootProject.file("appKeys.properties");
+            def apiKeysProperties = new Properties()
+            apiKeysProperties.load(new FileInputStream(apiKeysPropertiesFile))
+
+            resValue('string', 'com_vk_sdk_AppId', apiKeysProperties.get("com_vk_sdk_AppId"))
+            buildConfigField('String', 'com_vk_sdk_AppId', '"' + apiKeysProperties.get("com_vk_sdk_AppId") + '"')
+        } else {
+            throw new GradleException("You must have appKeys.properties in the root folder of your project with " +
+                    "com_vk_sdk_AppId" +
+                    " variables set in order to build the project")
+        }
     }
 
     signingConfigs {
