@@ -6,7 +6,7 @@
 ​    <string name="intro_welcome">Welcome!</string>
 ​    <string name="intro_auth">Authorization</string>
 ​    <string name="intro_sign_in">Sign in</string>
+    <string name="intro_just_click">Just click the button below</string>
 ​    <string name="intro_must_login">You have to login in order to user PartTime</string>
-​    <string name="intro_success">Success!</string>
-​    <string name="intro_can_continue">You can continue now</string>
+    <string name="intro_error">Something unexpected happened, try again later</string>
 </resources>

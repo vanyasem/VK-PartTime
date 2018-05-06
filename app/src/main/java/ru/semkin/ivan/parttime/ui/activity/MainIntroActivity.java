@@ -1,15 +1,19 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
- import android.os.Bundle;
- import android.support.design.widget.Snackbar;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.view.View;
 
- import com.heinrichreimersoftware.materialintro.app.IntroActivity;
- import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
- import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
- import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
+import com.heinrichreimersoftware.materialintro.app.IntroActivity;
+import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
+import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
+import com.vk.sdk.VKAccessToken;
+import com.vk.sdk.VKCallback;
+import com.vk.sdk.VKSdk;
+import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.ui.fragment.IntroLoginFragment;
 
 /**
  * Created by Ivan Semkin on 5/6/18
@@ -26,16 +30,24 @@ public class MainIntroActivity extends IntroActivity {
                 .image(R.mipmap.ic_launcher)
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
-                .canGoForward(true)
                 .build());
 
 
-        addSlide(new FragmentSlide.Builder()
+        addSlide(new SimpleSlide.Builder()
+                .title(R.string.intro_auth)
+                .description(R.string.intro_just_click)
+                .image(R.drawable.ic_account_circle)
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
-                .fragment(new IntroLoginFragment())
+                .buttonCtaClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        VKSdk.login(MainIntroActivity.this,
+                                "friends", "messages", "groups");
+                    }
+                })
+                .buttonCtaLabel(R.string.intro_sign_in)
                 .canGoForward(false)
-                .canGoBackward(false)
                 .build());
 
         /* Enable/disable skip button */
@@ -49,6 +61,25 @@ public class MainIntroActivity extends IntroActivity {
                         R.string.intro_must_login, Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!VKSdk.onActivityResult(requestCode, resultCode, data, new VKCallback<VKAccessToken>() {
+            @Override
+            public void onResult(VKAccessToken res) {
+                // User passed Authorization
+                finish();
+            }
+            @Override
+            public void onError(VKError error) {
+                // User didn't pass Authorization
+                Snackbar.make(MainIntroActivity.this.getContentView(),
+                        R.string.intro_error, Snackbar.LENGTH_LONG).show();
+            }
+        })) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
