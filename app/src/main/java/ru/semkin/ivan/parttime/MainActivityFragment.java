@@ -1,4 +1,4 @@
-package ru.semkin.ivan.vkparttime;
+package ru.semkin.ivan.parttime;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

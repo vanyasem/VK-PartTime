@@ -1,4 +1,4 @@
-package ru.semkin.ivan.vkparttime;
+package ru.semkin.ivan.parttime;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("ru.semkin.ivan.vkparttime", appContext.getPackageName());
+        assertEquals("ru.semkin.ivan.parttime", appContext.getPackageName());
     }
 }

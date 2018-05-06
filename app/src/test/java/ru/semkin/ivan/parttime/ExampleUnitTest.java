@@ -1,4 +1,4 @@
-package ru.semkin.ivan.vkparttime;
+package ru.semkin.ivan.parttime;
 
 import org.junit.Test;
 
