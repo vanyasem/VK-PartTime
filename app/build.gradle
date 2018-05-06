@@ -66,16 +66,12 @@ dependencies {
 
     implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
     implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
-    implementation "com.android.support:support-annotations:$supportLibraryVersion"
     implementation "com.android.support:design:$supportLibraryVersion"
 
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'com.vk:androidsdk:1.6.9'
-    implementation('com.mikepenz:materialdrawer:6.0.7@aar') {
-        transitive = true
-    }
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
