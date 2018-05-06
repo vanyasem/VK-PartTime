@@ -1,2 +1,2 @@
-# Vk-PartTime
-Never miss a task from Vkontakte part time job again
+# VK-PartTime
+Never miss a task from VKontakte part time job again
