@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PartTime</string>
+    <string name="app_name" translatable="false">PartTime</string>
     <string name="action_settings">Settings</string>
 
     <!-- Intro Slides-->
@@ -13,6 +13,9 @@
     <!-- Drawer -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+    <string name="nav_profile_picture">User\'s profile picture</string>
+    <string name="nav_user_name">John Oliver</string>
+    <string name="nav_user_info">Mood</string>
     <string name="nav_home">Home</string>
     <string name="nav_tasks">Tasks</string>
     <string name="nav_about">About</string>

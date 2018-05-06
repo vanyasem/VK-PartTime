@@ -1,5 +1,6 @@
 package ru.semkin.ivan.parttime.ui.base;
 
+import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -9,6 +10,7 @@ import ru.semkin.ivan.parttime.R;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
+@SuppressLint("Registered")
 public class BaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar = null;

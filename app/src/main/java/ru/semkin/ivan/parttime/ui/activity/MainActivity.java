@@ -8,10 +8,10 @@ import android.view.MenuItem;
 import android.view.View;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.ui.base.BaseDrawerActivity;
+import ru.semkin.ivan.parttime.ui.base.BaseMainFragmentActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 
-public class MainActivity extends BaseDrawerActivity {
+public class MainActivity extends BaseMainFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
