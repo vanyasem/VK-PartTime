@@ -20,6 +20,7 @@ import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.datamanager.DataManager;
 import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
+import ru.semkin.ivan.parttime.ui.activity.ProfileActivity;
 import ru.semkin.ivan.parttime.ui.fragment.HomeFragment;
 import ru.semkin.ivan.parttime.ui.fragment.TasksFragment;
 import timber.log.Timber;
@@ -48,7 +49,7 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //openProfile(v); //todo implement
+                openProfile(v);
             }
         });
 
@@ -114,10 +115,10 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         startActivity(i);
     }
 
-    /*public void openProfile(View view) { //todo implement
+    public void openProfile(View view) {
         Intent intent = new Intent(BaseMainFragmentActivity.this, ProfileActivity.class);
         startActivity(intent);
-    }*/
+    }
 
     /*private void openSettings() { //todo implement
         Intent intent = new Intent(BaseMainFragmentActivity.this, SettingsActivity.class);

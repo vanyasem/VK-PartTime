@@ -5,6 +5,7 @@
     <uses-feature
         android:name="android.hardware.wifi"
         android:required="false" />
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -15,7 +16,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.activity.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -24,16 +24,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-         </activity>
+        </activity>
         <activity
             android:name=".ui.activity.MainIntroActivity"
             android:theme="@style/Theme.Intro" />
         <activity
-            android:name="ru.semkin.ivan.parttime.ui.activity.MainActivity"
+            android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name="com.vk.sdk.VKServiceActivity" android:label="ServiceActivity" android:theme="@style/VK.Transparent" />
+        <activity
+            android:name=".ui.activity.ProfileActivity"
+            android:label="@string/title_profile"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".ui.activity.MainActivity" />
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
     </application>
 
 </manifest>
