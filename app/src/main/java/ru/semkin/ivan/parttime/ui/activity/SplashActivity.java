@@ -11,33 +11,23 @@ import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
  */
 public class SplashActivity extends AppCompatActivity {
 
-    public static final int REQUEST_CODE = 1337;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         if(LoginDataManager.getLoggedIn()) {
-            openMain();
+            MainActivity.openMain(this);
+            finishAffinity();
         }
         else {
-            openIntro();
+            MainIntroActivity.openIntro(this);
         }
-    }
-
-    private void openIntro() {
-        Intent intent = new Intent(SplashActivity.this, MainIntroActivity.class);
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-
-    private void openMain() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
-        finishAffinity();
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        openMain();
+        MainIntroActivity.openIntro(this);
     }
 }

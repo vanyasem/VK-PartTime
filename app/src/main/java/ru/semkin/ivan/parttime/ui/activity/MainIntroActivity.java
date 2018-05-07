@@ -1,5 +1,6 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -66,6 +67,12 @@ public class MainIntroActivity extends IntroActivity {
                         R.string.intro_must_login, Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static final int REQUEST_CODE = 1337;
+    public static void openIntro(Activity activity) {
+        Intent intent = new Intent(activity, MainIntroActivity.class);
+        activity.startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override

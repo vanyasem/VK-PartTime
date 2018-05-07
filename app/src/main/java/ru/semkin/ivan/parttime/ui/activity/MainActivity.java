@@ -1,5 +1,7 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,6 +30,11 @@ public class MainActivity extends BaseMainFragmentActivity {
         });
 
         ActivityUtil.setActionBar(this);
+    }
+
+    public static void openMain(Context context) {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
     }
 
     @Override

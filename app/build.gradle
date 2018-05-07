@@ -4,6 +4,9 @@ apply from: '../versioning.gradle'
 
 ext.supportLibraryVersion = '27.1.1'
 ext.leakCanaryVersion = '1.5.4'
+ext.butterknifeVersion = '8.6.0'
+ext.glideVersion = '4.7.1'
+
 
 android {
     compileSdkVersion 27
@@ -72,8 +75,12 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'com.vk:androidsdk:1.6.9'
-    implementation 'com.github.bumptech.glide:glide:4.7.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
+
+    compile "com.jakewharton:butterknife:$butterknifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"

@@ -49,7 +49,7 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openProfile(v);
+                ProfileActivity.openProfile(v, BaseMainFragmentActivity.this);
             }
         });
 
@@ -113,11 +113,6 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         assert i != null;
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
-    }
-
-    public void openProfile(View view) {
-        Intent intent = new Intent(BaseMainFragmentActivity.this, ProfileActivity.class);
-        startActivity(intent);
     }
 
     /*private void openSettings() { //todo implement

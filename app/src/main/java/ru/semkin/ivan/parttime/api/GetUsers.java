@@ -27,7 +27,7 @@ public class GetUsers {
     public static final String USER_GET_SYNC_FINISHED = "UserGetSyncFinishedCast";
     public void getUserProfile() {
         VKRequest request = VKApi.users().get(
-                VKParameters.from(VKApiConst.FIELDS, "sex,bdate,photo_100,city,country,activity"));
+                VKParameters.from(VKApiConst.FIELDS, "sex,bdate,photo_200,city,country,activity"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
@@ -38,7 +38,7 @@ public class GetUsers {
                 ProfileDataManager.setUserBirthday(user.get(0).bdate);
                 ProfileDataManager.setUserCity(user.get(0).city.title);
                 ProfileDataManager.setUserCountry(user.get(0).country.title);
-                ProfileDataManager.setProfilePicture(user.get(0).photo_100);
+                ProfileDataManager.setProfilePicture(user.get(0).photo_200);
                 ProfileDataManager.setUserStatus(user.get(0).activity);
 
                 Intent intent = new Intent(USER_GET_SYNC_FINISHED);
