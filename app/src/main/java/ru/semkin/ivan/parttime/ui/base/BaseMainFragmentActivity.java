@@ -13,9 +13,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
+import com.vk.sdk.VKSdk;
+
+import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.datamanager.DataManager;
+import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
 import ru.semkin.ivan.parttime.ui.fragment.HomeFragment;
 import ru.semkin.ivan.parttime.ui.fragment.TasksFragment;
+import timber.log.Timber;
 
 /**
  * Created by Ivan Semkin on 5/7/18
@@ -46,6 +53,23 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         });
 
         navigationView.setNavigationItemSelectedListener(this);
+
+        if(ProfileDataManager.getUserName() != null) {
+            textName.setText(ProfileDataManager.getUserName());
+        }
+
+        if(ProfileDataManager.getUserStatus() != null) {
+            textMood.setText(ProfileDataManager.getUserStatus());
+            Timber.e(ProfileDataManager.getUserStatus());
+        }
+
+        if(ProfileDataManager.getProfilePicture() != null) {
+            GlideApp
+                    .with(this)
+                    .load(ProfileDataManager.getProfilePicture())
+                    .apply(RequestOptions.circleCropTransform())
+                    .into(imgProfile);
+        }
     }
 
     @Override
@@ -58,24 +82,36 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
             item.setChecked(true);
         }
 
-        if (id == R.id.nav_home) {
-            navItemIndex = ID_HOME;
-            CURRENT_TAG = TAG_HOME;
-        } else if (id == R.id.nav_tasks) {
-            navItemIndex = ID_TASKS;
-            CURRENT_TAG = TAG_TASKS;
-        } else if (id == R.id.nav_settings) {
-            //openSettings(); //todo implement
-        } else if (id == R.id.nav_logout) {
-            Intent i = getBaseContext().getPackageManager()
-                    .getLaunchIntentForPackage(getBaseContext().getPackageName());
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+        switch (id) {
+            case R.id.nav_home:
+                navItemIndex = ID_HOME;
+                CURRENT_TAG = TAG_HOME;
+                break;
+            case R.id.nav_tasks:
+                navItemIndex = ID_TASKS;
+                CURRENT_TAG = TAG_TASKS;
+                break;
+            case R.id.nav_settings:
+                //openSettings(); //todo implement
+                break;
+            case R.id.nav_logout:
+                logOut();
+                break;
         }
 
         openFragment();
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logOut() {
+        DataManager.clear();
+        VKSdk.logout();
+        Intent i = getBaseContext().getPackageManager()
+                .getLaunchIntentForPackage(getBaseContext().getPackageName());
+        assert i != null;
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(i);
     }
 
     /*public void openProfile(View view) { //todo implement

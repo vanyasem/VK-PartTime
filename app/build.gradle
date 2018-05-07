@@ -18,7 +18,7 @@ android {
         buildConfigField 'boolean', 'TIMBER_ENABLE', 'true'
 
         if (rootProject.file('appKeys.properties').exists()) {
-            def apiKeysPropertiesFile = rootProject.file("appKeys.properties");
+            def apiKeysPropertiesFile = rootProject.file("appKeys.properties")
             def apiKeysProperties = new Properties()
             apiKeysProperties.load(new FileInputStream(apiKeysPropertiesFile))
 
@@ -72,6 +72,8 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'com.vk:androidsdk:1.6.9'
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.7.1'
 
     debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
     releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"

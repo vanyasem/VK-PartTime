@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
+
 /**
  * Created by Ivan Semkin on 5/6/18
  */
@@ -14,7 +16,13 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        openIntro();
+
+        if(LoginDataManager.getLoggedIn()) {
+            openMain();
+        }
+        else {
+            openIntro();
+        }
     }
 
     private void openIntro() {

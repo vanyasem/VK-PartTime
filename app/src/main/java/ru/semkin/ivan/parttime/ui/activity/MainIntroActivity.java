@@ -1,6 +1,9 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -14,6 +17,8 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.GetUsers;
+import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
 
 /**
  * Created by Ivan Semkin on 5/6/18
@@ -43,7 +48,7 @@ public class MainIntroActivity extends IntroActivity {
                     @Override
                     public void onClick(View v) {
                         VKSdk.login(MainIntroActivity.this,
-                                "friends", "messages", "groups");
+                                "wall", "friends", "messages", "groups");
                     }
                 })
                 .buttonCtaLabel(R.string.intro_sign_in)
@@ -69,7 +74,9 @@ public class MainIntroActivity extends IntroActivity {
             @Override
             public void onResult(VKAccessToken res) {
                 // User passed Authorization
-                finish();
+                Snackbar.make(MainIntroActivity.this.getContentView(),
+                        R.string.intro_success, Snackbar.LENGTH_INDEFINITE).show();
+                loadBasicData();
             }
             @Override
             public void onError(VKError error) {
@@ -80,6 +87,31 @@ public class MainIntroActivity extends IntroActivity {
         })) {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private final BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(final Context context, Intent intent) {
+            LoginDataManager.setLoggedIn(true);
+            finish();
+        }
+    };
+    @Override
+    public void onResume() {
+        super.onResume();
+        registerReceiver(syncFinishedReceiver,
+                new IntentFilter(GetUsers.USER_GET_SYNC_FINISHED));
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        unregisterReceiver(syncFinishedReceiver);
+    }
+
+    private void loadBasicData() {
+        GetUsers getUsers = new GetUsers(this);
+        getUsers.getUserProfile();
     }
 
     @Override

@@ -8,6 +8,7 @@ import android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
 import com.vk.sdk.VKSdk;
 
+import ru.semkin.ivan.parttime.datamanager.DataManager;
 import timber.log.Timber;
 
 /**
@@ -22,6 +23,7 @@ public class PartTimeApplication extends Application {
         initializeLogging();
         initializeLeakCanary();
 
+        DataManager.initialize(this);
         VKSdk.initialize(getApplicationContext());
     }
 
