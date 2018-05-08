@@ -4,17 +4,17 @@
 
     <header
         android:fragment="ru.semkin.ivan.parttime.ui.activity.SettingsActivity$GeneralPreferenceFragment"
-        android:icon="@drawable/ic_info_black_24dp"
+        android:icon="@drawable/ic_info"
         android:title="@string/pref_header_general" />
 
     <header
         android:fragment="ru.semkin.ivan.parttime.ui.activity.SettingsActivity$NotificationPreferenceFragment"
-        android:icon="@drawable/ic_notifications_black_24dp"
+        android:icon="@drawable/ic_notifications"
         android:title="@string/pref_header_notifications" />
 
     <header
         android:fragment="ru.semkin.ivan.parttime.ui.activity.SettingsActivity$DataSyncPreferenceFragment"
-        android:icon="@drawable/ic_sync_black_24dp"
+        android:icon="@drawable/ic_sync"
         android:title="@string/pref_header_data_sync" />
 
 </preference-headers>

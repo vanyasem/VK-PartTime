@@ -16,11 +16,14 @@ import android.widget.TextView;
 import com.bumptech.glide.request.RequestOptions;
 import com.vk.sdk.VKSdk;
 
+import java.util.Set;
+
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.datamanager.DataManager;
 import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
 import ru.semkin.ivan.parttime.ui.activity.ProfileActivity;
+import ru.semkin.ivan.parttime.ui.activity.SettingsActivity;
 import ru.semkin.ivan.parttime.ui.fragment.HomeFragment;
 import ru.semkin.ivan.parttime.ui.fragment.TasksFragment;
 import timber.log.Timber;
@@ -93,7 +96,7 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
                 CURRENT_TAG = TAG_TASKS;
                 break;
             case R.id.nav_settings:
-                //openSettings(); //todo implement
+                SettingsActivity.openSettings(this);
                 break;
             case R.id.nav_logout:
                 logOut();
