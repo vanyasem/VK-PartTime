@@ -54,7 +54,7 @@ public class MainActivity extends BaseMainFragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            ProfileActivity.openProfile(this);
+            SettingsActivity.openSettings(this);
             return true;
         }
 
