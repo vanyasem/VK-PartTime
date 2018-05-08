@@ -32,7 +32,7 @@ public class ProfileActivity extends BaseActivity {
         loadSavedData();
     }
 
-    public static void openProfile(View view, Context context) {
+    public static void openProfile(Context context) {
         Intent intent = new Intent(context, ProfileActivity.class);
         context.startActivity(intent);
     }
@@ -66,7 +66,7 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.imageProfilePic)
     ImageView mProfilePic;
     @BindView(R.id.progressBar)
-    ProgressBar mProgressBar;
+    ProgressBar progressBar;
 
     private String mFieldName;
     private int mFieldGender;
@@ -77,7 +77,7 @@ public class ProfileActivity extends BaseActivity {
     private String mFieldProfilePic;
 
     public void saveData(View view) {
-        mProgressBar.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         ProfileDataManager.setProfilePicture(mFieldProfilePic);
         ProfileDataManager.setUserName(mFieldName);
         ProfileDataManager.setUserStatus(mFieldStatus);

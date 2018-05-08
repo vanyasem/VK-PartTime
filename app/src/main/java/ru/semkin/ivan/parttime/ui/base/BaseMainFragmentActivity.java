@@ -49,7 +49,7 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileActivity.openProfile(v, BaseMainFragmentActivity.this);
+                ProfileActivity.openProfile(BaseMainFragmentActivity.this);
             }
         });
 
