@@ -8,7 +8,7 @@ import android.util.Log;
 import com.squareup.leakcanary.LeakCanary;
 import com.vk.sdk.VKSdk;
 
-import ru.semkin.ivan.parttime.datamanager.DataManager;
+import ru.semkin.ivan.parttime.prefs.DataManager;
 import timber.log.Timber;
 
 /**

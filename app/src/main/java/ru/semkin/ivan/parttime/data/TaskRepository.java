@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.repository;
+package ru.semkin.ivan.parttime.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -7,16 +7,16 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
-import ru.semkin.ivan.parttime.db.entity.Task;
-import ru.semkin.ivan.parttime.db.entity.TaskDao;
+import ru.semkin.ivan.parttime.model.Task;
+import ru.semkin.ivan.parttime.db.TaskDao;
 
 /**
  * Created by Ivan Semkin on 5/11/18
  */
 public class TaskRepository {
 
-    private TaskDao mTaskDao;
-    private LiveData<List<Task>> mAllTasks;
+    private final TaskDao mTaskDao;
+    private final LiveData<List<Task>> mAllTasks;
 
     public TaskRepository(Application application) {
         PartTimeDatabase db = PartTimeDatabase.getDatabase(application);
@@ -34,7 +34,7 @@ public class TaskRepository {
 
     private static class insertAsyncTask extends AsyncTask<Task, Void, Void> {
 
-        private TaskDao mAsyncTaskDao;
+        private final TaskDao mAsyncTaskDao;
 
         insertAsyncTask(TaskDao dao) {
             mAsyncTaskDao = dao;

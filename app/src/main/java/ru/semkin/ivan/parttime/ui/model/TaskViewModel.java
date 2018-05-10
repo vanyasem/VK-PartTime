@@ -6,16 +6,16 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
-import ru.semkin.ivan.parttime.db.entity.Task;
-import ru.semkin.ivan.parttime.repository.TaskRepository;
+import ru.semkin.ivan.parttime.model.Task;
+import ru.semkin.ivan.parttime.data.TaskRepository;
 
 /**
  * Created by Ivan Semkin on 5/11/18
  */
 public class TaskViewModel extends AndroidViewModel {
 
-    private TaskRepository mRepository;
-    private LiveData<List<Task>> mAllTasks;
+    private final TaskRepository mRepository;
+    private final LiveData<List<Task>> mAllTasks;
 
     public TaskViewModel(Application application) {
         super(application);

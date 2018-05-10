@@ -8,8 +8,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import ru.semkin.ivan.parttime.db.entity.Task;
-import ru.semkin.ivan.parttime.db.entity.TaskDao;
+import ru.semkin.ivan.parttime.model.Task;
 
 /**
  * Created by Ivan Semkin on 5/10/18
@@ -32,7 +31,7 @@ public abstract class PartTimeDatabase extends RoomDatabase {
         return instance;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback =
+    private static final RoomDatabase.Callback sRoomDatabaseCallback =
             new RoomDatabase.Callback(){
 
                 @Override

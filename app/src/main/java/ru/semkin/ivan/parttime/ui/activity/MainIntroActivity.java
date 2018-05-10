@@ -18,8 +18,8 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.repository.GetUsers;
-import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
+import ru.semkin.ivan.parttime.api.request.GetUsers;
+import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 
 /**
  * Created by Ivan Semkin on 5/6/18

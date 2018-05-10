@@ -14,7 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
+import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 import ru.semkin.ivan.parttime.ui.base.BaseActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 import ru.semkin.ivan.parttime.util.Util;

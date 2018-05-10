@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.db.entity;
+package ru.semkin.ivan.parttime.db;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -7,6 +7,8 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
 import java.util.List;
+
+import ru.semkin.ivan.parttime.model.Task;
 
 /**
  * Created by Ivan Semkin on 5/10/18

@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.datamanager;
+package ru.semkin.ivan.parttime.prefs;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

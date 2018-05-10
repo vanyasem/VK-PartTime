@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.db.entity;
+package ru.semkin.ivan.parttime.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

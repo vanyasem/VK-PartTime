@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.db.entity.Task;
+import ru.semkin.ivan.parttime.model.Task;
 import ru.semkin.ivan.parttime.ui.adapter.TaskListAdapter;
 import ru.semkin.ivan.parttime.ui.model.TaskViewModel;
 

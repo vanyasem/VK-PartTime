@@ -1,6 +1,5 @@
 package ru.semkin.ivan.parttime.ui.base;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -18,8 +17,8 @@ import com.vk.sdk.VKSdk;
 
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.datamanager.DataManager;
-import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
+import ru.semkin.ivan.parttime.prefs.DataManager;
+import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 import ru.semkin.ivan.parttime.ui.activity.ProfileActivity;
 import ru.semkin.ivan.parttime.ui.activity.SettingsActivity;
 import ru.semkin.ivan.parttime.ui.fragment.HomeFragment;

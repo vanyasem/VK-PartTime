@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.datamanager;
+package ru.semkin.ivan.parttime.prefs;
 
 /**
  * Created by Ivan Semkin on 5/7/18

@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.repository;
+package ru.semkin.ivan.parttime.api.request;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
-import ru.semkin.ivan.parttime.datamanager.ProfileDataManager;
+import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 
 /**
  * Created by Ivan Semkin on 5/7/18

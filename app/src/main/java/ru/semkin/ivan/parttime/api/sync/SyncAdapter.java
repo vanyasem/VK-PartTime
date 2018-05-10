@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
 
-import ru.semkin.ivan.parttime.repository.GetUsers;
+import ru.semkin.ivan.parttime.api.request.GetUsers;
 import timber.log.Timber;
 
 /**
@@ -19,8 +19,8 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
     //...
     // Global variables
     // Define a variable to contain a content resolver instance
-    private ContentResolver mContentResolver;
-    private Context mContext;
+    private final ContentResolver mContentResolver;
+    private final Context mContext;
     /**
      * Set up the sync adapter
      */

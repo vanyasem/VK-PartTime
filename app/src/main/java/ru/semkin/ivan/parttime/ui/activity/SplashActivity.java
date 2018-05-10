@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import ru.semkin.ivan.parttime.api.sync.Sync;
-import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
+import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 
 /**
  * Created by Ivan Semkin on 5/6/18
