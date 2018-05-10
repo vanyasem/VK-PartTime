@@ -16,8 +16,6 @@ import android.widget.TextView;
 import com.bumptech.glide.request.RequestOptions;
 import com.vk.sdk.VKSdk;
 
-import java.util.Set;
-
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.datamanager.DataManager;
@@ -26,7 +24,6 @@ import ru.semkin.ivan.parttime.ui.activity.ProfileActivity;
 import ru.semkin.ivan.parttime.ui.activity.SettingsActivity;
 import ru.semkin.ivan.parttime.ui.fragment.HomeFragment;
 import ru.semkin.ivan.parttime.ui.fragment.TasksFragment;
-import timber.log.Timber;
 
 /**
  * Created by Ivan Semkin on 5/7/18
@@ -64,7 +61,6 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
 
         if(ProfileDataManager.getUserStatus() != null) {
             textMood.setText(ProfileDataManager.getUserStatus());
-            Timber.e(ProfileDataManager.getUserStatus());
         }
 
         if(ProfileDataManager.getProfilePicture() != null) {
@@ -117,11 +113,6 @@ public class BaseMainFragmentActivity extends BaseDrawerActivity
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(i);
     }
-
-    /*private void openSettings() { //todo implement
-        Intent intent = new Intent(BaseMainFragmentActivity.this, SettingsActivity.class);
-        startActivity(intent);
-    }*/
 
     private static final String TAG_HOME = "home";
     private static final String TAG_TASKS = "tasks";

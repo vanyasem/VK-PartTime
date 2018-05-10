@@ -6,7 +6,11 @@
         android:name="android.hardware.wifi"
         android:required="false" />
 
+    <uses-permission
+        android:name="android.permission.AUTHENTICATE_ACCOUNTS"
+        android:maxSdkVersion="22" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_SYNC_SETTINGS" />
 
     <application
         android:name=".PartTimeApplication"
@@ -38,10 +42,6 @@
             android:parentActivityName=".ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="com.vk.sdk.VKServiceActivity"
-            android:label="ServiceActivity"
-            android:theme="@style/VK.Transparent" />
-        <activity
             android:name=".ui.activity.SettingsActivity"
             android:label="@string/title_activity_settings"
             android:parentActivityName=".ui.activity.MainActivity">
@@ -49,6 +49,39 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ru.semkin.ivan.parttime.ui.activity.MainActivity" />
         </activity>
+        <activity
+            android:name="com.vk.sdk.VKServiceActivity"
+            android:label="ServiceActivity"
+            android:theme="@style/VK.Transparent" />
+
+        <!-- Sync Services -->
+        <service
+            android:name=".api.sync.SyncService"
+            android:exported="true"
+            android:process=":sync">
+            <intent-filter>
+                <action android:name="android.content.SyncAdapter" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.content.SyncAdapter"
+                android:resource="@xml/syncadapter" />
+        </service>
+        <service android:name=".api.sync.AuthenticatorService">
+            <intent-filter>
+                <action android:name="android.accounts.AccountAuthenticator" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.accounts.AccountAuthenticator"
+                android:resource="@xml/authenticator" />
+        </service>
+
+        <provider
+            android:name=".db.PartTimeProvider"
+            android:authorities="@string/content_authority"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

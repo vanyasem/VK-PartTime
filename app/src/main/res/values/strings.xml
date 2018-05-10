@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">PartTime</string>
+    <string name="account_type">ru.semkin.ivan.parttime</string>
+    <string name="content_authority">ru.semkin.ivan.parttime.provider</string>
     <string name="action_profile">Profile</string>
 
     <!-- Intro Slides-->

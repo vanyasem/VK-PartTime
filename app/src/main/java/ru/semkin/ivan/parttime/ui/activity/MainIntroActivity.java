@@ -18,7 +18,7 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.api.GetUsers;
+import ru.semkin.ivan.parttime.api.requests.GetUsers;
 import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
 
 /**
@@ -100,7 +100,8 @@ public class MainIntroActivity extends IntroActivity {
         @Override
         public void onReceive(final Context context, Intent intent) {
             LoginDataManager.setLoggedIn(true);
-            finish();
+            MainActivity.openMain(MainIntroActivity.this);
+            finishAffinity();
         }
     };
     @Override
