@@ -28,8 +28,7 @@ import ru.semkin.ivan.parttime.ui.fragment.TasksFragment;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
-@SuppressLint("Registered")
-public class BaseMainFragmentActivity extends BaseDrawerActivity
+public abstract class BaseMainFragmentActivity extends BaseDrawerActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override

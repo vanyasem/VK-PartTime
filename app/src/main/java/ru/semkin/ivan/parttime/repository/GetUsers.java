@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.api.requests;
+package ru.semkin.ivan.parttime.repository;
 
 import android.content.Context;
 import android.content.Intent;

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
 
-import ru.semkin.ivan.parttime.api.requests.GetUsers;
+import ru.semkin.ivan.parttime.repository.GetUsers;
 import timber.log.Timber;
 
 /**

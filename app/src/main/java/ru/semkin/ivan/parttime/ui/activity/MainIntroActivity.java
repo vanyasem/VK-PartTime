@@ -18,7 +18,7 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.api.requests.GetUsers;
+import ru.semkin.ivan.parttime.repository.GetUsers;
 import ru.semkin.ivan.parttime.datamanager.LoginDataManager;
 
 /**

@@ -10,7 +10,12 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Task {
 
-    @PrimaryKey
+    public Task(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    @PrimaryKey(autoGenerate = true)
     private int uid;
 
     @ColumnInfo(name = "first_name")

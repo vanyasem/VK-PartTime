@@ -17,8 +17,7 @@ import ru.semkin.ivan.parttime.util.ActivityUtil;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
-@SuppressLint("Registered")
-public class BaseDrawerActivity extends BaseActivity {
+public abstract class BaseDrawerActivity extends BaseActivity {
 
     protected DrawerLayout drawerLayout;
     protected ActionBarDrawerToggle drawerToggle;

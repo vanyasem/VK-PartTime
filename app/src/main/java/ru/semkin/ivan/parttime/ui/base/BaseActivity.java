@@ -10,8 +10,7 @@ import ru.semkin.ivan.parttime.R;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
-@SuppressLint("Registered")
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     private Toolbar toolbar = null;
 
