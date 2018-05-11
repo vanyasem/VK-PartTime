@@ -9,6 +9,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.NavigationUI;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.ui.base.BaseMainFragmentActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -29,12 +31,20 @@ public class MainActivity extends BaseMainFragmentActivity {
             }
         });
 
+        NavigationUI.setupWithNavController(navigationView,
+                Navigation.findNavController(this, R.id.nav_host_fragment));
+
         ActivityUtil.setActionBar(this);
     }
 
     public static void openMain(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return Navigation.findNavController(this, R.id.nav_host_fragment).navigateUp();
     }
 
     @Override

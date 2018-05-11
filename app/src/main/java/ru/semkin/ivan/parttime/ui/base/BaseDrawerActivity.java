@@ -1,6 +1,5 @@
 package ru.semkin.ivan.parttime.ui.base;
 
-import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
