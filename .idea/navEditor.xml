@@ -10,26 +10,17 @@
                 <map>
                   <entry key="nav_home">
                     <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="20" />
-                            <option name="y" value="20" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="nav_settings">
+                    <value>
+                      <LayoutPositions />
                     </value>
                   </entry>
                   <entry key="nav_tasks">
                     <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="200" />
-                            <option name="y" value="20" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
+                      <LayoutPositions />
                     </value>
                   </entry>
                 </map>

@@ -14,4 +14,8 @@
         android:name="ru.semkin.ivan.parttime.ui.fragment.TasksFragment"
         android:label="TasksFragment"
         tools:layout="@layout/fragment_tasks" />
+    <activity
+        android:id="@+id/nav_settings"
+        android:name="ru.semkin.ivan.parttime.ui.activity.SettingsActivity"
+        android:label="SettingsActivity" />
 </navigation>

@@ -12,10 +12,10 @@ import android.view.View;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.ui.base.BaseMainFragmentActivity;
+import ru.semkin.ivan.parttime.ui.base.BaseDrawerActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 
-public class MainActivity extends BaseMainFragmentActivity {
+public class MainActivity extends BaseDrawerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
