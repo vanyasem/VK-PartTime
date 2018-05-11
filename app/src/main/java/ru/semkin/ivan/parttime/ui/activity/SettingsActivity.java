@@ -37,11 +37,6 @@ import java.util.List;
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
 
-    public static void openSettings(Context context) {
-        Intent intent = new Intent(context, SettingsActivity.class);
-        context.startActivity(intent);
-    }
-
     /**
      * A preference value change listener that updates the preference's summary
      * to reflect its new value.

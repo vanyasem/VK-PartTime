@@ -16,12 +16,11 @@ import android.widget.TextView;
 import com.bumptech.glide.request.RequestOptions;
 import com.vk.sdk.VKSdk;
 
+import androidx.navigation.Navigation;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.prefs.DataManager;
 import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
-import ru.semkin.ivan.parttime.ui.activity.ProfileActivity;
-import ru.semkin.ivan.parttime.ui.activity.SettingsActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 
 /**
@@ -38,7 +37,7 @@ public abstract class BaseDrawerActivity extends BaseActivity
     public void setContentView(int layoutResID) {
         super.setContentView(layoutResID);
         setDrawerLayout();
-        setNavBar();
+        setDrawerHeader();
     }
 
     private void setDrawerLayout() {
@@ -60,6 +59,7 @@ public abstract class BaseDrawerActivity extends BaseActivity
         drawerLayout.addDrawerListener(drawerToggle);
 
         navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -88,7 +88,7 @@ public abstract class BaseDrawerActivity extends BaseActivity
         }
     }
 
-    private void setNavBar() {
+    private void setDrawerHeader() {
         View navHeader = navigationView.getHeaderView(0);
 
         TextView textName = navHeader.findViewById(R.id.name);
@@ -97,11 +97,10 @@ public abstract class BaseDrawerActivity extends BaseActivity
         imgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ProfileActivity.openProfile(BaseDrawerActivity.this);
+                Navigation.findNavController(
+                        BaseDrawerActivity.this, R.id.nav_host_fragment).navigate(R.id.profileActivity);
             }
         });
-
-        navigationView.setNavigationItemSelectedListener(this);
 
         if(ProfileDataManager.getUserName() != null) {
             textName.setText(ProfileDataManager.getUserName());
@@ -120,6 +119,7 @@ public abstract class BaseDrawerActivity extends BaseActivity
         }
     }
 
+    // Workaround for Activity Navigation bug. To be removed
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
@@ -131,8 +131,17 @@ public abstract class BaseDrawerActivity extends BaseActivity
         }
 
         switch (id) {
+            case R.id.nav_home:
+                Navigation.findNavController(
+                        this, R.id.nav_host_fragment).navigate(R.id.nav_home);
+                break;
+            case R.id.nav_tasks:
+                Navigation.findNavController(
+                        this, R.id.nav_host_fragment).navigate(R.id.nav_tasks);
+                break;
             case R.id.nav_settings:
-                SettingsActivity.openSettings(this);
+                Navigation.findNavController(
+                        this, R.id.nav_host_fragment).navigate(R.id.nav_settings);
                 break;
             case R.id.nav_logout:
                 logOut();

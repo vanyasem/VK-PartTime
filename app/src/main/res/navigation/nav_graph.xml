@@ -18,4 +18,9 @@
         android:id="@+id/nav_settings"
         android:name="ru.semkin.ivan.parttime.ui.activity.SettingsActivity"
         android:label="SettingsActivity" />
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="ru.semkin.ivan.parttime.ui.activity.ProfileActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_profile" />
 </navigation>

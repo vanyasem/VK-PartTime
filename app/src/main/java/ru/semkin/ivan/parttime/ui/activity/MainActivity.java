@@ -10,7 +10,6 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.navigation.Navigation;
-import androidx.navigation.ui.NavigationUI;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.ui.base.BaseDrawerActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -31,8 +30,9 @@ public class MainActivity extends BaseDrawerActivity {
             }
         });
 
-        NavigationUI.setupWithNavController(navigationView,
-                Navigation.findNavController(this, R.id.nav_host_fragment));
+        // Broken Upstream
+        //NavigationUI.setupWithNavController(navigationView,
+        //        Navigation.findNavController(MainActivity.this, R.id.nav_host_fragment));
 
         ActivityUtil.setActionBar(this);
     }
@@ -64,7 +64,8 @@ public class MainActivity extends BaseDrawerActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_profile) {
-            ProfileActivity.openProfile(this);
+            Navigation.findNavController(
+                    MainActivity.this, R.id.nav_host_fragment).navigate(R.id.profileActivity);
             return true;
         }
 

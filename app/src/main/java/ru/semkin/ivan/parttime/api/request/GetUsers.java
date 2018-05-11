@@ -31,6 +31,7 @@ public class GetUsers {
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
+                //noinspection unchecked
                 VKList<VKApiUserFull> user = (VKList<VKApiUserFull>) response.parsedModel;
                 ProfileDataManager.setUserName(
                         user.get(0).first_name + " " + user.get(0).last_name);

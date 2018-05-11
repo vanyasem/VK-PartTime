@@ -1,7 +1,5 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -30,11 +28,6 @@ public class ProfileActivity extends BaseActivity {
         ActivityUtil.setActionBar(this);
 
         loadSavedData();
-    }
-
-    public static void openProfile(Context context) {
-        Intent intent = new Intent(context, ProfileActivity.class);
-        context.startActivity(intent);
     }
 
     @BindView(R.id.content)
