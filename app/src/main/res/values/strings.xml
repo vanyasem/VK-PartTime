@@ -3,7 +3,8 @@
     <string name="account_type">ru.semkin.ivan.parttime</string>
     <string name="content_authority">ru.semkin.ivan.parttime.provider</string>
 
-    <!-- Intro Slides-->
+
+    <!-- Strings related to Intro Slides-->
     <string name="intro_welcome">Welcome!</string>
     <string name="intro_auth">Authorization</string>
     <string name="intro_sign_in">Sign in</string>
@@ -12,7 +13,8 @@
     <string name="intro_success">Succseful login! Loading basic profile data…</string>
     <string name="intro_error">Something unexpected happened, try again later</string>
 
-    <!-- Drawer -->
+
+    <!-- Strings related to Drawer -->
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="nav_profile_picture">User\'s profile picture</string>
@@ -25,7 +27,8 @@
     <string name="nav_settings">Settings</string>
     <string name="nav_logout">Log out</string>
 
-    <!-- Profile -->
+
+    <!-- Strings related to Profile -->
     <string name="title_profile">Profile</string>
     <string name="save_and_exit">Save and exit</string>
     <string name="cancel">Cancel</string>
@@ -40,10 +43,13 @@
     <string name="gender_female">Female</string>
     <string name="title_activity_settings">Settings</string>
 
-    <!-- Group -->
+
+    <!-- Strings related to Group -->
     <string name="description_send">Send message</string>
     <string name="your_message">Your message</string>
-    <string name="no_messages">No messaged found</string>
+    <string name="no_messages">No messages found</string>
+    <string name="error_message">Error loading message</string>
+
 
     <!-- Strings related to Settings -->
 

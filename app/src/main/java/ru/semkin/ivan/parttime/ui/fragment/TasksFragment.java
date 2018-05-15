@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,7 @@ import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Task;
+import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.TaskListAdapter;
 import ru.semkin.ivan.parttime.ui.model.TaskViewModel;
 
@@ -34,7 +34,7 @@ public class TasksFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_tasks, container, false);
 
-        RecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
+        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
         final TaskListAdapter adapter = new TaskListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

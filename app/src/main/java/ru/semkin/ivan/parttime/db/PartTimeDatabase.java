@@ -8,15 +8,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.model.Task;
 
 /**
  * Created by Ivan Semkin on 5/10/18
  */
-@Database(entities = {Task.class}, version = 1)
+@Database(entities = {Task.class, Message.class}, version = 2)
 public abstract class PartTimeDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
+    public abstract MessageDao messageDao();
 
 
     private static PartTimeDatabase instance = null;
@@ -26,6 +28,7 @@ public abstract class PartTimeDatabase extends RoomDatabase {
             instance = Room.databaseBuilder(mContext,
                     PartTimeDatabase.class, "parttime_database")
                     .addCallback(sRoomDatabaseCallback)
+                    .fallbackToDestructiveMigration() //TODO remove upon release and implement proper migrations
                     .build();
         }
         return instance;
@@ -43,19 +46,27 @@ public abstract class PartTimeDatabase extends RoomDatabase {
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
-        private final TaskDao mDao;
+        private final TaskDao mTaskDao;
+        private final MessageDao mMessageDao;
 
         PopulateDbAsync(PartTimeDatabase db) {
-            mDao = db.taskDao();
+            mTaskDao = db.taskDao();
+            mMessageDao = db.messageDao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
+            mTaskDao.deleteAll();
             Task task = new Task("Hello", "World");
-            mDao.insertAll(task);
+            mTaskDao.insertAll(task);
             task = new Task("Люблю", "Свету");
-            mDao.insertAll(task);
+            mTaskDao.insertAll(task);
+
+            mMessageDao.deleteAll();
+            Message message = new Message("Hello World", 1, 1, 1, 0);
+            mMessageDao.insertAll(message);
+            message = new Message("Люблю Свету", 2, 2, 1, 1);
+            mMessageDao.insertAll(message);
             return null;
         }
     }

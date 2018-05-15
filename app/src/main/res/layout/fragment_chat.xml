@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/messages_list_view"
+    <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@null"
@@ -17,7 +18,8 @@
         android:clipToPadding="false"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/input" />
+        android:layout_above="@+id/input"
+        tools:listitem="@layout/recyclerview_task" />
 
     <TextView android:id="@android:id/empty"
         android:layout_width="match_parent"

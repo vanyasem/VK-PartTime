@@ -3,11 +3,8 @@ package ru.semkin.ivan.parttime.ui.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.navigation.Navigation;
 import ru.semkin.ivan.parttime.R;
