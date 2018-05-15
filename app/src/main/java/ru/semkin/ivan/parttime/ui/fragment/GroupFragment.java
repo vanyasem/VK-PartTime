@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,7 @@ import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.PostListAdapter;
 import ru.semkin.ivan.parttime.ui.model.PostViewModel;
+import ru.semkin.ivan.parttime.util.ActivityUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,6 +52,8 @@ public class GroupFragment extends Fragment {
                 adapter.setPosts(posts);
             }
         });
+
+        ActivityUtil.setActionTitle(R.string.nav_group, (AppCompatActivity)getActivity());
 
         return layout;
     }

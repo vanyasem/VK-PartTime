@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import ru.semkin.ivan.parttime.model.Task;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.TaskListAdapter;
 import ru.semkin.ivan.parttime.ui.model.TaskViewModel;
+import ru.semkin.ivan.parttime.util.ActivityUtil;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -47,6 +49,8 @@ public class TasksFragment extends Fragment {
                 adapter.setTasks(tasks);
             }
         });
+
+        ActivityUtil.setActionTitle(R.string.nav_tasks, (AppCompatActivity)getActivity());
 
         return layout;
     }

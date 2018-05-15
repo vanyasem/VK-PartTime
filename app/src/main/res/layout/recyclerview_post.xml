@@ -85,7 +85,7 @@
                 android:id="@+id/icon_like"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_alignBottom="@id/text_author_topic"
+                android:layout_alignBottom="@id/text_author"
                 android:layout_alignParentEnd="true"
                 android:background="?android:selectableItemBackground"
                 android:button="@drawable/like"

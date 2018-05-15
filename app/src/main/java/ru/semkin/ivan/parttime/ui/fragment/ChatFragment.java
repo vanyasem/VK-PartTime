@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.MessageListAdapter;
 import ru.semkin.ivan.parttime.ui.model.MessageViewModel;
+import ru.semkin.ivan.parttime.util.ActivityUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +53,8 @@ public class ChatFragment extends Fragment {
                 adapter.setMessages(messages);
             }
         });
+
+        ActivityUtil.setActionTitle(R.string.nav_chat, (AppCompatActivity)getActivity());
 
         return layout;
     }
