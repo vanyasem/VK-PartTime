@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="5dp"
+        android:foreground="?android:attr/selectableItemBackground"
+        card_view:cardCornerRadius="2dp"
+        card_view:contentPadding="16dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/text_title"
+                style="@style/Base.TextAppearance.AppCompat.Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/text_date"
+                android:maxLines="1"
+                android:text="Something super irrelevant" />
+
+            <TextView
+                android:id="@+id/text_date"
+                style="@style/Base.TextAppearance.AppCompat.Caption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:maxLines="1"
+                android:text="today at 9:20am"
+                android:layout_marginTop="3dp"/>
+
+            <TextView
+                android:id="@+id/text_body"
+                style="@style/TextAppearance.AppCompat.Body1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_title"
+                android:maxLines="6"
+                android:text="Big text goes here\n\nSuper big\nExtremely big" />
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text_body"
+                android:layout_centerHorizontal="true" />
+
+            <TextView
+                android:id="@+id/text_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/image"
+                android:layout_marginTop="6dp"
+                android:text="Tatiana Viktorovna"
+                android:textSize="12sp" />
+
+            <!--TextView TODO implement one day
+                android:id="@+id/text_likes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="3dp"
+                android:layout_alignBottom="@+id/icon_like"
+                android:layout_alignTop="@+id/icon_like"
+                android:layout_toStartOf="@+id/icon_like"
+                android:gravity="center"
+                android:text="0"
+                android:textColor="#8A000000"
+                android:includeFontPadding="false"
+                android:textSize="18sp" /-->
+
+            <!-- TODO implement one day
+            ToggleButton
+                android:id="@+id/icon_like"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignBottom="@id/text_author_topic"
+                android:layout_alignParentEnd="true"
+                android:background="?android:selectableItemBackground"
+                android:button="@drawable/like"
+                android:textOn=""
+                android:textOff="" /-->
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

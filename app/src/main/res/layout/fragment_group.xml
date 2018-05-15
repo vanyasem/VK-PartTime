@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.GroupFragment">
+    tools:context=".ui.fragment.GroupFragment"
+    tools:showIn="@layout/activity_main">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
+        android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/nav_group" />
-
-</FrameLayout>
+        tools:listitem="@layout/recyclerview_post" />
+</com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout >

@@ -9,16 +9,18 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 import ru.semkin.ivan.parttime.model.Message;
+import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.model.Task;
 
 /**
  * Created by Ivan Semkin on 5/10/18
  */
-@Database(entities = {Task.class, Message.class}, version = 2)
+@Database(entities = {Task.class, Message.class, Post.class}, version = 3)
 public abstract class PartTimeDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
     public abstract MessageDao messageDao();
+    public abstract PostDao postDao();
 
 
     private static PartTimeDatabase instance = null;
@@ -48,10 +50,12 @@ public abstract class PartTimeDatabase extends RoomDatabase {
 
         private final TaskDao mTaskDao;
         private final MessageDao mMessageDao;
+        private final PostDao mPostDao;
 
         PopulateDbAsync(PartTimeDatabase db) {
             mTaskDao = db.taskDao();
             mMessageDao = db.messageDao();
+            mPostDao = db.postDao();
         }
 
         @Override
@@ -67,6 +71,12 @@ public abstract class PartTimeDatabase extends RoomDatabase {
             mMessageDao.insertAll(message);
             message = new Message("Люблю Свету", 2, 2, 1, 1);
             mMessageDao.insertAll(message);
+
+            mPostDao.deleteAll();
+            Post post = new Post("Hello World", 1);
+            mPostDao.insertAll(post);
+            post = new Post("Люблю Свету", 2);
+            mPostDao.insertAll(post);
             return null;
         }
     }
