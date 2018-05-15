@@ -139,6 +139,14 @@ public abstract class BaseDrawerActivity extends BaseActivity
                 Navigation.findNavController(
                         this, R.id.nav_host_fragment).navigate(R.id.nav_tasks);
                 break;
+            case R.id.nav_chat:
+                Navigation.findNavController(
+                        this, R.id.nav_host_fragment).navigate(R.id.nav_chat);
+                break;
+            case R.id.nav_group:
+                Navigation.findNavController(
+                        this, R.id.nav_host_fragment).navigate(R.id.nav_group);
+                break;
             case R.id.nav_settings:
                 Navigation.findNavController(
                         this, R.id.nav_host_fragment).navigate(R.id.nav_settings);

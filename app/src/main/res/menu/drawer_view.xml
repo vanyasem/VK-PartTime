@@ -10,6 +10,14 @@
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_task"
             android:title="@string/nav_tasks" />
+        <item
+            android:id="@+id/nav_chat"
+            android:icon="@drawable/ic_chat"
+            android:title="@string/nav_chat" />
+        <item
+            android:id="@+id/nav_group"
+            android:icon="@drawable/ic_group"
+            android:title="@string/nav_group" />
     </group>
 
     <group android:id="@+id/navGrAdditional" android:checkableBehavior="none">
