@@ -3,6 +3,7 @@ package ru.semkin.ivan.parttime.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 
@@ -62,18 +63,6 @@ public class MainIntroActivity extends IntroActivity {
                 .buttonCtaLabel(R.string.intro_sign_in)
                 .build());
 
-        addSlide(new FragmentSlide.Builder()
-                .background(R.color.colorPrimary)
-                .backgroundDark(R.color.colorPrimaryDark)
-                .fragment(new ConfigurationChatFragment())
-                .build());
-
-        addSlide(new FragmentSlide.Builder()
-                .background(R.color.colorPrimary)
-                .backgroundDark(R.color.colorPrimaryDark)
-                .fragment(new ConfigurationGroupFragment())
-                .build());
-
         /* Enable/disable skip button */
         setButtonBackVisible(false);
         setButtonNextVisible(false);
@@ -126,7 +115,27 @@ public class MainIntroActivity extends IntroActivity {
         Users.getUserProfile(new SimpleCallback() {
             @Override
             public void onFinished() {
-                next();
+                addSlide(new FragmentSlide.Builder()
+                        .background(R.color.colorPrimary)
+                        .backgroundDark(R.color.colorPrimaryDark)
+                        .fragment(new ConfigurationChatFragment())
+                        .build());
+
+                addSlide(new FragmentSlide.Builder()
+                        .background(R.color.colorPrimary)
+                        .backgroundDark(R.color.colorPrimaryDark)
+                        .fragment(new ConfigurationGroupFragment())
+                        .build());
+
+                // Give it some time to notify fragment changes
+                Handler handler = new Handler();
+                Runnable runnable = new Runnable() {
+                    @Override
+                    public void run() {
+                        next();
+                    }
+                };
+                handler.post(runnable);
             }
         });
     }
