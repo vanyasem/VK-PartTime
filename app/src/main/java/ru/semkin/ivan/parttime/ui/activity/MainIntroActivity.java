@@ -1,10 +1,7 @@
 package ru.semkin.ivan.parttime.ui.activity;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -20,6 +17,7 @@ import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GetUsers;
+import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.ui.fragment.ConfigurationChatFragment;
 import ru.semkin.ivan.parttime.ui.fragment.ConfigurationGroupFragment;
 
@@ -124,29 +122,14 @@ public class MainIntroActivity extends IntroActivity {
         }
     }
 
-    private final BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            next();
-        }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        registerReceiver(syncFinishedReceiver,
-                new IntentFilter(GetUsers.USER_PROFILE_GET_SYNC_FINISHED));
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        unregisterReceiver(syncFinishedReceiver);
-    }
-
     private void loadBasicData() {
         GetUsers getUsers = new GetUsers(this);
-        getUsers.getUserProfile();
+        getUsers.getUserProfile(new SimpleCallback() {
+            @Override
+            public void onFinished() {
+                next();
+            }
+        });
     }
 
     @Override

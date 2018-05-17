@@ -1,10 +1,6 @@
 package ru.semkin.ivan.parttime.ui.fragment;
 
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -16,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.vk.sdk.api.model.VKApiDialog;
 import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
 import java.util.ArrayList;
@@ -24,6 +21,7 @@ import java.util.List;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GetDialogs;
 import ru.semkin.ivan.parttime.api.request.GetUsers;
+import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.model.Item;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
@@ -66,17 +64,30 @@ public class ConfigurationChatFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         GetDialogs getDialogs = new GetDialogs(getContext());
-        getDialogs.getDialogs();
+        getDialogs.getDialogs(dialogVKListCallback);
     }
 
     private VKList<VKApiDialog> dialogs;
-    private List<Item> items;
+    private List<Item> adapterItems;
 
-    private final BroadcastReceiver briefSyncFinishedReceiver = new BroadcastReceiver() {
+    private VKListCallback<VKApiDialog> dialogVKListCallback = new VKListCallback<VKApiDialog>() {
         @Override
-        public void onReceive(final Context context, Intent intent) {
-            VKList<VKApiUser> users = intent.getParcelableExtra(GetUsers.EXTRA_BRIEF);
+        public void onFinished(VKList<VKApiDialog> dialogs) {
+            ConfigurationChatFragment.this.dialogs = dialogs;
+            adapterItems = new ArrayList<>();
 
+            long[] userIds = new long[dialogs.size()];
+            for (int i = 0; i < dialogs.size(); i++) {
+                userIds[i] = dialogs.get(i).message.user_id;
+            }
+
+            GetUsers getUsers = new GetUsers(getContext());
+            getUsers.getUsersBrief(userFullVKListCallback, userIds);
+        }
+    };
+    private VKListCallback<VKApiUserFull> userFullVKListCallback = new VKListCallback<VKApiUserFull>() {
+        @Override
+        public void onFinished(VKList<VKApiUserFull> users) {
             for (int i = 0; i < dialogs.size(); i++) {
                 String title;
                 String content = dialogs.get(i).message.body;
@@ -91,46 +102,10 @@ public class ConfigurationChatFragment extends Fragment {
                     content = getContext().getString(R.string.unsupported_media);
                 }
 
-                items.add(new Item(dialogs.get(i).getId(), title, content, user.photo_100));
+                adapterItems.add(new Item(dialogs.get(i).getId(), title, content, user.photo_100));
             }
 
-            adapter.setItems(items);
+            adapter.setItems(adapterItems);
         }
     };
-
-    private final BroadcastReceiver dialogsSyncFinishedReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(final Context context, Intent intent) {
-            dialogs = intent.getParcelableExtra(GetDialogs.EXTRA_DIALOGS);
-            items = new ArrayList<>();
-
-            long[] userIds = new long[dialogs.size()];
-            for (int i = 0; i < dialogs.size(); i++) {
-                userIds[i] = dialogs.get(i).message.user_id;
-            }
-
-            GetUsers getUsers = new GetUsers(getContext());
-            getUsers.getUsersBrief(userIds);
-        }
-    };
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        try {
-            getContext().registerReceiver(briefSyncFinishedReceiver,
-                    new IntentFilter(GetUsers.USER_BRIEF_GET_SYNC_FINISHED));
-            getContext().registerReceiver(dialogsSyncFinishedReceiver,
-                    new IntentFilter(GetDialogs.DIALOGS_GET_SYNC_FINISHED));
-        } catch (Exception ignored) { }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        try {
-            getContext().unregisterReceiver(briefSyncFinishedReceiver);
-            getContext().unregisterReceiver(dialogsSyncFinishedReceiver);
-        } catch (Exception ignored) { }
-    }
 }

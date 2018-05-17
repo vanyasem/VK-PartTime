@@ -1,7 +1,6 @@
 package ru.semkin.ivan.parttime.api.request;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -9,6 +8,7 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiDialog;
 import com.vk.sdk.api.model.VKApiGetDialogResponse;
 
 /**
@@ -21,10 +21,7 @@ public class GetDialogs {
         this.mContext = context;
     }
 
-    public static final String DIALOGS_GET_SYNC_FINISHED = "DialogsGetSyncFinishedCast";
-    public static final String EXTRA_DIALOGS = "dialogs";
-
-    public void getDialogs() {
+    public void getDialogs(final VKListCallback<VKApiDialog> callback) {
         VKRequest request = VKApi.messages().getDialogs(
                 VKParameters.from(VKApiConst.COUNT, "20", VKApiConst.PREVIEW_LENGTH, "50"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -33,9 +30,8 @@ public class GetDialogs {
                 //noinspection unchecked
                 VKApiGetDialogResponse dialog = (VKApiGetDialogResponse) response.parsedModel;
 
-                Intent intent = new Intent(DIALOGS_GET_SYNC_FINISHED);
-                intent.putExtra(EXTRA_DIALOGS, dialog.items);
-                mContext.sendBroadcast(intent);
+                if(callback != null)
+                    callback.onFinished(dialog.items);
             }
             @Override
             public void onError(VKError error) {

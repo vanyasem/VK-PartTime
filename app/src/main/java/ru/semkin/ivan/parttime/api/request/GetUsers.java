@@ -1,7 +1,6 @@
 package ru.semkin.ivan.parttime.api.request;
 
 import android.content.Context;
-import android.content.Intent;
 
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
@@ -19,13 +18,9 @@ import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
  */
 public class GetUsers {
 
-    private final Context mContext;
-    public GetUsers(Context context) {
-        this.mContext = context;
-    }
+    public GetUsers(Context context) { }
 
-    public static final String USER_PROFILE_GET_SYNC_FINISHED = "UserProfileGetSyncFinishedCast";
-    public void getUserProfile() {
+    public void getUserProfile(final SimpleCallback callback) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.FIELDS, "sex,bdate,photo_200,city,country,activity"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -42,8 +37,8 @@ public class GetUsers {
                 ProfileDataManager.setProfilePicture(user.get(0).photo_200);
                 ProfileDataManager.setUserStatus(user.get(0).activity);
 
-                Intent intent = new Intent(USER_PROFILE_GET_SYNC_FINISHED);
-                mContext.sendBroadcast(intent);
+                if(callback != null)
+                    callback.onFinished();
             }
             @Override
             public void onError(VKError error) {
@@ -56,10 +51,7 @@ public class GetUsers {
         });
     }
 
-    public static final String USER_BRIEF_GET_SYNC_FINISHED = "UserBriefGetSyncFinishedCast";
-    public static final String EXTRA_BRIEF = "brief";
-
-    public void getUsersBrief(long... userId) {
+    public void getUsersBrief(final VKListCallback<VKApiUserFull> callback, long... userId) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.USER_IDS, idsToString(userId), VKApiConst.FIELDS, "photo_100"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -67,9 +59,9 @@ public class GetUsers {
             public void onComplete(VKResponse response) {
                 //noinspection unchecked
                 VKList<VKApiUserFull> users = (VKList<VKApiUserFull>) response.parsedModel;
-                Intent intent = new Intent(USER_BRIEF_GET_SYNC_FINISHED);
-                intent.putExtra(EXTRA_BRIEF, users);
-                mContext.sendBroadcast(intent);
+
+                if(callback != null)
+                    callback.onFinished(users);
             }
             @Override
             public void onError(VKError error) {

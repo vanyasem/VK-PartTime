@@ -59,6 +59,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
         Timber.i("Starting sync");
 
         GetUsers getUsers = new GetUsers(mContext);
-        getUsers.getUserProfile();
+        getUsers.getUserProfile(null);
     }
 }
