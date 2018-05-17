@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 
 import com.vk.sdk.api.model.VKApiDialog;
 import com.vk.sdk.api.model.VKApiUser;
-import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
 import java.util.ArrayList;
@@ -83,9 +82,9 @@ public class ConfigurationChatFragment extends Fragment {
             Users.getUsersBrief(userFullVKListCallback, userIds);
         }
     };
-    private VKListCallback<VKApiUserFull> userFullVKListCallback = new VKListCallback<VKApiUserFull>() {
+    private VKListCallback<VKApiUser> userFullVKListCallback = new VKListCallback<VKApiUser>() {
         @Override
-        public void onFinished(VKList<VKApiUserFull> users) {
+        public void onFinished(VKList<VKApiUser> users) {
             for (int i = 0; i < dialogs.size(); i++) {
                 String title;
                 String content = dialogs.get(i).message.body;

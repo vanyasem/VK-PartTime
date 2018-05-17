@@ -1,12 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/swipeRefreshLayout"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Title" />
 
     <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-</com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
+</LinearLayout>

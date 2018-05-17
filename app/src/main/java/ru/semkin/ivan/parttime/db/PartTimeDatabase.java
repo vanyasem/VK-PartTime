@@ -8,22 +8,28 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import ru.semkin.ivan.parttime.db.dao.CommentDao;
 import ru.semkin.ivan.parttime.db.dao.MessageDao;
 import ru.semkin.ivan.parttime.db.dao.PostDao;
 import ru.semkin.ivan.parttime.db.dao.TaskDao;
+import ru.semkin.ivan.parttime.db.dao.UserDao;
+import ru.semkin.ivan.parttime.model.Comment;
 import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.model.Task;
+import ru.semkin.ivan.parttime.model.User;
 
 /**
  * Created by Ivan Semkin on 5/10/18
  */
-@Database(entities = {Task.class, Message.class, Post.class}, version = 3)
+@Database(entities = {Task.class, Message.class, Post.class, Comment.class, User.class}, version = 4)
 public abstract class PartTimeDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();
     public abstract MessageDao messageDao();
     public abstract PostDao postDao();
+    public abstract CommentDao commentDao();
+    public abstract UserDao userDao();
 
 
     private static PartTimeDatabase instance = null;

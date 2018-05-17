@@ -6,6 +6,7 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
@@ -51,14 +52,14 @@ public class Users {
         });
     }
 
-    public static void getUsersBrief(final VKListCallback<VKApiUserFull> callback, long... userId) {
+    public static void getUsersBrief(final VKListCallback<VKApiUser> callback, long... userId) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.USER_IDS, idsToString(userId), VKApiConst.FIELDS, "photo_100"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
                 //noinspection unchecked
-                VKList<VKApiUserFull> users = (VKList<VKApiUserFull>) response.parsedModel;
+                VKList<VKApiUser> users = (VKList<VKApiUser>) response.parsedModel;
 
                 if(callback != null)
                     callback.onFinished(users);
