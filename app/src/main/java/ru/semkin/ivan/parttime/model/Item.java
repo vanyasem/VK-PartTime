@@ -5,15 +5,25 @@ package ru.semkin.ivan.parttime.model;
  */
 public class Item {
 
-    public Item(String title, String content, String image) {
+    public Item(long uid, String title, String content, String image) {
+        this.uid = uid;
         this.title = title;
         this.content = content;
         this.image = image;
     }
 
+    private long uid;
     private String title;
     private String content;
     private String image;
+
+    public long getUid() {
+        return uid;
+    }
+
+    public void setUid(long uid) {
+        this.uid = uid;
+    }
 
     public String getTitle() {
         return title;

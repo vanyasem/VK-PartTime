@@ -22,7 +22,9 @@ import ru.semkin.ivan.parttime.model.Item;
  */
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
 
-    class ItemViewHolder extends RecyclerView.ViewHolder {
+    private ItemClickListener clickListener;
+
+    class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final ImageView image;
         private final TextView textTitle;
         private final TextView textContent;
@@ -32,6 +34,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             image = itemView.findViewById(R.id.image);
             textTitle = itemView.findViewById(R.id.title);
             textContent = itemView.findViewById(R.id.content);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(clickListener != null)
+                clickListener.onItemClick(getAdapterPosition(), v);
         }
     }
 
@@ -63,13 +72,19 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
             holder.textTitle.setText("No title");
             holder.textContent.setText("No content");
         }
+    }
 
-
+    public void setOnItemClickListener(ItemClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public void setItems(List<Item> items){
         mItems = items;
         notifyDataSetChanged();
+    }
+
+    public Item get(int position) {
+        return mItems.get(position);
     }
 
     // getItemCount() is called many times, and when it is first called,
@@ -79,5 +94,9 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
         if (mItems != null)
             return mItems.size();
         else return 0;
+    }
+
+    public interface ItemClickListener {
+        void onItemClick(int position, View v);
     }
 }

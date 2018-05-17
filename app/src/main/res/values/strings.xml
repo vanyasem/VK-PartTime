@@ -9,8 +9,6 @@
     <string name="intro_auth">Authorization</string>
     <string name="intro_sign_in">Sign in</string>
     <string name="intro_just_click">Just click the button below</string>
-    <string name="intro_must_login">You have to login in order to use PartTime</string>
-    <string name="intro_configure">Please, finish the first time setup</string>
     <string name="intro_success">Succseful login! Loading basic profile data…</string>
     <string name="intro_error">Something unexpected happened, try again later</string>
 
@@ -50,6 +48,10 @@
     <string name="your_message">Your message</string>
     <string name="no_messages">No messages found</string>
     <string name="error_message">Error loading message</string>
+
+
+    <!-- String related to Chat -->
+    <string name="unsupported_media">Unsupported media</string>
 
 
     <!-- Strings related to Settings -->

@@ -5,12 +5,32 @@ package ru.semkin.ivan.parttime.prefs;
  */
 public class LoginDataManager extends DataManager {
 
-    static public String getUserId() {
-        return preferences.getString("userId", null);
+    static public long getUserId() {
+        return preferences.getLong("userId", -1);
     }
 
-    static public void setUserId(String Id) {
-        preferencesEditor.putString("userId", Id);
+    static public void setUserId(long userId) {
+        preferencesEditor.putLong("userId", userId);
+        preferencesEditor.commit();
+    }
+
+
+    static public long getChatId() {
+        return preferences.getLong("chatId", -1);
+    }
+
+    static public void setChatId(long chatId) {
+        preferencesEditor.putLong("chatId", chatId);
+        preferencesEditor.commit();
+    }
+
+
+    static public long getGroupId() {
+        return preferences.getLong("groupId", -1);
+    }
+
+    static public void setGroupId(long groupId) {
+        preferencesEditor.putLong("groupId", groupId);
         preferencesEditor.commit();
     }
 

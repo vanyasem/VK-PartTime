@@ -11,7 +11,6 @@ import android.view.View;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
 import com.heinrichreimersoftware.materialintro.app.NavigationPolicy;
-import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
 import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.vk.sdk.VKAccessToken;
@@ -21,7 +20,8 @@ import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GetUsers;
-import ru.semkin.ivan.parttime.ui.fragment.ConfigurationFragment;
+import ru.semkin.ivan.parttime.ui.fragment.ConfigurationChatFragment;
+import ru.semkin.ivan.parttime.ui.fragment.ConfigurationGroupFragment;
 
 /**
  * Created by Ivan Semkin on 5/6/18
@@ -31,7 +31,8 @@ public class MainIntroActivity extends IntroActivity {
     private boolean mBlocked = true;
     private final static int SLIDE_WELCOME = 0;
     private final static int SLIDE_LOGIN = 1;
-    private final static int SLIDE_CONFIGURE = 2;
+    private final static int SLIDE_CONFIGURE_CHAT = 2;
+    private final static int SLIDE_CONFIGURE_GROUP = 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -66,24 +67,18 @@ public class MainIntroActivity extends IntroActivity {
         addSlide(new FragmentSlide.Builder()
                 .background(R.color.colorPrimary)
                 .backgroundDark(R.color.colorPrimaryDark)
-                .fragment(new ConfigurationFragment())
+                .fragment(new ConfigurationChatFragment())
+                .build());
+
+        addSlide(new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(new ConfigurationGroupFragment())
                 .build());
 
         /* Enable/disable skip button */
         setButtonBackVisible(false);
-
-        /* Add a listener to detect when users try to go to a page they can't go to */
-        addOnNavigationBlockedListener(new OnNavigationBlockedListener() {
-            @Override
-            public void onNavigationBlocked(int position, int direction) {
-                if(position == SLIDE_LOGIN)
-                    Snackbar.make(findViewById(android.R.id.content),
-                        R.string.intro_must_login, Snackbar.LENGTH_SHORT).show();
-                else
-                    Snackbar.make(findViewById(android.R.id.content),
-                            R.string.intro_configure, Snackbar.LENGTH_SHORT).show();
-            }
-        });
+        setButtonNextVisible(false);
 
         setNavigationPolicy(new NavigationPolicy() {
             @Override public boolean canGoForward(int position) {
@@ -100,6 +95,12 @@ public class MainIntroActivity extends IntroActivity {
     public static void openIntro(Activity activity) {
         Intent intent = new Intent(activity, MainIntroActivity.class);
         activity.startActivityForResult(intent, REQUEST_CODE);
+    }
+
+    public void next() {
+        mBlocked = false;
+        nextSlide();
+        mBlocked = true;
     }
 
     @Override
@@ -126,9 +127,7 @@ public class MainIntroActivity extends IntroActivity {
     private final BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, Intent intent) {
-            mBlocked = false;
-            nextSlide();
-            mBlocked = true;
+            next();
         }
     };
 

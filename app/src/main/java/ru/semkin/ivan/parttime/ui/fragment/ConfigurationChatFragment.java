@@ -25,16 +25,17 @@ import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GetDialogs;
 import ru.semkin.ivan.parttime.api.request.GetUsers;
 import ru.semkin.ivan.parttime.model.Item;
+import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
+import ru.semkin.ivan.parttime.ui.activity.MainIntroActivity;
 import ru.semkin.ivan.parttime.ui.adapter.ItemListAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ConfigurationFragment extends Fragment {
+public class ConfigurationChatFragment extends Fragment {
 
-
-    public ConfigurationFragment() {
+    public ConfigurationChatFragment() {
         // Required empty public constructor
     }
 
@@ -43,16 +44,22 @@ public class ConfigurationFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View layout =  inflater.inflate(R.layout.fragment_configuration, container, false);
+        View layout =  inflater.inflate(R.layout.fragment_items, container, false);
 
         EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
         adapter = new ItemListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        adapter.setOnItemClickListener(new ItemListAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                LoginDataManager.setChatId(adapter.get(position).getUid());
+                ((MainIntroActivity)getActivity()).next();
+            }
+        });
+
         return layout;
-        //MainActivity.openMain(MainIntroActivity.this);
-        //LoginDataManager.setLoggedIn(true);
     }
 
     @Override
@@ -72,13 +79,19 @@ public class ConfigurationFragment extends Fragment {
 
             for (int i = 0; i < dialogs.size(); i++) {
                 String title;
+                String content = dialogs.get(i).message.body;
                 VKApiUser user = users.getById(dialogs.get(i).message.user_id);
+
                 if(!dialogs.get(i).message.title.isEmpty())
                     title = dialogs.get(i).message.title;
                 else {
                     title = user.first_name + " " + user.last_name;
                 }
-                items.add(new Item(title, dialogs.get(i).message.body, user.photo_100));
+                if(content.isEmpty()) {
+                    content = getContext().getString(R.string.unsupported_media);
+                }
+
+                items.add(new Item(dialogs.get(i).getId(), title, content, user.photo_100));
             }
 
             adapter.setItems(items);
