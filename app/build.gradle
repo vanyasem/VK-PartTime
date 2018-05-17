@@ -1,5 +1,7 @@
 //noinspection UnusedResources
 apply plugin: 'com.android.application'
+//apply plugin: "androidx.navigation.safeargs"
+//TODO upgrade to Gradle 4.6
 
 apply from: '../versioning.gradle'
 

@@ -38,6 +38,11 @@
                       <LayoutPositions />
                     </value>
                   </entry>
+                  <entry key="view_post">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                 </map>
               </option>
             </LayoutPositions>

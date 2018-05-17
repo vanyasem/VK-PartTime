@@ -13,6 +13,7 @@ import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Post;
+import ru.semkin.ivan.parttime.util.Util;
 
 /**
  * Created by Ivan Semkin on 5/11/18
@@ -64,7 +65,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
         if (mPosts != null) {
             Post current = mPosts.get(position);
             holder.textBody.setText(current.getText());
-            holder.textDate.setText(String.valueOf(current.getDate()));
+            holder.textDate.setText(
+                    Util.formatDate(holder.textBody.getContext(), current.getDate()));
             //holder.textAuthor.setText("Post");
         } else {
             // Covers the case of data not being ready yet.
@@ -82,6 +84,11 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
         mPosts = posts;
         notifyDataSetChanged();
     }
+
+    public Post get(int position) {
+        return mPosts.get(position);
+    }
+
 
     // getItemCount() is called many times, and when it is first called,
     // mPosts has not been updated (means initially, it's null, and we can't return null).

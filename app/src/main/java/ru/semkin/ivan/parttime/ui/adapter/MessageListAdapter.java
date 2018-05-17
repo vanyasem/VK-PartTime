@@ -14,6 +14,7 @@ import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Message;
+import ru.semkin.ivan.parttime.util.Util;
 
 /**
  * Created by Ivan Semkin on 5/11/18
@@ -57,7 +58,7 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
             else
                 holder.textMessage.setText(
                         holder.parentLayout.getContext().getString(R.string.unsupported_media));
-            holder.textDate.setText(String.valueOf(current.getDate()));
+            holder.textDate.setText(Util.formatDate(holder.parentLayout.getContext(), current.getDate()));
 
             if (current.isOut()) {
                 holder.layout.setBackgroundResource(R.drawable.rounded_corners_bubble_right);

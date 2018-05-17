@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="match_parent"
     android:layout_width="match_parent">
 
@@ -13,10 +14,8 @@
 
             <RelativeLayout android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:padding="12dp"
-                android:id="@+id/include_title"
-                xmlns:android="http://schemas.android.com/apk/res/android">
+                android:id="@+id/include_title">
 
                 <ImageView
                     android:id="@+id/userpic"
@@ -34,22 +33,20 @@
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@+id/userpic">
                     <TextView
-                        android:id="@+id/news_author_topic"
+                        android:id="@+id/author"
                         style="@style/TextAppearance.AppCompat.Body2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Author"
-                        android:textColor="@color/colorPrimaryDark"/>
+                        android:textColor="@color/colorPrimaryDark" />
 
                     <TextView
-                        android:id="@+id/news_topic"
+                        android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Date"
                         android:layout_marginTop="2dp" />
-
                 </LinearLayout>
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -60,7 +57,6 @@
                     android:id="@+id/body"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/title"
                     style="@style/TextAppearance.AppCompat.Body1"
                     android:text="Body text"
                     android:paddingLeft="10dp"
@@ -72,6 +68,11 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/body"/>
             </RelativeLayout>
+
+            <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
+                android:id="@+id/recyclerview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
     </ScrollView>
 

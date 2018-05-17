@@ -58,8 +58,10 @@ public class GroupFragment extends Fragment {
         adapter.setOnPostClickListener(new PostListAdapter.PostClickListener() {
             @Override
             public void onPostClick(int position, View v) {
+                Bundle bundle = new Bundle();
+                bundle.putInt(PostFragment.EXTRA_ID, adapter.get(position).getUid());
                 Navigation.findNavController(
-                        getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post);
+                        getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post, bundle);
             }
         });
 

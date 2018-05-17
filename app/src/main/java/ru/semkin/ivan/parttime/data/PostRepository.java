@@ -28,6 +28,10 @@ public class PostRepository {
         return mAllPosts;
     }
 
+    public LiveData<Post> loadById(int id) {
+        return mPostDao.loadById(id);
+    }
+
     public void insert(Post post) {
         new insertAsyncTask(mPostDao).execute(post);
     }
