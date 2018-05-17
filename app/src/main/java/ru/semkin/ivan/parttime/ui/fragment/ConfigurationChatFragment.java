@@ -19,8 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.api.request.GetDialogs;
-import ru.semkin.ivan.parttime.api.request.GetUsers;
+import ru.semkin.ivan.parttime.api.request.Dialogs;
+import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.model.Item;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
@@ -63,8 +63,7 @@ public class ConfigurationChatFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        GetDialogs getDialogs = new GetDialogs(getContext());
-        getDialogs.getDialogs(dialogVKListCallback);
+        Dialogs.getDialogs(dialogVKListCallback);
     }
 
     private VKList<VKApiDialog> dialogs;
@@ -81,8 +80,7 @@ public class ConfigurationChatFragment extends Fragment {
                 userIds[i] = dialogs.get(i).message.user_id;
             }
 
-            GetUsers getUsers = new GetUsers(getContext());
-            getUsers.getUsersBrief(userFullVKListCallback, userIds);
+            Users.getUsersBrief(userFullVKListCallback, userIds);
         }
     };
     private VKListCallback<VKApiUserFull> userFullVKListCallback = new VKListCallback<VKApiUserFull>() {

@@ -10,7 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.vk.sdk.api.model.VKApiCommunity;
+import com.vk.sdk.api.model.VKList;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.Groups;
+import ru.semkin.ivan.parttime.api.request.VKListCallback;
+import ru.semkin.ivan.parttime.model.Item;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.activity.MainActivity;
@@ -52,6 +61,17 @@ public class ConfigurationGroupFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        Groups.getGroups(new VKListCallback<VKApiCommunity>() {
+            @Override
+            public void onFinished(VKList<VKApiCommunity> communities) {
+                List<Item> adapterItems = new ArrayList<>();
+                for (VKApiCommunity community: communities) {
+                    adapterItems.add(
+                            new Item(community.id, community.name,
+                                    community.screen_name, community.photo_100));
+                }
+                adapter.setItems(adapterItems);
+            }
+        });
     }
 }

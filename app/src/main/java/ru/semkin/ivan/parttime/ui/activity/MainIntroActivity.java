@@ -16,8 +16,8 @@ import com.vk.sdk.VKSdk;
 import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.api.request.GetUsers;
 import ru.semkin.ivan.parttime.api.request.SimpleCallback;
+import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.ui.fragment.ConfigurationChatFragment;
 import ru.semkin.ivan.parttime.ui.fragment.ConfigurationGroupFragment;
 
@@ -123,8 +123,7 @@ public class MainIntroActivity extends IntroActivity {
     }
 
     private void loadBasicData() {
-        GetUsers getUsers = new GetUsers(this);
-        getUsers.getUserProfile(new SimpleCallback() {
+        Users.getUserProfile(new SimpleCallback() {
             @Override
             public void onFinished() {
                 next();

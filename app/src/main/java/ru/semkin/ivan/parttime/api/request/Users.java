@@ -1,7 +1,5 @@
 package ru.semkin.ivan.parttime.api.request;
 
-import android.content.Context;
-
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
@@ -16,11 +14,11 @@ import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
-public class GetUsers {
+public class Users {
 
-    public GetUsers(Context context) { }
+    private Users() { }
 
-    public void getUserProfile(final SimpleCallback callback) {
+    public static void getUserProfile(final SimpleCallback callback) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.FIELDS, "sex,bdate,photo_200,city,country,activity"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -51,7 +49,7 @@ public class GetUsers {
         });
     }
 
-    public void getUsersBrief(final VKListCallback<VKApiUserFull> callback, long... userId) {
+    public static void getUsersBrief(final VKListCallback<VKApiUserFull> callback, long... userId) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.USER_IDS, idsToString(userId), VKApiConst.FIELDS, "photo_100"));
         request.executeWithListener(new VKRequest.VKRequestListener() {

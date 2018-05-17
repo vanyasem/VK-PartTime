@@ -1,7 +1,5 @@
 package ru.semkin.ivan.parttime.api.request;
 
-import android.content.Context;
-
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
@@ -14,14 +12,11 @@ import com.vk.sdk.api.model.VKApiGetDialogResponse;
 /**
  * Created by Ivan Semkin on 5/15/18
  */
-public class GetDialogs {
+public class Dialogs {
 
-    private final Context mContext;
-    public GetDialogs(Context context) {
-        this.mContext = context;
-    }
+    private Dialogs() { }
 
-    public void getDialogs(final VKListCallback<VKApiDialog> callback) {
+    public static void getDialogs(final VKListCallback<VKApiDialog> callback) {
         VKRequest request = VKApi.messages().getDialogs(
                 VKParameters.from(VKApiConst.COUNT, "20", VKApiConst.PREVIEW_LENGTH, "50"));
         request.executeWithListener(new VKRequest.VKRequestListener() {

@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.SyncResult;
 import android.os.Bundle;
 
-import ru.semkin.ivan.parttime.api.request.GetUsers;
+import ru.semkin.ivan.parttime.api.request.Users;
 import timber.log.Timber;
 
 /**
@@ -58,7 +58,6 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                               ContentProviderClient provider, SyncResult syncResult) {
         Timber.i("Starting sync");
 
-        GetUsers getUsers = new GetUsers(mContext);
-        getUsers.getUserProfile(null);
+        Users.getUserProfile(null);
     }
 }
