@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.db;
+package ru.semkin.ivan.parttime.db.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;

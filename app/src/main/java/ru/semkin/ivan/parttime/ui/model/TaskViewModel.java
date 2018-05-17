@@ -6,8 +6,8 @@ import android.arch.lifecycle.LiveData;
 
 import java.util.List;
 
-import ru.semkin.ivan.parttime.model.Task;
 import ru.semkin.ivan.parttime.data.TaskRepository;
+import ru.semkin.ivan.parttime.model.Task;
 
 /**
  * Created by Ivan Semkin on 5/11/18

@@ -1,13 +1,13 @@
 package ru.semkin.ivan.parttime.data;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 
-import ru.semkin.ivan.parttime.db.MessageDao;
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
+import ru.semkin.ivan.parttime.db.dao.MessageDao;
 import ru.semkin.ivan.parttime.model.Message;
 
 /**
@@ -18,8 +18,8 @@ public class MessageRepository {
     private final MessageDao mMessageDao;
     private final LiveData<List<Message>> mAllMessages;
 
-    public MessageRepository(Application application) {
-        PartTimeDatabase db = PartTimeDatabase.getDatabase(application);
+    public MessageRepository(Context context) {
+        PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
         mMessageDao = db.messageDao();
         mAllMessages = mMessageDao.getAll();
     }
@@ -28,7 +28,7 @@ public class MessageRepository {
         return mAllMessages;
     }
 
-    public void insert(Message message) {
+    public void insert(Message... message) {
         new insertAsyncTask(mMessageDao).execute(message);
     }
 

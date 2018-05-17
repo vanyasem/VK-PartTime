@@ -8,6 +8,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
+import ru.semkin.ivan.parttime.db.dao.MessageDao;
+import ru.semkin.ivan.parttime.db.dao.PostDao;
+import ru.semkin.ivan.parttime.db.dao.TaskDao;
 import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.model.Task;
@@ -67,9 +70,9 @@ public abstract class PartTimeDatabase extends RoomDatabase {
             mTaskDao.insertAll(task);
 
             mMessageDao.deleteAll();
-            Message message = new Message("Hello World", 1, 1, 1, 0);
+            Message message = new Message("Hello World", 1, 1, true, false);
             mMessageDao.insertAll(message);
-            message = new Message("Люблю Свету", 2, 2, 1, 1);
+            message = new Message("Люблю Свету", 2, 2, true, true);
             mMessageDao.insertAll(message);
 
             mPostDao.deleteAll();

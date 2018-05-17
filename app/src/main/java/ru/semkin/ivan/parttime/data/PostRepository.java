@@ -1,13 +1,13 @@
 package ru.semkin.ivan.parttime.data;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
-import ru.semkin.ivan.parttime.db.PostDao;
+import ru.semkin.ivan.parttime.db.dao.PostDao;
 import ru.semkin.ivan.parttime.model.Post;
 
 /**
@@ -18,8 +18,8 @@ public class PostRepository {
     private final PostDao mPostDao;
     private final LiveData<List<Post>> mAllPosts;
 
-    public PostRepository(Application application) {
-        PartTimeDatabase db = PartTimeDatabase.getDatabase(application);
+    public PostRepository(Context context) {
+        PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
         mPostDao = db.postDao();
         mAllPosts = mPostDao.getAll();
     }

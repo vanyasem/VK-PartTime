@@ -89,6 +89,7 @@ public class ConfigurationChatFragment extends Fragment {
             for (int i = 0; i < dialogs.size(); i++) {
                 String title;
                 String content = dialogs.get(i).message.body;
+                long id;
                 VKApiUser user = users.getById(dialogs.get(i).message.user_id);
 
                 if(!dialogs.get(i).message.title.isEmpty())
@@ -99,8 +100,12 @@ public class ConfigurationChatFragment extends Fragment {
                 if(content.isEmpty()) {
                     content = getContext().getString(R.string.unsupported_media);
                 }
+                if(dialogs.get(i).chatId != null)
+                    id = Long.valueOf(dialogs.get(i).chatId) + 2000000000;
+                else
+                    id = dialogs.get(i).getId();
 
-                adapterItems.add(new Item(dialogs.get(i).getId(), title, content, user.photo_100));
+                adapterItems.add(new Item(id, title, content, user.photo_100));
             }
 
             adapter.setItems(adapterItems);

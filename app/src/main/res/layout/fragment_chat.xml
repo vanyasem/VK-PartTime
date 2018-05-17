@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
-        app:srl_direction="both" >
+        app:srl_direction="bottom" >
 
         <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
             android:id="@+id/recyclerview"
@@ -53,7 +53,7 @@
             android:layout_gravity="center"
             android:textColor="#CFD8DC"
             android:hint="@string/your_message"
-            android:id="@+id/edit_message_chat"
+            android:id="@+id/edit_message"
             android:inputType="textMultiLine|textCapSentences"
             android:maxHeight="100dp"/>
 
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:padding="12dp"
-            android:id="@+id/btn_send_message"
+            android:id="@+id/send_message"
             app:srcCompat="@drawable/ic_send"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/description_send" />

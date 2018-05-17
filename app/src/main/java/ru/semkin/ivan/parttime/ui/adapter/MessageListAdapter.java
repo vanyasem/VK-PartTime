@@ -51,10 +51,15 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
     public void onBindViewHolder(@NonNull MessageViewHolder holder, int position) {
         if (mMessages != null) {
             Message current = mMessages.get(position);
-            holder.textMessage.setText(current.getBody());
+            String body = current.getBody();
+            if(!body.isEmpty())
+                holder.textMessage.setText(body);
+            else
+                holder.textMessage.setText(
+                        holder.parentLayout.getContext().getString(R.string.unsupported_media));
             holder.textDate.setText(String.valueOf(current.getDate()));
 
-            if (current.getOut() == 0L) {
+            if (current.isOut()) {
                 holder.layout.setBackgroundResource(R.drawable.rounded_corners_bubble_right);
                 holder.parentLayout.setGravity(Gravity.END);
             } else {

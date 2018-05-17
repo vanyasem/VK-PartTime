@@ -1,14 +1,14 @@
 package ru.semkin.ivan.parttime.data;
 
-import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import java.util.List;
 
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
+import ru.semkin.ivan.parttime.db.dao.TaskDao;
 import ru.semkin.ivan.parttime.model.Task;
-import ru.semkin.ivan.parttime.db.TaskDao;
 
 /**
  * Created by Ivan Semkin on 5/11/18
@@ -18,8 +18,8 @@ public class TaskRepository {
     private final TaskDao mTaskDao;
     private final LiveData<List<Task>> mAllTasks;
 
-    public TaskRepository(Application application) {
-        PartTimeDatabase db = PartTimeDatabase.getDatabase(application);
+    public TaskRepository(Context context) {
+        PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
         mTaskDao = db.taskDao();
         mAllTasks = mTaskDao.getAll();
     }
