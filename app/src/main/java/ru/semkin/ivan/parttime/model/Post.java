@@ -4,6 +4,8 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.vk.sdk.api.model.VKApiPost;
+
 /**
  * Created by Ivan Semkin on 5/10/18
  */
@@ -13,6 +15,12 @@ public class Post {
     public Post(String text, long date) {
         this.text = text;
         this.date = date;
+    }
+
+    public Post(VKApiPost post) {
+        this.uid = post.id;
+        this.text = post.text;
+        this.date = post.date;
     }
 
     @PrimaryKey(autoGenerate = true)

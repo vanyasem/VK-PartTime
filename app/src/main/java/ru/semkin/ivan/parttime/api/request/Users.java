@@ -10,6 +10,7 @@ import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
 import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
+import timber.log.Timber;
 
 /**
  * Created by Ivan Semkin on 5/7/18
@@ -40,6 +41,7 @@ public class Users {
             }
             @Override
             public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
                 //Do error stuff
             }
             @Override
@@ -63,6 +65,7 @@ public class Users {
             }
             @Override
             public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
                 //Do error stuff
             }
             @Override

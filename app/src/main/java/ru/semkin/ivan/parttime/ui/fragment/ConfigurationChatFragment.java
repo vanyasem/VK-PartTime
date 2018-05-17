@@ -103,7 +103,7 @@ public class ConfigurationChatFragment extends Fragment {
                 if(dialogs.get(i).chatId != null)
                     id = Long.valueOf(dialogs.get(i).chatId) + 2000000000;
                 else
-                    id = dialogs.get(i).getId();
+                    id = dialogs.get(i).message.user_id;
 
                 adapterItems.add(new Item(id, title, content, user.photo_100));
             }

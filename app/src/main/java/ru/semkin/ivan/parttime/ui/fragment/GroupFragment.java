@@ -13,9 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
+import com.vk.sdk.api.model.VKApiPost;
+import com.vk.sdk.api.model.VKList;
+
 import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.VKListCallback;
+import ru.semkin.ivan.parttime.api.request.Wall;
 import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.PostListAdapter;
@@ -33,14 +40,17 @@ public class GroupFragment extends Fragment {
     }
 
     private PostViewModel mPostViewModel;
+    private SwipyRefreshLayout refreshLayout;
+    private PostListAdapter adapter;
+    private EmptyRecyclerView recyclerView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_group, container, false);
 
-        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
-        final PostListAdapter adapter = new PostListAdapter(getContext());
+        recyclerView = layout.findViewById(R.id.recyclerview);
+        adapter = new PostListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
@@ -53,8 +63,28 @@ public class GroupFragment extends Fragment {
             }
         });
 
+        refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
+        refreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+                refresh();
+            }
+        });
+
         ActivityUtil.setActionTitle(R.string.nav_group, (AppCompatActivity)getActivity());
 
+        refresh();
+
         return layout;
+    }
+
+    private void refresh() {
+        refreshLayout.setRefreshing(true);
+        Wall.get(new VKListCallback<VKApiPost>() {
+            @Override
+            public void onFinished(VKList<VKApiPost> items) {
+                refreshLayout.setRefreshing(false);
+            }
+        }, getContext());
     }
 }

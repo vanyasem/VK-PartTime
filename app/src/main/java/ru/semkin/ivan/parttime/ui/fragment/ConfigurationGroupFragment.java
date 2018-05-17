@@ -49,9 +49,10 @@ public class ConfigurationGroupFragment extends Fragment {
         adapter.setOnItemClickListener(new ItemListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                LoginDataManager.setGroupId(adapter.get(position).getUid());
+                LoginDataManager.setGroupId(-adapter.get(position).getUid());
                 LoginDataManager.setLoggedIn(true);
                 MainActivity.openMain(getContext());
+                getActivity().finishAffinity();
             }
         });
 

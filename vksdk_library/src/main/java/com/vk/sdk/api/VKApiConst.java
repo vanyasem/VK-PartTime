@@ -26,7 +26,6 @@ package com.vk.sdk.api;
  */
 public class VKApiConst {
     //Commons
-    public static final String PEER_ID = "peer_id";
     public static final String USER_ID = "user_id";
     public static final String USER_IDS = "user_ids";
     public static final String FIELDS = "fields";

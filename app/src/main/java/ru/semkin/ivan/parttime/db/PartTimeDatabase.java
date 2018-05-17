@@ -45,7 +45,7 @@ public abstract class PartTimeDatabase extends RoomDatabase {
                 @Override
                 public void onOpen (@NonNull SupportSQLiteDatabase db){
                     super.onOpen(db);
-                    new PopulateDbAsync(instance).execute();
+                    //new PopulateDbAsync(instance).execute();
                 }
             };
 

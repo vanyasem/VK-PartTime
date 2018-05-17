@@ -32,7 +32,6 @@ import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.MessageListAdapter;
 import ru.semkin.ivan.parttime.ui.model.MessageViewModel;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
-import timber.log.Timber;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -104,7 +103,7 @@ public class ChatFragment extends Fragment {
 
     private void refresh() {
         refreshLayout.setRefreshing(true);
-        Messages.getDialogs(new VKListCallback<VKApiMessage>() {
+        Messages.getHistory(new VKListCallback<VKApiMessage>() {
             @Override
             public void onFinished(VKList<VKApiMessage> items) {
                 refreshLayout.setRefreshing(false);
@@ -115,7 +114,6 @@ public class ChatFragment extends Fragment {
                         recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                 });
-                recyclerView.smoothScrollToPosition(adapter.getItemCount());
             }
         }, getContext());
     }

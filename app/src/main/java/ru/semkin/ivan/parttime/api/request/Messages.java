@@ -22,11 +22,11 @@ public class Messages {
 
     private Messages() { }
 
-    public static void getDialogs(final VKListCallback<VKApiMessage> callback,
+    public static void getHistory(final VKListCallback<VKApiMessage> callback,
                                   final Context context) {
         VKRequest request = new VKRequest("messages.getHistory",
                 VKParameters.from(VKApiConst.COUNT, "200",
-                        VKApiConst.PEER_ID, LoginDataManager.getChatId()));
+                        VKApiConst.USER_ID, LoginDataManager.getChatId()));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
@@ -46,6 +46,7 @@ public class Messages {
             }
             @Override
             public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
                 //Do error stuff
             }
             @Override
@@ -58,7 +59,7 @@ public class Messages {
     public static void send(final SimpleCallback callback, String message) {
         VKRequest request = new VKRequest("messages.send",
                 VKParameters.from(VKApiConst.MESSAGE, message,
-                        VKApiConst.PEER_ID, LoginDataManager.getChatId()));
+                        VKApiConst.USER_ID, LoginDataManager.getChatId()));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
