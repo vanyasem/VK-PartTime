@@ -10,7 +10,9 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 
 import com.heinrichreimersoftware.materialintro.app.IntroActivity;
+import com.heinrichreimersoftware.materialintro.app.NavigationPolicy;
 import com.heinrichreimersoftware.materialintro.app.OnNavigationBlockedListener;
+import com.heinrichreimersoftware.materialintro.slide.FragmentSlide;
 import com.heinrichreimersoftware.materialintro.slide.SimpleSlide;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
@@ -19,12 +21,18 @@ import com.vk.sdk.api.VKError;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GetUsers;
-import ru.semkin.ivan.parttime.prefs.LoginDataManager;
+import ru.semkin.ivan.parttime.ui.fragment.ConfigurationFragment;
 
 /**
  * Created by Ivan Semkin on 5/6/18
  */
 public class MainIntroActivity extends IntroActivity {
+
+    private boolean mBlocked = true;
+    private final static int SLIDE_WELCOME = 0;
+    private final static int SLIDE_LOGIN = 1;
+    private final static int SLIDE_CONFIGURE = 2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -53,7 +61,12 @@ public class MainIntroActivity extends IntroActivity {
                     }
                 })
                 .buttonCtaLabel(R.string.intro_sign_in)
-                .canGoForward(false)
+                .build());
+
+        addSlide(new FragmentSlide.Builder()
+                .background(R.color.colorPrimary)
+                .backgroundDark(R.color.colorPrimaryDark)
+                .fragment(new ConfigurationFragment())
                 .build());
 
         /* Enable/disable skip button */
@@ -63,8 +76,22 @@ public class MainIntroActivity extends IntroActivity {
         addOnNavigationBlockedListener(new OnNavigationBlockedListener() {
             @Override
             public void onNavigationBlocked(int position, int direction) {
-                Snackbar.make(findViewById(android.R.id.content),
+                if(position == SLIDE_LOGIN)
+                    Snackbar.make(findViewById(android.R.id.content),
                         R.string.intro_must_login, Snackbar.LENGTH_SHORT).show();
+                else
+                    Snackbar.make(findViewById(android.R.id.content),
+                            R.string.intro_configure, Snackbar.LENGTH_SHORT).show();
+            }
+        });
+
+        setNavigationPolicy(new NavigationPolicy() {
+            @Override public boolean canGoForward(int position) {
+                return !mBlocked || position == SLIDE_WELCOME;
+            }
+
+            @Override public boolean canGoBackward(int position) {
+                return position <= SLIDE_LOGIN;
             }
         });
     }
@@ -82,7 +109,7 @@ public class MainIntroActivity extends IntroActivity {
             public void onResult(VKAccessToken res) {
                 // User passed Authorization
                 Snackbar.make(MainIntroActivity.this.getContentView(),
-                        R.string.intro_success, Snackbar.LENGTH_INDEFINITE).show();
+                        R.string.intro_success, Snackbar.LENGTH_LONG).show();
                 loadBasicData();
             }
             @Override
@@ -99,16 +126,17 @@ public class MainIntroActivity extends IntroActivity {
     private final BroadcastReceiver syncFinishedReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(final Context context, Intent intent) {
-            LoginDataManager.setLoggedIn(true);
-            MainActivity.openMain(MainIntroActivity.this);
-            finishAffinity();
+            mBlocked = false;
+            nextSlide();
+            mBlocked = true;
         }
     };
+
     @Override
     public void onResume() {
         super.onResume();
         registerReceiver(syncFinishedReceiver,
-                new IntentFilter(GetUsers.USER_GET_SYNC_FINISHED));
+                new IntentFilter(GetUsers.USER_PROFILE_GET_SYNC_FINISHED));
     }
 
     @Override

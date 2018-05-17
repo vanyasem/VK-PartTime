@@ -24,7 +24,7 @@ public class GetUsers {
         this.mContext = context;
     }
 
-    public static final String USER_GET_SYNC_FINISHED = "UserGetSyncFinishedCast";
+    public static final String USER_PROFILE_GET_SYNC_FINISHED = "UserProfileGetSyncFinishedCast";
     public void getUserProfile() {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.FIELDS, "sex,bdate,photo_200,city,country,activity"));
@@ -42,7 +42,7 @@ public class GetUsers {
                 ProfileDataManager.setProfilePicture(user.get(0).photo_200);
                 ProfileDataManager.setUserStatus(user.get(0).activity);
 
-                Intent intent = new Intent(USER_GET_SYNC_FINISHED);
+                Intent intent = new Intent(USER_PROFILE_GET_SYNC_FINISHED);
                 mContext.sendBroadcast(intent);
             }
             @Override
@@ -54,5 +54,40 @@ public class GetUsers {
                 //I don't really believe in progress
             }
         });
+    }
+
+    public static final String USER_BRIEF_GET_SYNC_FINISHED = "UserBriefGetSyncFinishedCast";
+    public static final String EXTRA_BRIEF = "brief";
+
+    public void getUsersBrief(long... userId) {
+        VKRequest request = VKApi.users().get(
+                VKParameters.from(VKApiConst.USER_IDS, idsToString(userId), VKApiConst.FIELDS, "photo_100"));
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                //noinspection unchecked
+                VKList<VKApiUserFull> users = (VKList<VKApiUserFull>) response.parsedModel;
+                Intent intent = new Intent(USER_BRIEF_GET_SYNC_FINISHED);
+                intent.putExtra(EXTRA_BRIEF, users);
+                mContext.sendBroadcast(intent);
+            }
+            @Override
+            public void onError(VKError error) {
+                //Do error stuff
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+            }
+        });
+    }
+
+    private static String idsToString(long... userId) {
+        StringBuilder result = new StringBuilder();
+
+        for (long anUserId : userId) {
+            result.append(String.valueOf(anUserId)).append(",");
+        }
+        return result.toString();
     }
 }
