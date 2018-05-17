@@ -24,6 +24,11 @@
         android:name="ru.semkin.ivan.parttime.ui.fragment.GroupFragment"
         android:label="GroupFragment"
         tools:layout="@layout/fragment_group" />
+    <fragment
+        android:id="@+id/view_post"
+        android:name="ru.semkin.ivan.parttime.ui.fragment.PostFragment"
+        android:label="PostFragment"
+        tools:layout="@layout/fragment_post" />
 
     <activity
         android:id="@+id/nav_settings"

@@ -19,8 +19,9 @@ import ru.semkin.ivan.parttime.model.Post;
  */
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostViewHolder> {
 
-    class PostViewHolder extends RecyclerView.ViewHolder {
-        private final TextView textTitle;
+    private PostClickListener clickListener;
+
+    class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView textDate;
         private final TextView textBody;
         private final TextView textAuthor;
@@ -30,13 +31,19 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
         private PostViewHolder(View itemView) {
             super(itemView);
-            textTitle = itemView.findViewById(R.id.text_title);
             textDate = itemView.findViewById(R.id.text_date);
             textBody = itemView.findViewById(R.id.text_body);
             textAuthor = itemView.findViewById(R.id.text_author);
             image = itemView.findViewById(R.id.image);
             //textLikes = itemView.findViewById(R.id.text_likes);
             //like = itemView.findViewById(R.id.icon_like);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if(clickListener != null)
+                clickListener.onPostClick(getAdapterPosition(), v);
         }
     }
 
@@ -56,17 +63,19 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         if (mPosts != null) {
             Post current = mPosts.get(position);
-            holder.textTitle.setText(current.getText());
+            holder.textBody.setText(current.getText());
             holder.textDate.setText(String.valueOf(current.getDate()));
-            //holder.textBody.setText("No ");
             //holder.textAuthor.setText("Post");
         } else {
             // Covers the case of data not being ready yet.
-            holder.textTitle.setText("No ");
+            holder.textBody.setText("No ");
             holder.textDate.setText("Post");
-            //holder.textBody.setText("No ");
             //holder.textAuthor.setText("Post");
         }
+    }
+
+    public void setOnPostClickListener(PostClickListener clickListener) {
+        this.clickListener = clickListener;
     }
 
     public void setPosts(List<Post> posts){
@@ -81,5 +90,9 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
         if (mPosts != null)
             return mPosts.size();
         else return 0;
+    }
+
+    public interface PostClickListener {
+        void onPostClick(int position, View v);
     }
 }

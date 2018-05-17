@@ -50,9 +50,11 @@
     <string name="error_message">Error loading message</string>
 
 
-    <!-- String related to Chat -->
+    <!-- Strings related to Chat -->
     <string name="unsupported_media">Unsupported media</string>
 
+    <!-- Strings related to Post -->
+    <string name="view_post">View post</string>
 
     <!-- Strings related to Settings -->
 

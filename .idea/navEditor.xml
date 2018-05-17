@@ -8,6 +8,16 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
+                  <entry key="nav_chat">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="nav_group">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
                   <entry key="nav_home">
                     <value>
                       <LayoutPositions />
@@ -19,6 +29,11 @@
                     </value>
                   </entry>
                   <entry key="nav_tasks">
+                    <value>
+                      <LayoutPositions />
+                    </value>
+                  </entry>
+                  <entry key="profileActivity">
                     <value>
                       <LayoutPositions />
                     </value>

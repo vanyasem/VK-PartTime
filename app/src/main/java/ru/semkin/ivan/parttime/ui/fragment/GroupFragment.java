@@ -20,6 +20,7 @@ import com.vk.sdk.api.model.VKList;
 
 import java.util.List;
 
+import androidx.navigation.Navigation;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
@@ -53,6 +54,14 @@ public class GroupFragment extends Fragment {
         adapter = new PostListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        adapter.setOnPostClickListener(new PostListAdapter.PostClickListener() {
+            @Override
+            public void onPostClick(int position, View v) {
+                Navigation.findNavController(
+                        getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post);
+            }
+        });
 
         mPostViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
         mPostViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
