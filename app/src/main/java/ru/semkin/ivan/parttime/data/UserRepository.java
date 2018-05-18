@@ -4,9 +4,14 @@ import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.vk.sdk.api.model.VKApiUser;
+import com.vk.sdk.api.model.VKList;
+
 import java.util.List;
 
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.api.request.Users;
+import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
 import ru.semkin.ivan.parttime.db.dao.UserDao;
 import ru.semkin.ivan.parttime.model.User;
@@ -17,26 +22,26 @@ import ru.semkin.ivan.parttime.model.User;
 public class UserRepository {
 
     private final UserDao mUserDao;
-    private final LiveData<List<User>> mAllUsers;
     private final Context mContext;
 
     public UserRepository(Context context) {
         PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
         mContext = context;
         mUserDao = db.userDao();
-        mAllUsers = mUserDao.getAll();
     }
 
-    public LiveData<List<User>> getAllUsers() {
-        return mAllUsers;
-    }
-
-    public LiveData<User> loadById(int id) {
+    public void loadById(int id, final GenericCallback<User> callback) {
         LiveData<User> db = mUserDao.loadById(id);
-        if(db == null) {
-            Users.getUsersBrief(null, mContext, id);
+        if(db.getValue() != null)
+            callback.onFinished(db.getValue());
+        else {
+            Users.getUsersBrief(new VKListCallback<VKApiUser>() {
+                @Override
+                public void onFinished(VKList<VKApiUser> items) {
+                    callback.onFinished(new User(items.get(0)));
+                }
+            }, mContext, id);
         }
-        return db;
     }
 
     public void insert(User... user) {

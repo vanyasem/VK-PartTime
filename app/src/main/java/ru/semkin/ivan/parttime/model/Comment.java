@@ -12,7 +12,7 @@ import com.vk.sdk.api.model.VKApiComment;
 @Entity
 public class Comment {
 
-    public Comment(long from_id, long date, String text, long post_id) {
+    public Comment(int from_id, long date, String text, long post_id) {
         this.from_id = from_id;
         this.date = date;
         this.text = text;
@@ -31,7 +31,7 @@ public class Comment {
     private int uid;
 
     @ColumnInfo(name = "from_id")
-    private long from_id;
+    private int from_id;
 
     @ColumnInfo(name = "date")
     private long date;
@@ -50,11 +50,11 @@ public class Comment {
         this.uid = uid;
     }
 
-    public long getFrom_id() {
+    public int getFrom_id() {
         return from_id;
     }
 
-    public void setFrom_id(long from_id) {
+    public void setFrom_id(int from_id) {
         this.from_id = from_id;
     }
 

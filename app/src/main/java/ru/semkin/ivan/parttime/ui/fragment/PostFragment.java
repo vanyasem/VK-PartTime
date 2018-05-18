@@ -19,17 +19,22 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
 import com.vk.sdk.api.model.VKApiComment;
 import com.vk.sdk.api.model.VKList;
 
 import java.util.List;
 
+import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
+import ru.semkin.ivan.parttime.data.UserRepository;
 import ru.semkin.ivan.parttime.model.Comment;
 import ru.semkin.ivan.parttime.model.Post;
+import ru.semkin.ivan.parttime.model.User;
 import ru.semkin.ivan.parttime.ui.adapter.CommentsListAdapter;
 import ru.semkin.ivan.parttime.ui.model.CommentViewModel;
 import ru.semkin.ivan.parttime.ui.model.PostViewModel;
@@ -49,17 +54,18 @@ public class PostFragment extends Fragment {
 
     private CommentViewModel mCommentViewModel;
 
-    private ImageView userpic;
-    private TextView author;
-    private TextView date;
-    private TextView body;
-    private ImageView image; //todo implement someday
-    private CommentsListAdapter adapter;
-    private SwipeRefreshLayout refreshLayout;
-    private TextView editMessage;
-    private AppCompatImageButton sendButton;
-    private RecyclerView recyclerView;
-    private int id;
+    private ImageView mUserPic;
+    private TextView mAuthor;
+    private TextView mDate;
+    private TextView mBody;
+    //private ImageView image; //todo implement someday
+    private CommentsListAdapter mAdapter;
+    private SwipeRefreshLayout mRefreshLayout;
+    private TextView mEditMessage;
+    private AppCompatImageButton mSendButton;
+    private RecyclerView mRecyclerView;
+    private UserRepository mUserRepository;
+    private int mPostId;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -67,19 +73,21 @@ public class PostFragment extends Fragment {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_post, container, false);
 
-        userpic = layout.findViewById(R.id.userpic);
-        author = layout.findViewById(R.id.author);
-        date = layout.findViewById(R.id.date);
-        body = layout.findViewById(R.id.body);
-        image = layout.findViewById(R.id.image);
-        refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
-        editMessage = layout.findViewById(R.id.edit_message);
-        sendButton = layout.findViewById(R.id.send_message);
+        mUserPic = layout.findViewById(R.id.userpic);
+        mAuthor = layout.findViewById(R.id.author);
+        mDate = layout.findViewById(R.id.date);
+        mBody = layout.findViewById(R.id.body);
+        //image = layout.findViewById(R.id.image);
+        mRefreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
+        mEditMessage = layout.findViewById(R.id.edit_message);
+        mSendButton = layout.findViewById(R.id.send_message);
 
-        recyclerView = layout.findViewById(R.id.recyclerview);
-        adapter = new CommentsListAdapter(getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mRecyclerView = layout.findViewById(R.id.recyclerview);
+        mAdapter = new CommentsListAdapter(getContext());
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        mUserRepository = new UserRepository(getContext());
 
         setupUi();
 
@@ -90,36 +98,48 @@ public class PostFragment extends Fragment {
 
     private void setupUi() {
         if (getArguments() != null) {
-            id = getArguments().getInt(EXTRA_ID);
+            mPostId = getArguments().getInt(EXTRA_ID);
 
             PostViewModel postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
-            postViewModel.loadById(id).observe(this, new Observer<Post>() {
+            postViewModel.loadById(mPostId).observe(this, new Observer<Post>() {
                 @Override
                 public void onChanged(@Nullable final Post post) {
-                    author.setText(String.valueOf(post.getFrom_id()));
-                    date.setText(Util.formatDate(getContext(), post.getDate()));
-                    body.setText(post.getText());
+                    mDate.setText(Util.formatDate(getContext(), post.getDate()));
+                    mBody.setText(post.getText());
+
+                    mUserRepository.loadById(post.getFrom_id(), new GenericCallback<User>() {
+                        @Override
+                        public void onFinished(User user) {
+                            mAuthor.setText(
+                                    String.format("%s %s", user.getFirst_name(), user.getLast_name()));
+                            GlideApp
+                                    .with(getContext())
+                                    .load(user.getPhoto_100())
+                                    .apply(RequestOptions.circleCropTransform())
+                                    .into(mUserPic);
+                        }
+                    });
                 }
             });
 
-            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     refresh();
                 }
             });
 
-            sendButton.setOnClickListener(new View.OnClickListener() {
+            mSendButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!editMessage.getText().toString().trim().isEmpty()) {
+                    if(!mEditMessage.getText().toString().trim().isEmpty()) {
                         Wall.createComment(new SimpleCallback() {
                             @Override
                             public void onFinished() {
-                                editMessage.setText("");
+                                mEditMessage.setText("");
                                 refresh();
                             }
-                        }, editMessage.getText().toString(), id);
+                        }, mEditMessage.getText().toString(), mPostId);
                     }
                 }
             });
@@ -132,25 +152,25 @@ public class PostFragment extends Fragment {
             @Override
             public void onChanged(@Nullable final List<Comment> comments) {
                 // Update the cached copy of the comments in the adapter.
-                adapter.setItems(comments);
+                mAdapter.setItems(comments);
             }
         });
     }
 
     private void refresh() {
-        refreshLayout.setRefreshing(true);
+        mRefreshLayout.setRefreshing(true);
         Wall.getComments(new VKListCallback<VKApiComment>() {
             @Override
             public void onFinished(VKList<VKApiComment> items) {
-                refreshLayout.setRefreshing(false);
-                recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                mRefreshLayout.setRefreshing(false);
+                mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     public void onGlobalLayout() {
-                        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                        mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
                         // Unregister the listener to only call scrollToPosition once
-                        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                 });
             }
-        }, id, getContext());
+        }, mPostId, getContext());
     }
 }

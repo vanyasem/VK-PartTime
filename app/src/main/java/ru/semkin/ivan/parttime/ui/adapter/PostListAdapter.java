@@ -12,7 +12,10 @@ import android.widget.TextView;
 import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
+import ru.semkin.ivan.parttime.data.UserRepository;
 import ru.semkin.ivan.parttime.model.Post;
+import ru.semkin.ivan.parttime.model.User;
 import ru.semkin.ivan.parttime.util.Util;
 
 /**
@@ -48,8 +51,12 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
     private final LayoutInflater mInflater;
     private List<Post> mPosts; // Cached copy of posts
+    private UserRepository mUserRepository;
 
-    public PostListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public PostListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        mUserRepository = new UserRepository(context);
+    }
 
     @NonNull
     @Override
@@ -65,8 +72,15 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             holder.textBody.setText(current.getText());
             holder.textDate.setText(
                     Util.formatDate(holder.textBody.getContext(), current.getDate()));
-            holder.textAuthor.setText(String.valueOf(current.getFrom_id()));
             holder.comments.setText(String.valueOf(current.getComments_count()));
+
+            mUserRepository.loadById(current.getFrom_id(), new GenericCallback<User>() {
+                @Override
+                public void onFinished(User user) {
+                    holder.textAuthor.setText(
+                            String.format("%s %s", user.getFirst_name(), user.getLast_name()));
+                }
+            });
         } else {
             // Covers the case of data not being ready yet.
             holder.textBody.setText("No ");

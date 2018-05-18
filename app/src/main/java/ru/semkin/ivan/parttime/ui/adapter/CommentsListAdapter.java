@@ -9,10 +9,16 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.request.RequestOptions;
+
 import java.util.List;
 
+import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
+import ru.semkin.ivan.parttime.data.UserRepository;
 import ru.semkin.ivan.parttime.model.Comment;
+import ru.semkin.ivan.parttime.model.User;
 import ru.semkin.ivan.parttime.util.Util;
 
 /**
@@ -46,8 +52,12 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
 
     private final LayoutInflater mInflater;
     private List<Comment> mComments; // Cached copy of comments
+    private UserRepository mUserRepository;
 
-    public CommentsListAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    public CommentsListAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+        mUserRepository = new UserRepository(context);
+    }
 
     @NonNull
     @Override
@@ -57,18 +67,25 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
+    public void onBindViewHolder(final @NonNull ItemViewHolder holder, int position) {
         if (mComments != null) {
             Comment current = mComments.get(position);
-            holder.textTitle.setText(String.valueOf(current.getFrom_id()));
             holder.textContent.setText(String.valueOf(current.getText()));
             holder.textDate.setText(
                     Util.formatDate(holder.textDate.getContext(), current.getDate()));
-            /*GlideApp
-                    .with(holder.image.getContext())
-                    .load(current.getImage())
-                    .apply(RequestOptions.circleCropTransform())
-                    .into(holder.image);*/
+
+            mUserRepository.loadById(current.getFrom_id(), new GenericCallback<User>() {
+                @Override
+                public void onFinished(User user) {
+                    holder.textTitle.setText(
+                            String.format("%s %s", user.getFirst_name(), user.getLast_name()));
+                    GlideApp
+                            .with(holder.image.getContext())
+                            .load(user.getPhoto_100())
+                            .apply(RequestOptions.circleCropTransform())
+                            .into(holder.image);
+                }
+            });
         } else {
             // Covers the case of data not being ready yet.
             holder.textTitle.setText("No title");
