@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/input"
-        app:srl_direction="bottom" >
+        app:srl_direction="bottom"
+        >
 
         <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
             android:id="@+id/recyclerview"
@@ -18,18 +21,21 @@
             android:layout_height="match_parent"
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
-            android:clipToPadding="false" />
+            android:clipToPadding="false"
+            />
     </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
     <TextView android:id="@android:id/empty"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:text="@string/no_messages"
-        android:gravity="center"/>
+        android:gravity="center"
+        />
 
     <include android:id="@+id/input"
         layout="@layout/include_comments"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        />
 </RelativeLayout>

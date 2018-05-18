@@ -5,23 +5,28 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_height="match_parent"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        >
 
         <ScrollView
             android:layout_above="@id/include"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <LinearLayout android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                >
 
                 <RelativeLayout android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="12dp"
-                    android:id="@+id/include_title">
+                    android:id="@+id/include_title"
+                    >
 
                     <ImageView
                         android:id="@+id/userpic"
@@ -30,34 +35,40 @@
                         android:layout_centerVertical="true"
                         android:layout_marginEnd="12dp"
                         android:contentDescription="@string/nav_profile_picture"
-                        app:srcCompat="@mipmap/ic_dummy_profile" />
+                        app:srcCompat="@mipmap/ic_dummy_profile"
+                        />
 
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_toEndOf="@+id/userpic">
+                        android:layout_toEndOf="@+id/userpic"
+                        >
+
                         <TextView
                             android:id="@+id/author"
                             style="@style/TextAppearance.AppCompat.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Author"
-                            android:textColor="@color/colorPrimaryDark" />
+                            android:textColor="@color/colorPrimaryDark"
+                            />
 
                         <TextView
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Date"
-                            android:layout_marginTop="2dp" />
+                            android:layout_marginTop="2dp"
+                            />
                     </LinearLayout>
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    >
 
                     <TextView
                         android:id="@+id/body"
@@ -66,20 +77,22 @@
                         style="@style/TextAppearance.AppCompat.Body1"
                         android:text="Body text"
                         android:paddingLeft="10dp"
-                        android:paddingRight="10dp"/>
+                        android:paddingRight="10dp"
+                        />
 
                     <ImageView
                         android:id="@+id/image"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/body"/>
+                        android:layout_below="@id/body"
+                        />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerview"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
+                    android:layout_height="match_parent"
+                    />
             </LinearLayout>
         </ScrollView>
 

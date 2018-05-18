@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     android:layout_margin="5dp"
     android:foreground="?android:attr/selectableItemBackground"
     card_view:cardCornerRadius="2dp"
-    card_view:contentPadding="16dp">
+    card_view:contentPadding="16dp"
+    >
 
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
         <TextView
             android:id="@+id/text_date"
@@ -23,7 +25,8 @@
             android:layout_alignParentTop="true"
             android:maxLines="1"
             android:text="date"
-            android:layout_marginTop="3dp"/>
+            android:layout_marginTop="3dp"
+            />
 
         <TextView
             android:id="@+id/text_body"
@@ -31,14 +34,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="6"
-            android:text="Body" />
+            android:text="Body"
+            />
 
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/text_body"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            />
 
         <TextView
             android:id="@+id/text_author"
@@ -49,7 +54,8 @@
             android:layout_marginTop="6dp"
             android:paddingTop="8dp"
             android:text="Author"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            />
 
         <TextView android:id="@+id/comments"
             android:layout_width="wrap_content"
@@ -62,13 +68,15 @@
             android:text="0"
             android:textColor="#8A000000"
             android:includeFontPadding="false"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            />
 
         <ImageView android:id="@+id/icon_comments"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_alignTop="@id/text_author"
             android:layout_alignParentEnd="true"
-            app:srcCompat="@drawable/ic_comment" />
+            app:srcCompat="@drawable/ic_comment"
+            />
     </RelativeLayout>
 </android.support.v7.widget.CardView>

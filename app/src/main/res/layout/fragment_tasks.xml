@@ -5,12 +5,13 @@
     android:id="@+id/swipeRefreshLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.TasksFragment"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    >
 
     <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/recyclerview_task" />
+        tools:listitem="@layout/recyclerview_task"
+        />
 </android.support.v4.widget.SwipeRefreshLayout>

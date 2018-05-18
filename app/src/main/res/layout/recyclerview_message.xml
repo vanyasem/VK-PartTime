@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bubble_layout_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingTop="2dp"
-    android:paddingBottom="2dp" >
+    android:paddingBottom="2dp"
+    >
 
     <LinearLayout
         android:id="@+id/bubble_layout"
@@ -20,7 +22,8 @@
         android:paddingBottom="4dp"
         android:clipToPadding="false"
         android:orientation="vertical"
-        tools:ignore="UselessParent">
+        tools:ignore="UselessParent"
+        >
 
         <TextView
             android:id="@+id/message_text"
@@ -30,7 +33,8 @@
             android:text="@string/error_message"
             android:linksClickable="true"
             android:autoLink="web|email"
-            android:textColor="@android:color/white"/>
+            android:textColor="@android:color/white"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -39,6 +43,7 @@
             android:text=""
             android:layout_gravity="end"
             android:visibility="gone"
-            style="@style/TextAppearance.AppCompat.Small.Inverse" />
+            style="@style/TextAppearance.AppCompat.Small.Inverse"
+            />
     </LinearLayout>
 </LinearLayout>
