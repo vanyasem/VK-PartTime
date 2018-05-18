@@ -39,7 +39,6 @@
             android:text=""
             android:layout_gravity="right"
             android:visibility="gone"
-            style="@style/TextAppearance.AppCompat.Small.Inverse"
-            tools:ignore="RtlHardcoded" />
+            style="@style/TextAppearance.AppCompat.Small.Inverse" />
     </LinearLayout>
 </LinearLayout>

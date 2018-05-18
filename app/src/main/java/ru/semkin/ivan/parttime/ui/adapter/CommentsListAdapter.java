@@ -60,7 +60,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         if (mComments != null) {
             Comment current = mComments.get(position);
-            holder.textTitle.setText(String.valueOf(current.getUid()));
+            holder.textTitle.setText(String.valueOf(current.getFrom_id()));
             holder.textContent.setText(String.valueOf(current.getText()));
             holder.textDate.setText(
                     Util.formatDate(holder.textDate.getContext(), current.getDate()));

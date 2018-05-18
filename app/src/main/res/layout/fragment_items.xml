@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
+    <TextView android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Title" />
+        android:text="Title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:padding="16dp"/>
 
     <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
         android:id="@+id/recyclerview"

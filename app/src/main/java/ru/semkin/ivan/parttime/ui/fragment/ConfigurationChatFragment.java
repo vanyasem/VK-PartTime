@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.vk.sdk.api.model.VKApiDialog;
 import com.vk.sdk.api.model.VKApiUser;
@@ -47,6 +48,9 @@ public class ConfigurationChatFragment extends Fragment {
         adapter = new ItemListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        TextView title = layout.findViewById(R.id.title);
+        title.setText(R.string.work_chat);
 
         adapter.setOnItemClickListener(new ItemListAdapter.ItemClickListener() {
             @Override

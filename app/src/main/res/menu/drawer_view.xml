@@ -21,10 +21,10 @@
     </group>
 
     <group android:id="@+id/navGrAdditional" android:checkableBehavior="none">
-        <item
+        <!--item TODO implement someday
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_settings"
-            android:title="@string/nav_settings" />
+            android:title="@string/nav_settings" /-->
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_logout"

@@ -19,13 +19,13 @@ import ru.semkin.ivan.parttime.model.Task;
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder> {
 
     class TaskViewHolder extends RecyclerView.ViewHolder {
-        private final TextView taskItemView;
-        private final TextView taskItemView2;
+        private final TextView taskBody;
+        private final TextView taskDue;
 
         private TaskViewHolder(View itemView) {
             super(itemView);
-            taskItemView = itemView.findViewById(R.id.textView);
-            taskItemView2 = itemView.findViewById(R.id.textView2);
+            taskBody = itemView.findViewById(R.id.textBody);
+            taskDue = itemView.findViewById(R.id.textDue);
         }
     }
 
@@ -45,12 +45,12 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         if (mTasks != null) {
             Task current = mTasks.get(position);
-            holder.taskItemView.setText(current.getFirstName());
-            holder.taskItemView2.setText(current.getLastName());
+            holder.taskBody.setText(current.getFirstName());
+            holder.taskDue.setText(current.getLastName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.taskItemView.setText("No ");
-            holder.taskItemView2.setText("Task");
+            holder.taskBody.setText("No ");
+            holder.taskDue.setText("Task");
         }
     }
 
