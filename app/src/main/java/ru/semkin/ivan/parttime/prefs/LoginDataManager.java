@@ -6,41 +6,41 @@ package ru.semkin.ivan.parttime.prefs;
 public class LoginDataManager extends DataManager {
 
     static public long getUserId() {
-        return preferences.getLong("userId", -1);
+        return sPreferences.getLong("userId", -1);
     }
 
     static public void setUserId(long userId) {
-        preferencesEditor.putLong("userId", userId);
-        preferencesEditor.commit();
+        sPreferencesEditor.putLong("userId", userId);
+        sPreferencesEditor.commit();
     }
 
 
     static public long getChatId() {
-        return preferences.getLong("chatId", -1);
+        return sPreferences.getLong("chatId", -1);
     }
 
     static public void setChatId(long chatId) {
-        preferencesEditor.putLong("chatId", chatId);
-        preferencesEditor.commit();
+        sPreferencesEditor.putLong("chatId", chatId);
+        sPreferencesEditor.commit();
     }
 
 
     static public long getGroupId() {
-        return preferences.getLong("groupId", -1);
+        return sPreferences.getLong("groupId", -1);
     }
 
     static public void setGroupId(long groupId) {
-        preferencesEditor.putLong("groupId", groupId);
-        preferencesEditor.commit();
+        sPreferencesEditor.putLong("groupId", groupId);
+        sPreferencesEditor.commit();
     }
 
 
     static public boolean getLoggedIn() {
-        return preferences.getBoolean("loggedIn", false);
+        return sPreferences.getBoolean("loggedIn", false);
     }
 
     static public void setLoggedIn(boolean isProfileFilled) {
-        preferencesEditor.putBoolean("loggedIn", isProfileFilled);
-        preferencesEditor.commit();
+        sPreferencesEditor.putBoolean("loggedIn", isProfileFilled);
+        sPreferencesEditor.commit();
     }
 }

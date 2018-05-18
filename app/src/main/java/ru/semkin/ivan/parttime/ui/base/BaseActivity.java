@@ -11,7 +11,7 @@ import ru.semkin.ivan.parttime.R;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    private Toolbar toolbar = null;
+    private Toolbar mToolbar = null;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -20,14 +20,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void setupToolbar() {
-        toolbar = findViewById(R.id.toolbar);
-        if(toolbar != null) {
-            setSupportActionBar(toolbar);
+        mToolbar = findViewById(R.id.toolbar);
+        if(mToolbar != null) {
+            setSupportActionBar(mToolbar);
         }
     }
 
     protected Toolbar getToolbar() {
-        return toolbar;
+        return mToolbar;
     }
 
     @Override

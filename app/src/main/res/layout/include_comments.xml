@@ -28,6 +28,7 @@
         android:textColorHint="#CFD8DC"
         android:layout_gravity="center"
         android:textColor="#CFD8DC"
+        android:paddingStart="16dp"
         android:hint="@string/your_message"
         android:id="@+id/edit_message"
         android:inputType="textMultiLine|textCapSentences"

@@ -13,16 +13,16 @@ import ru.semkin.ivan.parttime.R;
  */
 public class Sync {
 
-    private static Sync instance = null;
+    private static Sync sInstance = null;
     protected Sync() {
 
     }
 
     public static Sync getInstance() {
-        if(instance == null) {
-            instance = new Sync();
+        if(sInstance == null) {
+            sInstance = new Sync();
         }
-        return instance;
+        return sInstance;
     }
 
     // Constants
@@ -56,7 +56,7 @@ public class Sync {
         // Create the account type and default account
         Account newAccount = new Account(
                 ACCOUNT, context.getString(R.string.account_type));
-        // Get an instance of the Android account manager
+        // Get an sInstance of the Android account manager
         AccountManager accountManager =
                 (AccountManager) context.getSystemService(
                         Context.ACCOUNT_SERVICE);

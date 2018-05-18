@@ -25,7 +25,7 @@ import ru.semkin.ivan.parttime.util.Util;
  */
 public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostViewHolder> {
 
-    private PostClickListener clickListener;
+    private PostClickListener mClickListener;
 
     class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.text_date) TextView textDate;
@@ -42,8 +42,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
 
         @Override
         public void onClick(View v) {
-            if(clickListener != null)
-                clickListener.onPostClick(getAdapterPosition(), v);
+            if(mClickListener != null)
+                mClickListener.onPostClick(getAdapterPosition(), v);
         }
     }
 
@@ -89,7 +89,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     }
 
     public void setOnPostClickListener(PostClickListener clickListener) {
-        this.clickListener = clickListener;
+        this.mClickListener = clickListener;
     }
 
     public void setPosts(List<Post> posts){

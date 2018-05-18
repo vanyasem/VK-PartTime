@@ -28,16 +28,15 @@ public abstract class PartTimeDatabase extends RoomDatabase {
     public abstract CommentDao commentDao();
     public abstract UserDao userDao();
 
-
-    private static PartTimeDatabase instance = null;
+    private static PartTimeDatabase sInstance = null;
 
     public static PartTimeDatabase getDatabase(Context mContext) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(mContext,
+        if (sInstance == null) {
+            sInstance = Room.databaseBuilder(mContext,
                     PartTimeDatabase.class, "parttime_database")
                     .fallbackToDestructiveMigration() //TODO remove upon release and implement proper migrations
                     .build();
         }
-        return instance;
+        return sInstance;
     }
 }

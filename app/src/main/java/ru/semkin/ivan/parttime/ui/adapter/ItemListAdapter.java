@@ -24,7 +24,7 @@ import ru.semkin.ivan.parttime.model.Item;
  */
 public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemViewHolder> {
 
-    private ItemClickListener clickListener;
+    private ItemClickListener mClickListener;
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.image) ImageView image;
@@ -39,8 +39,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
 
         @Override
         public void onClick(View v) {
-            if(clickListener != null)
-                clickListener.onItemClick(getAdapterPosition(), v);
+            if(mClickListener != null)
+                mClickListener.onItemClick(getAdapterPosition(), v);
         }
     }
 
@@ -75,7 +75,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     }
 
     public void setOnItemClickListener(ItemClickListener clickListener) {
-        this.clickListener = clickListener;
+        this.mClickListener = clickListener;
     }
 
     public void setItems(List<Item> items){

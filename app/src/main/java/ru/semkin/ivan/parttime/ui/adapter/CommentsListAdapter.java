@@ -28,7 +28,7 @@ import ru.semkin.ivan.parttime.util.Util;
  */
 public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapter.ItemViewHolder> {
 
-    private CommentClickListener clickListener;
+    private CommentClickListener mClickListener;
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.image) ImageView image;
@@ -44,8 +44,8 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
 
         @Override
         public void onClick(View v) {
-            if(clickListener != null)
-                clickListener.onItemClick(getAdapterPosition(), v);
+            if(mClickListener != null)
+                mClickListener.onItemClick(getAdapterPosition(), v);
         }
     }
 
@@ -94,7 +94,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     }
 
     public void setOnItemClickListener(CommentClickListener clickListener) {
-        this.clickListener = clickListener;
+        this.mClickListener = clickListener;
     }
 
     public void setItems(List<Comment> comments){
