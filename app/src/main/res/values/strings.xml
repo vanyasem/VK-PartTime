@@ -43,6 +43,18 @@
     <string name="title_activity_settings">Settings</string>
 
 
+    <!-- Strings related to Home -->
+    <string-array name="chart_days">
+        <item>Mon</item>
+        <item>Tue</item>
+        <item>Wed</item>
+        <item>Thu</item>
+        <item>Fri</item>
+        <item>Sat</item>
+        <item>Sun</item>
+    </string-array>
+
+
     <!-- Strings related to Group -->
     <string name="description_send">Send message</string>
     <string name="your_message">Your message</string>

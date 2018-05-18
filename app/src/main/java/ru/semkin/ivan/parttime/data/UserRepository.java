@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
+import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.db.PartTimeDatabase;
 import ru.semkin.ivan.parttime.db.dao.UserDao;
 import ru.semkin.ivan.parttime.model.User;
@@ -17,15 +18,25 @@ public class UserRepository {
 
     private final UserDao mUserDao;
     private final LiveData<List<User>> mAllUsers;
+    private final Context mContext;
 
     public UserRepository(Context context) {
         PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
+        mContext = context;
         mUserDao = db.userDao();
         mAllUsers = mUserDao.getAll();
     }
 
     public LiveData<List<User>> getAllUsers() {
         return mAllUsers;
+    }
+
+    public LiveData<User> loadById(int id) {
+        LiveData<User> db = mUserDao.loadById(id);
+        if(db == null) {
+            Users.getUsersBrief(null, mContext, id);
+        }
+        return db;
     }
 
     public void insert(User... user) {

@@ -26,18 +26,16 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
         private final TextView textDate;
         private final TextView textBody;
         private final TextView textAuthor;
+        private final TextView comments;
         private final ImageView image;
-        //private final TextView textLikes; todo implement one day
-        // private final ToggleButton like; todo implement one day
 
         private PostViewHolder(View itemView) {
             super(itemView);
             textDate = itemView.findViewById(R.id.text_date);
             textBody = itemView.findViewById(R.id.text_body);
             textAuthor = itemView.findViewById(R.id.text_author);
+            comments = itemView.findViewById(R.id.comments);
             image = itemView.findViewById(R.id.image);
-            //textLikes = itemView.findViewById(R.id.text_likes);
-            //like = itemView.findViewById(R.id.icon_like);
             itemView.setOnClickListener(this);
         }
 
@@ -61,18 +59,20 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(final @NonNull PostViewHolder holder, int position) {
         if (mPosts != null) {
             Post current = mPosts.get(position);
             holder.textBody.setText(current.getText());
             holder.textDate.setText(
                     Util.formatDate(holder.textBody.getContext(), current.getDate()));
-            //holder.textAuthor.setText("Post");
+            holder.textAuthor.setText(String.valueOf(current.getFrom_id()));
+            holder.comments.setText(String.valueOf(current.getComments_count()));
         } else {
             // Covers the case of data not being ready yet.
             holder.textBody.setText("No ");
             holder.textDate.setText("Post");
-            //holder.textAuthor.setText("Post");
+            holder.textAuthor.setText("No Author");
+            holder.comments.setText("-1");
         }
     }
 

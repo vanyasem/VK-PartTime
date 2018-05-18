@@ -43,7 +43,6 @@ public class ChatFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private MessageViewModel mMessageViewModel;
     private SwipyRefreshLayout refreshLayout;
     private MessageListAdapter adapter;
     private EmptyRecyclerView recyclerView;
@@ -60,8 +59,8 @@ public class ChatFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setEmptyView(layout.findViewById(android.R.id.empty));
 
-        mMessageViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
-        mMessageViewModel.getAllMessages().observe(this, new Observer<List<Message>>() {
+        MessageViewModel messageViewModel = ViewModelProviders.of(this).get(MessageViewModel.class);
+        messageViewModel.getAllMessages().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable final List<Message> messages) {
                 // Update the cached copy of the messages in the adapter.

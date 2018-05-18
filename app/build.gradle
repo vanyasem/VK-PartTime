@@ -83,6 +83,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'com.github.omadahealth:swipy:1.2.3@aar'
+    implementation 'com.diogobernardino:williamchart:2.5.0'
 
     implementation "com.jakewharton:butterknife:$butterknifeVersion"
     implementation 'com.android.support:support-v4:27.1.1'

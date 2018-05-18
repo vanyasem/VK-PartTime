@@ -19,12 +19,8 @@ public interface UserDao {
     @Query("SELECT * FROM user")
     LiveData<List<User>> getAll();
 
-    @Query("SELECT * FROM user WHERE uid IN (:userIds)")
-    LiveData<List<User>> loadAllByIds(int[] userIds);
-
-    @Query("SELECT * FROM user WHERE first_name LIKE :first AND "
-            + "last_name LIKE :last LIMIT 1")
-    LiveData<User> findByName(String first, String last);
+    @Query("SELECT * FROM user WHERE uid = :userId")
+    LiveData<User> loadById(int userId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... users);

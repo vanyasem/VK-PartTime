@@ -1,5 +1,7 @@
 package ru.semkin.ivan.parttime.api.request;
 
+import android.content.Context;
+
 import com.vk.sdk.api.VKApi;
 import com.vk.sdk.api.VKApiConst;
 import com.vk.sdk.api.VKError;
@@ -10,6 +12,8 @@ import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKApiUserFull;
 import com.vk.sdk.api.model.VKList;
 
+import ru.semkin.ivan.parttime.data.UserRepository;
+import ru.semkin.ivan.parttime.model.User;
 import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 import timber.log.Timber;
 
@@ -52,7 +56,8 @@ public class Users {
         });
     }
 
-    public static void getUsersBrief(final VKListCallback<VKApiUser> callback, long... userId) {
+    public static void getUsersBrief(final VKListCallback<VKApiUser> callback,
+                                     final Context context, long... userId) {
         VKRequest request = VKApi.users().get(
                 VKParameters.from(VKApiConst.USER_IDS, idsToString(userId), VKApiConst.FIELDS, "photo_100"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
@@ -60,6 +65,11 @@ public class Users {
             public void onComplete(VKResponse response) {
                 //noinspection unchecked
                 VKList<VKApiUser> users = (VKList<VKApiUser>) response.parsedModel;
+
+                UserRepository userRepository = new UserRepository(context);
+                for (VKApiUser user: users) {
+                    userRepository.insert(new User(user));
+                }
 
                 if(callback != null)
                     callback.onFinished(users);

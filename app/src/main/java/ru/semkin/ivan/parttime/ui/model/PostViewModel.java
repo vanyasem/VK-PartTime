@@ -24,4 +24,8 @@ public class PostViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Post>> getAllPosts() { return mAllPosts; }
+
+    public LiveData<Post> loadById(int id) {
+        return mRepository.loadById(id);
+    }
 }

@@ -2,6 +2,7 @@ package ru.semkin.ivan.parttime.ui.fragment;
 
 
 import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,10 +16,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import ru.semkin.ivan.parttime.R;
-import ru.semkin.ivan.parttime.data.PostRepository;
 import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.ItemListAdapter;
+import ru.semkin.ivan.parttime.ui.model.PostViewModel;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 import ru.semkin.ivan.parttime.util.Util;
 
@@ -37,7 +38,7 @@ public class PostFragment extends Fragment {
     private TextView author;
     private TextView date;
     private TextView body;
-    private ImageView image;
+    private ImageView image; //todo implement someday
     private ItemListAdapter adapter;
 
     @Override
@@ -68,10 +69,11 @@ public class PostFragment extends Fragment {
         if (getArguments() != null) {
             int id = getArguments().getInt(EXTRA_ID);
 
-            PostRepository postRepository = new PostRepository(getContext());
-            postRepository.loadById(id).observe(this, new Observer<Post>() {
+            PostViewModel postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+            postViewModel.loadById(id).observe(this, new Observer<Post>() {
                 @Override
                 public void onChanged(@Nullable final Post post) {
+                    author.setText(String.valueOf(post.getFrom_id()));
                     date.setText(Util.formatDate(getContext(), post.getDate()));
                     body.setText(post.getText());
                 }

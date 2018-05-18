@@ -79,7 +79,7 @@ public class ConfigurationChatFragment extends Fragment {
                 userIds[i] = dialogs.get(i).message.user_id;
             }
 
-            Users.getUsersBrief(userFullVKListCallback, userIds);
+            Users.getUsersBrief(userFullVKListCallback, getContext(), userIds);
         }
     };
     private VKListCallback<VKApiUser> userFullVKListCallback = new VKListCallback<VKApiUser>() {
