@@ -50,8 +50,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
             holder.taskDue.setText(current.getLastName());
         } else {
             // Covers the case of data not being ready yet.
-            holder.taskBody.setText("No ");
-            holder.taskDue.setText("Task");
+            holder.taskBody.setText(R.string.no_content);
+            holder.taskDue.setText(R.string.no_date);
         }
     }
 

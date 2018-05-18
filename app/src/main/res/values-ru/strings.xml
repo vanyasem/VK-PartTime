@@ -66,6 +66,13 @@
     <string name="view_post">Просмотреть публикацию</string>
 
 
+    <!-- No content placeholders -->
+    <string name="no_title">Нет заголовка</string>
+    <string name="no_content">Нет текста</string>
+    <string name="no_date">Нет даты</string>
+    <string name="no_author">Нет автора</string>
+
+
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
@@ -109,20 +116,6 @@
         <item>360</item>
         <item>-1</item>
     </string-array>
-
-    <string-array name="list_preference_entries">
-        <item>Объект 1</item>
-        <item>Объект 2</item>
-        <item>Объект 3</item>
-    </string-array>
-
-    <string-array name="list_preference_entry_values">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
-    </string-array>
-
-    <string-array name="multi_select_list_preference_default_value" />
 
     <string name="pref_title_system_sync_settings">Системные настройки синхронизации</string>
 

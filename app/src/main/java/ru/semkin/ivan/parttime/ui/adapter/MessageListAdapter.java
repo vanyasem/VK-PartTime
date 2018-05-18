@@ -68,8 +68,8 @@ public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.
             }
         } else {
             // Covers the case of data not being ready yet.
-            holder.textMessage.setText("No body");
-            holder.textDate.setText("No date");
+            holder.textMessage.setText(R.string.no_content);
+            holder.textDate.setText(R.string.no_date);
         }
 
 

@@ -81,9 +81,9 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
             });
         } else {
             // Covers the case of data not being ready yet.
-            holder.textBody.setText("No ");
-            holder.textDate.setText("Post");
-            holder.textAuthor.setText("No Author");
+            holder.textBody.setText(R.string.no_content);
+            holder.textDate.setText(R.string.no_date);
+            holder.textAuthor.setText(R.string.no_author);
             holder.comments.setText("-1");
         }
     }

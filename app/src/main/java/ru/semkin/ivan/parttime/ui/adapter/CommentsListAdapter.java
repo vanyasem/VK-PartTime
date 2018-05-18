@@ -87,9 +87,9 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
             });
         } else {
             // Covers the case of data not being ready yet.
-            holder.textTitle.setText("No title");
-            holder.textContent.setText("No content");
-            holder.textDate.setText("No date");
+            holder.textTitle.setText(R.string.no_title);
+            holder.textContent.setText(R.string.no_content);
+            holder.textDate.setText(R.string.no_date);
         }
     }
 

@@ -69,8 +69,8 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
                     .into(holder.image);
         } else {
             // Covers the case of data not being ready yet.
-            holder.textTitle.setText("No title");
-            holder.textContent.setText("No content");
+            holder.textTitle.setText(R.string.no_title);
+            holder.textContent.setText(R.string.no_content);
         }
     }
 
