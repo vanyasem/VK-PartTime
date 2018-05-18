@@ -8,10 +8,13 @@ import com.vk.sdk.api.VKError;
 import com.vk.sdk.api.VKParameters;
 import com.vk.sdk.api.VKRequest;
 import com.vk.sdk.api.VKResponse;
+import com.vk.sdk.api.model.VKApiComment;
 import com.vk.sdk.api.model.VKApiPost;
 import com.vk.sdk.api.model.VKList;
 
+import ru.semkin.ivan.parttime.data.CommentRepository;
 import ru.semkin.ivan.parttime.data.PostRepository;
+import ru.semkin.ivan.parttime.model.Comment;
 import ru.semkin.ivan.parttime.model.Post;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import timber.log.Timber;
@@ -44,6 +47,41 @@ public class Wall {
 
                 if(callback != null)
                     callback.onFinished(posts);
+            }
+            @Override
+            public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
+                //Do error stuff
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+            }
+        });
+    }
+
+    public static void getComments(final VKListCallback<VKApiComment> callback,
+                                   final long postId, final Context context) {
+        VKRequest request = VKApi.wall().getComments(
+                VKParameters.from(VKApiConst.COUNT, "100",
+                        VKApiConst.OWNER_ID, LoginDataManager.getGroupId(),
+                        VKApiConst.POST_ID, postId));
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                //VKList<VKApiComment> comments = (VKList<VKApiComment>) response.parsedModel;
+                // Somehow broken upstream ^
+
+                //noinspection unchecked
+                VKList<VKApiComment> comments = new VKList(response.json, VKApiComment.class);
+
+                CommentRepository commentRepository = new CommentRepository(context);
+                for (VKApiComment comment: comments) {
+                    commentRepository.insert(new Comment(comment, postId));
+                }
+
+                if(callback != null)
+                    callback.onFinished(comments);
             }
             @Override
             public void onError(VKError error) {

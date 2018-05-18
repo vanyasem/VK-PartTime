@@ -7,14 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
-import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.vk.sdk.api.model.VKApiPost;
 import com.vk.sdk.api.model.VKList;
 
@@ -41,7 +40,7 @@ public class GroupFragment extends Fragment {
     }
 
     private PostViewModel mPostViewModel;
-    private SwipyRefreshLayout refreshLayout;
+    private SwipeRefreshLayout refreshLayout;
     private PostListAdapter adapter;
     private EmptyRecyclerView recyclerView;
 
@@ -75,9 +74,9 @@ public class GroupFragment extends Fragment {
         });
 
         refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
-        refreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onRefresh(SwipyRefreshLayoutDirection direction) {
+            public void onRefresh() {
                 refresh();
             }
         });
