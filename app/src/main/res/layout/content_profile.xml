@@ -21,9 +21,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxName"
             >
@@ -62,9 +59,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxStatus"
             >
@@ -103,9 +97,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxGender"
             >
@@ -144,9 +135,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxBirthday"
             >
@@ -187,9 +175,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxCountry"
             >
@@ -230,9 +215,6 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/selectableItemBackground"
-            android:clickable="true"
-            android:focusable="true"
             android:padding="@dimen/activity_horizontal_margin"
             android:id="@+id/boxCity"
             >
@@ -270,41 +252,5 @@
                 />
         </RelativeLayout>
 
-        <include layout="@layout/item_divider" />
-
-        <LinearLayout
-            style="?android:attr/buttonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="end"
-            >
-
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                />
-
-            <Button
-                android:id="@+id/cancel_profile"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel"
-                android:onClick="close"
-                tools:ignore="ButtonOrder"
-                />
-
-            <Button
-                android:id="@+id/save_and_exit_profile"
-                style="?android:attr/buttonBarButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/save_and_exit"
-                android:onClick="saveData"
-                />
-        </LinearLayout>
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

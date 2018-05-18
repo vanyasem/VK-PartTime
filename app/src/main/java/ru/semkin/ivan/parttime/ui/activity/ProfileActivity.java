@@ -44,22 +44,8 @@ public class ProfileActivity extends BaseActivity {
     TextView textCountry;
     @BindView(R.id.textCity)
     TextView textCity;
-    @BindView(R.id.boxName)
-    RelativeLayout boxName;
-    @BindView(R.id.boxStatus)
-    RelativeLayout boxStatus;
-    @BindView(R.id.boxGender)
-    RelativeLayout boxGender;
-    @BindView(R.id.boxBirthday)
-    RelativeLayout boxBirthday;
-    @BindView(R.id.boxCountry)
-    RelativeLayout boxCountry;
-    @BindView(R.id.boxCity)
-    RelativeLayout boxCity;
     @BindView(R.id.imageProfilePic)
     ImageView profilePic;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
 
     private String mFieldName;
     private int mFieldGender;
@@ -69,8 +55,7 @@ public class ProfileActivity extends BaseActivity {
     private String mFieldCity;
     private String mFieldProfilePic;
 
-    public void saveData(View view) {
-        progressBar.setVisibility(View.VISIBLE);
+    public void saveData(View view) { //todo implement someday
         ProfileDataManager.setProfilePicture(mFieldProfilePic);
         ProfileDataManager.setUserName(mFieldName);
         ProfileDataManager.setUserStatus(mFieldStatus);
@@ -78,14 +63,6 @@ public class ProfileActivity extends BaseActivity {
         ProfileDataManager.setUserBirthday(mFieldBirthday);
         ProfileDataManager.setUserCountry(mFieldCountry);
         ProfileDataManager.setUserCity(mFieldCity);
-    }
-
-    public void close(View view) {
-        finish();
-    }
-
-    public void onPickImage(View view) {
-        //todo implement
     }
 
     private void loadSavedData() {
