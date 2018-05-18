@@ -62,55 +62,50 @@ android {
 }
 
 dependencies {
-    def supportLibraryVersion = '27.1.1'
-    def butterknifeVersion = '8.6.0'
-    def glideVersion = '4.7.1'
+    def supportlibrary_version = '27.1.1'
+    def butterknife_version = '8.6.0'
+    def glide_version = '4.7.1'
     def room_version = '1.1.0'
-    def paging_version = '1.0.0'
-    def lifecycle_version = "1.1.1"
-    def nav_version = "1.0.0-alpha01"
-    def leakCanaryVersion = '1.5.4'
+    def lifecycle_version = '1.1.1'
+    def nav_version = '1.0.0-alpha01'
+    def leakcanary_ersion = '1.5.4'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation project(':vksdk_library')
 
-    implementation "com.android.support:appcompat-v7:$supportLibraryVersion"
-    implementation "com.android.support:recyclerview-v7:$supportLibraryVersion"
-    implementation "com.android.support:design:$supportLibraryVersion"
-    implementation "com.android.support:support-v4:$supportLibraryVersion"
-    implementation "com.android.support:cardview-v7:$supportLibraryVersion"
+    implementation "com.android.support:appcompat-v7:$supportlibrary_version"
+    implementation "com.android.support:recyclerview-v7:$supportlibrary_version"
+    implementation "com.android.support:design:$supportlibrary_version"
+    implementation "com.android.support:support-v4:$supportlibrary_version"
+    implementation "com.android.support:cardview-v7:$supportlibrary_version"
 
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'com.heinrichreimersoftware:material-intro:1.6.2'
     implementation 'com.github.omadahealth:swipy:1.2.3@aar'
     implementation 'com.diogobernardino:williamchart:2.5.0'
 
-    implementation "com.jakewharton:butterknife:$butterknifeVersion"
-    implementation 'com.android.support:support-v4:27.1.1'
-    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknifeVersion"
+    implementation "com.jakewharton:butterknife:$butterknife_version"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$butterknife_version"
 
-    implementation "com.github.bumptech.glide:glide:$glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$glideVersion"
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     implementation "android.arch.persistence.room:runtime:$room_version"
     annotationProcessor "android.arch.persistence.room:compiler:$room_version"
-    testImplementation "android.arch.persistence.room:testing:$room_version"
-
-    implementation "android.arch.paging:runtime:$paging_version"
-    testImplementation "android.arch.paging:common:$paging_version"
+    //testImplementation "android.arch.persistence.room:testing:$room_version"
 
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    //annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
 
     implementation "android.arch.navigation:navigation-fragment:$nav_version"
-    implementation "android.arch.navigation:navigation-ui:$nav_version"
-    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version"
+    //implementation "android.arch.navigation:navigation-ui:$nav_version"
+    //androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version"
 
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion"
-    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
-    testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:$leakcanary_ersion"
+    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakcanary_ersion"
+    //testImplementation "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
 
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    //testImplementation 'junit:junit:4.12' TODO implement tests
+    //androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    //androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
