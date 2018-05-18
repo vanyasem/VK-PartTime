@@ -71,6 +71,7 @@
     <string name="no_content">Нет текста</string>
     <string name="no_date">Нет даты</string>
     <string name="no_author">Нет автора</string>
+    <string name="loading">Загрузка…</string>
 
 
     <!-- Strings related to Settings -->

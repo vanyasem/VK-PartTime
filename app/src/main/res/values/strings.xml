@@ -76,6 +76,7 @@
     <string name="no_content">No content</string>
     <string name="no_date">No date</string>
     <string name="no_author">No Author</string>
+    <string name="loading">Loading…</string>
 
 
     <!-- Strings related to Settings -->

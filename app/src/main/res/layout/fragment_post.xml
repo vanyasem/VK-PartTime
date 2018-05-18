@@ -51,7 +51,7 @@
                             style="@style/TextAppearance.AppCompat.Body2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Author"
+                            android:text="@string/loading"
                             android:textColor="@color/colorPrimaryDark"
                             />
 
@@ -59,7 +59,7 @@
                             android:id="@+id/date"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Date"
+                            android:text="@string/loading"
                             android:layout_marginTop="2dp"
                             />
                     </LinearLayout>
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/TextAppearance.AppCompat.Body1"
-                        android:text="Body text"
+                        android:text="@string/loading"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         />

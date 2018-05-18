@@ -30,7 +30,7 @@
             android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Category"
+            android:text="@string/loading"
             android:textSize="16sp"
             android:textStyle="bold"
             android:ellipsize="end"
@@ -40,7 +40,7 @@
             android:id="@+id/content"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Preview"
+            android:text="@string/loading"
             android:textSize="14sp"
             android:layout_below="@id/title"
             android:ellipsize="end"
@@ -48,7 +48,6 @@
 
         <TextView
             android:id="@+id/date"
-            android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
