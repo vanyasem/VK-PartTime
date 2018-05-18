@@ -78,6 +78,7 @@ public class MainIntroActivity extends IntroActivity {
         });
     }
 
+    @SuppressWarnings("WeakerAccess")
     public static final int REQUEST_CODE = 1337;
     public static void openIntro(Activity activity) {
         Intent intent = new Intent(activity, MainIntroActivity.class);

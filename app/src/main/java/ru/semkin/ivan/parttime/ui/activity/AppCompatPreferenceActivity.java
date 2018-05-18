@@ -34,6 +34,7 @@ public abstract class AppCompatPreferenceActivity extends PreferenceActivity {
         getDelegate().onPostCreate(savedInstanceState);
     }
 
+    @SuppressWarnings("WeakerAccess")
     public ActionBar getSupportActionBar() {
         return getDelegate().getSupportActionBar();
     }

@@ -8,7 +8,7 @@ import com.vk.sdk.api.VKResponse;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
-public class AccountSaveProfileInfo {
+public class AccountSaveProfileInfo { //TODO implement
 
     public AccountSaveProfileInfo() { }
 

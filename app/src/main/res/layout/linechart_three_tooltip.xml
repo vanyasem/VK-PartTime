@@ -23,5 +23,6 @@
         android:layout_centerVertical="true"
         android:layout_toEndOf="@+id/value"
         android:src="@drawable/ic_work"
+        android:contentDescription="@string/image_tasks"
         />
 </RelativeLayout>

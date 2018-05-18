@@ -10,6 +10,7 @@ import android.os.Bundle;
  * Implement AbstractAccountAuthenticator and stub out all
  * of its methods
  */
+@SuppressWarnings("WeakerAccess")
 public class Authenticator extends AbstractAccountAuthenticator {
     // Simple constructor
     public Authenticator(Context context) {

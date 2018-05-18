@@ -26,6 +26,7 @@ import ru.semkin.ivan.parttime.util.ActivityUtil;
 /**
  * Created by Ivan Semkin on 5/7/18
  */
+@SuppressWarnings("WeakerAccess")
 public abstract class BaseDrawerActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

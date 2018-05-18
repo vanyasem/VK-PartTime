@@ -36,7 +36,7 @@ public class ChartCard {
         show(new Runnable() {@Override public void run() { }});
     }
 
-    public void show(Runnable action) {
+    private void show(Runnable action) {
         // Tooltip
         mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
 

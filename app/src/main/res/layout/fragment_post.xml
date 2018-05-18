@@ -85,6 +85,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/body"
+                        android:contentDescription="@string/image_post"
                         />
                 </RelativeLayout>
 

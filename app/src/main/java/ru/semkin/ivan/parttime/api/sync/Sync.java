@@ -11,6 +11,7 @@ import ru.semkin.ivan.parttime.R;
 /**
  * Created by Ivan Semkin on 5/8/18
  */
+@SuppressWarnings("WeakerAccess")
 public class Sync {
 
     private static Sync sInstance = null;

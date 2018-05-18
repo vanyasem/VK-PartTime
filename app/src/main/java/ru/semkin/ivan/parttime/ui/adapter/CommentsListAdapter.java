@@ -115,6 +115,7 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
         else return 0;
     }
 
+    @SuppressWarnings("WeakerAccess")
     public interface CommentClickListener {
         void onItemClick(int position, View v);
     }
