@@ -23,12 +23,15 @@ import com.vk.sdk.api.model.VKList;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.Messages;
 import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.model.Message;
-import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
+import ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.MessageListAdapter;
 import ru.semkin.ivan.parttime.ui.model.MessageViewModel;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -43,19 +46,35 @@ public class ChatFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private SwipyRefreshLayout refreshLayout;
-    private MessageListAdapter adapter;
-    private EmptyRecyclerView recyclerView;
+    @BindView(R.id.edit_message) TextView editMessage;
+    @BindView(R.id.send_message) AppCompatImageButton sendButton;
+    @BindView(R.id.swipeRefreshLayout) SwipyRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerview) EmptyRecyclerView recyclerView;
+
+    @OnClick(R.id.send_message)
+    public void sendMessage() {
+        if(!editMessage.getText().toString().trim().isEmpty()) {
+            Messages.send(new SimpleCallback() {
+                @Override
+                public void onFinished() {
+                    editMessage.setText("");
+                    refresh();
+                }
+            }, editMessage.getText().toString());
+        }
+    }
+
+    private MessageListAdapter mAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_chat, container, false);
+        ButterKnife.bind(this, layout);
 
-        recyclerView = layout.findViewById(R.id.recyclerview);
-        adapter = new MessageListAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+        mAdapter = new MessageListAdapter(getContext());
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setEmptyView(layout.findViewById(android.R.id.empty));
 
@@ -63,33 +82,15 @@ public class ChatFragment extends Fragment {
         messageViewModel.getAllMessages().observe(this, new Observer<List<Message>>() {
             @Override
             public void onChanged(@Nullable final List<Message> messages) {
-                // Update the cached copy of the messages in the adapter.
-                adapter.setMessages(messages);
+                // Update the cached copy of the messages in the mAdapter.
+                mAdapter.setMessages(messages);
             }
         });
 
-        refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection direction) {
                 refresh();
-            }
-        });
-
-        final TextView editMessage = layout.findViewById(R.id.edit_message);
-        final AppCompatImageButton sendButton = layout.findViewById(R.id.send_message);
-        sendButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!editMessage.getText().toString().trim().isEmpty()) {
-                    Messages.send(new SimpleCallback() {
-                        @Override
-                        public void onFinished() {
-                            editMessage.setText("");
-                            refresh();
-                        }
-                    }, editMessage.getText().toString());
-                }
             }
         });
 

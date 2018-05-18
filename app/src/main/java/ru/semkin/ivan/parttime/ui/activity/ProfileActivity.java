@@ -33,31 +33,31 @@ public class ProfileActivity extends BaseActivity {
     @BindView(R.id.content)
     LinearLayout content;
     @BindView(R.id.textName)
-    TextView mTextName;
+    TextView textName;
     @BindView(R.id.textStatus)
-    TextView mTextStatus;
+    TextView textStatus;
     @BindView(R.id.textGender)
-    TextView mTextGender;
+    TextView textGender;
     @BindView(R.id.textBirthday)
-    TextView mTextBirthday;
+    TextView textBirthday;
     @BindView(R.id.textCountry)
-    TextView mTextCountry;
+    TextView textCountry;
     @BindView(R.id.textCity)
-    TextView mTextCity;
+    TextView textCity;
     @BindView(R.id.boxName)
-    RelativeLayout mBoxName;
+    RelativeLayout boxName;
     @BindView(R.id.boxStatus)
-    RelativeLayout mBoxMood;
+    RelativeLayout boxStatus;
     @BindView(R.id.boxGender)
-    RelativeLayout mBoxGender;
+    RelativeLayout boxGender;
     @BindView(R.id.boxBirthday)
-    RelativeLayout mBoxBirthday;
+    RelativeLayout boxBirthday;
     @BindView(R.id.boxCountry)
-    RelativeLayout mBoxCountry;
+    RelativeLayout boxCountry;
     @BindView(R.id.boxCity)
-    RelativeLayout mBoxCity;
+    RelativeLayout boxCity;
     @BindView(R.id.imageProfilePic)
-    ImageView mProfilePic;
+    ImageView profilePic;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
 
@@ -97,17 +97,17 @@ public class ProfileActivity extends BaseActivity {
         mFieldCity = ProfileDataManager.getUserCity();
         mFieldProfilePic = ProfileDataManager.getProfilePicture();
 
-        mTextName.setText(mFieldName);
-        mTextStatus.setText(mFieldStatus);
-        mTextGender.setText(Util.intToGender(this, mFieldGender));
-        mTextBirthday.setText(mFieldBirthday);
-        mTextCountry.setText(mFieldCountry);
-        mTextCity.setText(mFieldCity);
+        textName.setText(mFieldName);
+        textStatus.setText(mFieldStatus);
+        textGender.setText(Util.intToGender(this, mFieldGender));
+        textBirthday.setText(mFieldBirthday);
+        textCountry.setText(mFieldCountry);
+        textCity.setText(mFieldCity);
 
         GlideApp
                 .with(this)
                 .load(mFieldProfilePic)
                 .centerInside()
-                .into(mProfilePic);
+                .into(profilePic);
     }
 }

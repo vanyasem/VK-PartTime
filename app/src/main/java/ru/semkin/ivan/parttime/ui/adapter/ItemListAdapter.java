@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Item;
@@ -25,15 +27,13 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     private ItemClickListener clickListener;
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final ImageView image;
-        private final TextView textTitle;
-        private final TextView textContent;
+        @BindView(R.id.image) ImageView image;
+        @BindView(R.id.title) TextView textTitle;
+        @BindView(R.id.content) TextView textContent;
 
         private ItemViewHolder(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
-            textTitle = itemView.findViewById(R.id.title);
-            textContent = itemView.findViewById(R.id.content);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

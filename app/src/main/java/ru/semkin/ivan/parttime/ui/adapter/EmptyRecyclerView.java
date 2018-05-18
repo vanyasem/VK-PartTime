@@ -1,4 +1,4 @@
-package ru.semkin.ivan.parttime.ui.activity;
+package ru.semkin.ivan.parttime.ui.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +12,9 @@ import android.view.View;
 
 public class EmptyRecyclerView extends RecyclerView {
 
-    private View emptyView;
+    private View mEmptyView;
 
-    final private AdapterDataObserver observer = new AdapterDataObserver() {
+    final private AdapterDataObserver mObserver = new AdapterDataObserver() {
         @Override
         public void onChanged() {
             checkIfEmpty();
@@ -45,10 +45,10 @@ public class EmptyRecyclerView extends RecyclerView {
     }
 
     void checkIfEmpty() {
-        if (emptyView != null && getAdapter() != null) {
+        if (mEmptyView != null && getAdapter() != null) {
             final boolean emptyViewVisible =
                     getAdapter().getItemCount() == 0;
-            emptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
+            mEmptyView.setVisibility(emptyViewVisible ? VISIBLE : GONE);
             setVisibility(emptyViewVisible ? GONE : VISIBLE);
         }
     }
@@ -57,18 +57,18 @@ public class EmptyRecyclerView extends RecyclerView {
     public void setAdapter(Adapter adapter) {
         final Adapter oldAdapter = getAdapter();
         if (oldAdapter != null) {
-            oldAdapter.unregisterAdapterDataObserver(observer);
+            oldAdapter.unregisterAdapterDataObserver(mObserver);
         }
         super.setAdapter(adapter);
         if (adapter != null) {
-            adapter.registerAdapterDataObserver(observer);
+            adapter.registerAdapterDataObserver(mObserver);
         }
 
         checkIfEmpty();
     }
 
-    public void setEmptyView(View emptyView) {
-        this.emptyView = emptyView;
+    public void setEmptyView(View mEmptyView) {
+        this.mEmptyView = mEmptyView;
         checkIfEmpty();
     }
 }

@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Task;
 
@@ -19,13 +21,12 @@ import ru.semkin.ivan.parttime.model.Task;
 public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskViewHolder> {
 
     class TaskViewHolder extends RecyclerView.ViewHolder {
-        private final TextView taskBody;
-        private final TextView taskDue;
+        @BindView(R.id.textBody) TextView taskBody;
+        @BindView(R.id.textDue) TextView taskDue;
 
         private TaskViewHolder(View itemView) {
             super(itemView);
-            taskBody = itemView.findViewById(R.id.textBody);
-            taskDue = itemView.findViewById(R.id.textDue);
+            ButterKnife.bind(this, itemView);
         }
     }
 

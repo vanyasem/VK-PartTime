@@ -20,11 +20,13 @@ import com.vk.sdk.api.model.VKList;
 import java.util.List;
 
 import androidx.navigation.Navigation;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
 import ru.semkin.ivan.parttime.model.Post;
-import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
+import ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.PostListAdapter;
 import ru.semkin.ivan.parttime.ui.model.PostViewModel;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -39,25 +41,27 @@ public class GroupFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private SwipeRefreshLayout refreshLayout;
-    private PostListAdapter adapter;
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.recyclerview) EmptyRecyclerView recyclerView;
+
+    private PostListAdapter mAdapter;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_group, container, false);
+        ButterKnife.bind(this, layout);
 
-        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
-        adapter = new PostListAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+        mAdapter = new PostListAdapter(getContext());
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter.setOnPostClickListener(new PostListAdapter.PostClickListener() {
+        mAdapter.setOnPostClickListener(new PostListAdapter.PostClickListener() {
             @Override
             public void onPostClick(int position, View v) {
                 if(getActivity() != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putInt(PostFragment.EXTRA_ID, adapter.get(position).getUid());
+                    bundle.putInt(PostFragment.EXTRA_ID, mAdapter.get(position).getUid());
                     Navigation.findNavController(
                             getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post, bundle);
                 }
@@ -68,12 +72,11 @@ public class GroupFragment extends Fragment {
         postViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(@Nullable final List<Post> posts) {
-                // Update the cached copy of the posts in the adapter.
-                adapter.setPosts(posts);
+                // Update the cached copy of the posts in the mAdapter.
+                mAdapter.setPosts(posts);
             }
         });
 
-        refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

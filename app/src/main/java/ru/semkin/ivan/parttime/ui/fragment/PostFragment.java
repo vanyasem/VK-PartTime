@@ -25,6 +25,9 @@ import com.vk.sdk.api.model.VKList;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GenericCallback;
@@ -52,16 +55,30 @@ public class PostFragment extends Fragment {
 
     final public static String EXTRA_ID = "id";
 
-    private ImageView mUserPic;
-    private TextView mAuthor;
-    private TextView mDate;
-    private TextView mBody;
-    //private ImageView image; //todo implement someday
+    @BindView(R.id.userpic) ImageView userPic;
+    @BindView(R.id.author) TextView author;
+    @BindView(R.id.date) TextView date;
+    @BindView(R.id.body) TextView body;
+    //@BindView(R.id.image) ImageView image; //todo implement someday
+    @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.edit_message) TextView editMessage;
+    @BindView(R.id.send_message) AppCompatImageButton sendButton;
+    @BindView(R.id.recyclerview) RecyclerView recyclerView;
+
+    @OnClick(R.id.send_message)
+    public void sendComment() {
+        if(!editMessage.getText().toString().trim().isEmpty()) {
+            Wall.createComment(new SimpleCallback() {
+                @Override
+                public void onFinished() {
+                    editMessage.setText("");
+                    refresh();
+                }
+            }, editMessage.getText().toString(), mPostId);
+        }
+    }
+
     private CommentsListAdapter mAdapter;
-    private SwipeRefreshLayout mRefreshLayout;
-    private TextView mEditMessage;
-    private AppCompatImageButton mSendButton;
-    private RecyclerView mRecyclerView;
     private UserRepository mUserRepository;
     private int mPostId;
 
@@ -70,20 +87,11 @@ public class PostFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout = inflater.inflate(R.layout.fragment_post, container, false);
+        ButterKnife.bind(this, layout);
 
-        mUserPic = layout.findViewById(R.id.userpic);
-        mAuthor = layout.findViewById(R.id.author);
-        mDate = layout.findViewById(R.id.date);
-        mBody = layout.findViewById(R.id.body);
-        //image = layout.findViewById(R.id.image);
-        mRefreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
-        mEditMessage = layout.findViewById(R.id.edit_message);
-        mSendButton = layout.findViewById(R.id.send_message);
-
-        mRecyclerView = layout.findViewById(R.id.recyclerview);
         mAdapter = new CommentsListAdapter(getContext());
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(mAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mUserRepository = new UserRepository(getContext());
 
@@ -103,20 +111,20 @@ public class PostFragment extends Fragment {
                 @Override
                 public void onChanged(@Nullable final Post post) {
                     if (post != null) {
-                        mDate.setText(Util.formatDate(getContext(), post.getDate()));
-                        mBody.setText(post.getText());
+                        date.setText(Util.formatDate(getContext(), post.getDate()));
+                        body.setText(post.getText());
 
                         mUserRepository.loadById(post.getFrom_id(), new GenericCallback<User>() {
                             @Override
                             public void onFinished(User user) {
-                                mAuthor.setText(
+                                author.setText(
                                         String.format("%s %s", user.getFirst_name(), user.getLast_name()));
                                 if(getContext() != null) {
                                     GlideApp
                                             .with(getContext())
                                             .load(user.getPhoto_100())
                                             .apply(RequestOptions.circleCropTransform())
-                                            .into(mUserPic);
+                                            .into(userPic);
                                 }
                             }
                         });
@@ -124,25 +132,10 @@ public class PostFragment extends Fragment {
                 }
             });
 
-            mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
                     refresh();
-                }
-            });
-
-            mSendButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(!mEditMessage.getText().toString().trim().isEmpty()) {
-                        Wall.createComment(new SimpleCallback() {
-                            @Override
-                            public void onFinished() {
-                                mEditMessage.setText("");
-                                refresh();
-                            }
-                        }, mEditMessage.getText().toString(), mPostId);
-                    }
                 }
             });
 
@@ -153,23 +146,23 @@ public class PostFragment extends Fragment {
         commentViewModel.getAllComments().observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(@Nullable final List<Comment> comments) {
-                // Update the cached copy of the comments in the adapter.
+                // Update the cached copy of the comments in the mAdapter.
                 mAdapter.setItems(comments);
             }
         });
     }
 
     private void refresh() {
-        mRefreshLayout.setRefreshing(true);
+        refreshLayout.setRefreshing(true);
         Wall.getComments(new VKListCallback<VKApiComment>() {
             @Override
             public void onFinished(VKList<VKApiComment> items) {
-                mRefreshLayout.setRefreshing(false);
-                mRecyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                refreshLayout.setRefreshing(false);
+                recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                     public void onGlobalLayout() {
-                        mRecyclerView.scrollToPosition(mRecyclerView.getAdapter().getItemCount() - 1);
+                        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
                         // Unregister the listener to only call scrollToPosition once
-                        mRecyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     }
                 });
             }

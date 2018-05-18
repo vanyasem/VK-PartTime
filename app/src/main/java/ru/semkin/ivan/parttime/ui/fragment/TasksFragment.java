@@ -14,9 +14,11 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Task;
-import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
+import ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.adapter.TaskListAdapter;
 import ru.semkin.ivan.parttime.ui.model.TaskViewModel;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -27,14 +29,17 @@ import ru.semkin.ivan.parttime.util.ActivityUtil;
 public class TasksFragment extends Fragment {
 
     public TasksFragment() {
+
     }
+
+    @BindView(R.id.recyclerview) EmptyRecyclerView recyclerView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_tasks, container, false);
+        ButterKnife.bind(this, layout);
 
-        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
         final TaskListAdapter adapter = new TaskListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -43,7 +48,7 @@ public class TasksFragment extends Fragment {
         taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> tasks) {
-                // Update the cached copy of the tasks in the adapter.
+                // Update the cached copy of the tasks in the mAdapter.
                 adapter.setTasks(tasks);
             }
         });

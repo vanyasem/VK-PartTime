@@ -13,6 +13,8 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GenericCallback;
@@ -29,17 +31,14 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     private CommentClickListener clickListener;
 
     class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final ImageView image;
-        private final TextView textTitle;
-        private final TextView textContent;
-        private final TextView textDate;
+        @BindView(R.id.image) ImageView image;
+        @BindView(R.id.title) TextView textTitle;
+        @BindView(R.id.content) TextView textContent;
+        @BindView(R.id.date) TextView textDate;
 
         private ItemViewHolder(View itemView) {
             super(itemView);
-            image = itemView.findViewById(R.id.image);
-            textTitle = itemView.findViewById(R.id.title);
-            textContent = itemView.findViewById(R.id.content);
-            textDate = itemView.findViewById(R.id.date);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

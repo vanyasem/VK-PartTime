@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.data.UserRepository;
@@ -26,19 +28,15 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     private PostClickListener clickListener;
 
     class PostViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView textDate;
-        private final TextView textBody;
-        private final TextView textAuthor;
-        private final TextView comments;
-        private final ImageView image;
+        @BindView(R.id.text_date) TextView textDate;
+        @BindView(R.id.text_body) TextView textBody;
+        @BindView(R.id.text_author) TextView textAuthor;
+        @BindView(R.id.comments) TextView comments;
+        @BindView(R.id.image) ImageView image;
 
         private PostViewHolder(View itemView) {
             super(itemView);
-            textDate = itemView.findViewById(R.id.text_date);
-            textBody = itemView.findViewById(R.id.text_body);
-            textAuthor = itemView.findViewById(R.id.text_author);
-            comments = itemView.findViewById(R.id.comments);
-            image = itemView.findViewById(R.id.image);
+            ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
         }
 

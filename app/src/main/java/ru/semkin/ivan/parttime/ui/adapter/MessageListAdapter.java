@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.util.Util;
@@ -22,17 +24,14 @@ import ru.semkin.ivan.parttime.util.Util;
 public class MessageListAdapter extends RecyclerView.Adapter<MessageListAdapter.MessageViewHolder> {
 
     class MessageViewHolder extends RecyclerView.ViewHolder {
-        private final LinearLayout parentLayout;
-        private final LinearLayout layout;
-        private final TextView textMessage;
-        private final TextView textDate;
+        @BindView(R.id.bubble_layout_parent) LinearLayout parentLayout;
+        @BindView(R.id.bubble_layout) LinearLayout layout;
+        @BindView(R.id.message_text) TextView textMessage;
+        @BindView(R.id.date_text) TextView textDate;
 
         private MessageViewHolder(View itemView) {
             super(itemView);
-            parentLayout = itemView.findViewById(R.id.bubble_layout_parent);
-            layout = itemView.findViewById(R.id.bubble_layout);
-            textMessage = itemView.findViewById(R.id.message_text);
-            textDate = itemView.findViewById(R.id.date_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 

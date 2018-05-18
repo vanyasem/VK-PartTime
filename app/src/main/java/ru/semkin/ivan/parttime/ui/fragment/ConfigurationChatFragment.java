@@ -18,13 +18,15 @@ import com.vk.sdk.api.model.VKList;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.Dialogs;
 import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.model.Item;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
-import ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView;
+import ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView;
 import ru.semkin.ivan.parttime.ui.activity.MainIntroActivity;
 import ru.semkin.ivan.parttime.ui.adapter.ItemListAdapter;
 
@@ -37,25 +39,28 @@ public class ConfigurationChatFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private ItemListAdapter adapter;
+    @BindView(R.id.recyclerview) EmptyRecyclerView recyclerView;
+    @BindView(R.id.title) TextView title;
+
+    private ItemListAdapter mAdapter;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_items, container, false);
+        ButterKnife.bind(this, layout);
 
-        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
-        adapter = new ItemListAdapter(getContext());
-        recyclerView.setAdapter(adapter);
+        mAdapter = new ItemListAdapter(getContext());
+        recyclerView.setAdapter(mAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        TextView title = layout.findViewById(R.id.title);
         title.setText(R.string.work_chat);
 
-        adapter.setOnItemClickListener(new ItemListAdapter.ItemClickListener() {
+        mAdapter.setOnItemClickListener(new ItemListAdapter.ItemClickListener() {
             @Override
             public void onItemClick(int position, View v) {
-                LoginDataManager.setChatId(adapter.get(position).getUid());
+                LoginDataManager.setChatId(mAdapter.get(position).getUid());
                 if(getActivity() != null)
                     ((MainIntroActivity)getActivity()).next();
             }
@@ -112,7 +117,7 @@ public class ConfigurationChatFragment extends Fragment {
                 adapterItems.add(new Item(id, title, content, user.photo_100));
             }
 
-            adapter.setItems(adapterItems);
+            mAdapter.setItems(adapterItems);
         }
     };
 }

@@ -15,7 +15,7 @@
         app:srl_direction="bottom"
         >
 
-        <ru.semkin.ivan.parttime.ui.activity.EmptyRecyclerView
+        <ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView
             android:id="@+id/recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
