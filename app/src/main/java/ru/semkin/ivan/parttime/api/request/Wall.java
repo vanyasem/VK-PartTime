@@ -94,4 +94,28 @@ public class Wall {
             }
         });
     }
+
+    public static void createComment(final SimpleCallback callback,
+                                   String message, long postId) {
+        VKRequest request = VKApi.wall().addComment(
+                VKParameters.from(VKApiConst.MESSAGE, message,
+                        VKApiConst.OWNER_ID, LoginDataManager.getGroupId(),
+                        VKApiConst.POST_ID, postId));
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                if(callback != null)
+                    callback.onFinished();
+            }
+            @Override
+            public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
+                //Do error stuff
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+            }
+        });
+    }
 }

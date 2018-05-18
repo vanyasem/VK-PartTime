@@ -9,11 +9,13 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,6 +25,7 @@ import com.vk.sdk.api.model.VKList;
 import java.util.List;
 
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
 import ru.semkin.ivan.parttime.model.Comment;
@@ -53,6 +56,9 @@ public class PostFragment extends Fragment {
     private ImageView image; //todo implement someday
     private CommentsListAdapter adapter;
     private SwipeRefreshLayout refreshLayout;
+    private TextView editMessage;
+    private AppCompatImageButton sendButton;
+    private RecyclerView recyclerView;
     private int id;
 
     @Override
@@ -67,8 +73,10 @@ public class PostFragment extends Fragment {
         body = layout.findViewById(R.id.body);
         image = layout.findViewById(R.id.image);
         refreshLayout = layout.findViewById(R.id.swipeRefreshLayout);
+        editMessage = layout.findViewById(R.id.edit_message);
+        sendButton = layout.findViewById(R.id.send_message);
 
-        RecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
+        recyclerView = layout.findViewById(R.id.recyclerview);
         adapter = new CommentsListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -101,6 +109,21 @@ public class PostFragment extends Fragment {
                 }
             });
 
+            sendButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(!editMessage.getText().toString().trim().isEmpty()) {
+                        Wall.createComment(new SimpleCallback() {
+                            @Override
+                            public void onFinished() {
+                                editMessage.setText("");
+                                refresh();
+                            }
+                        }, editMessage.getText().toString(), id);
+                    }
+                }
+            });
+
             refresh();
         }
 
@@ -120,6 +143,13 @@ public class PostFragment extends Fragment {
             @Override
             public void onFinished(VKList<VKApiComment> items) {
                 refreshLayout.setRefreshing(false);
+                recyclerView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+                    public void onGlobalLayout() {
+                        recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount() - 1);
+                        // Unregister the listener to only call scrollToPosition once
+                        recyclerView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
             }
         }, id, getContext());
     }
