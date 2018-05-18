@@ -7,8 +7,6 @@ import android.os.AsyncTask;
 import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKList;
 
-import java.util.List;
-
 import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;

@@ -26,8 +26,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_home, container, false);
 
-        CardView cardView = layout.findViewById(R.id.chart_card);
-        (new ChartCard(cardView, getContext())).init();
+        if(getContext() != null) {
+            CardView cardView = layout.findViewById(R.id.chart_card);
+            (new ChartCard(cardView, getContext())).init();
+        }
 
         ActivityUtil.setActionTitle(R.string.app_name, (AppCompatActivity)getActivity());
 

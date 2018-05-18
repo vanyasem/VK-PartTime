@@ -19,6 +19,7 @@ public class ActivityUtil {
      * @param activity Activity reference
      * @return ActionBar of that activity
      */
+    @SuppressWarnings("UnusedReturnValue")
     public static ActionBar setActionTitle(int title, AppCompatActivity activity) {
         ActionBar actionBar = setActionBar(activity);
         actionBar.setTitle(title);

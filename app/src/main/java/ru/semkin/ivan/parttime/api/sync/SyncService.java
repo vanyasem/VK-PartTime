@@ -1,5 +1,6 @@
 package ru.semkin.ivan.parttime.api.sync;
 
+import android.annotation.SuppressLint;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
@@ -11,6 +12,7 @@ import android.os.IBinder;
  */
 public class SyncService extends Service {
     // Storage for an instance of the sync adapter
+    @SuppressLint("StaticFieldLeak")
     private static SyncAdapter sSyncAdapter = null;
     // Object to use as a thread-safe lock
     private static final Object sSyncAdapterLock = new Object();

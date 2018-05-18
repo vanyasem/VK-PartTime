@@ -52,8 +52,6 @@ public class PostFragment extends Fragment {
 
     final public static String EXTRA_ID = "id";
 
-    private CommentViewModel mCommentViewModel;
-
     private ImageView mUserPic;
     private TextView mAuthor;
     private TextView mDate;
@@ -104,21 +102,25 @@ public class PostFragment extends Fragment {
             postViewModel.loadById(mPostId).observe(this, new Observer<Post>() {
                 @Override
                 public void onChanged(@Nullable final Post post) {
-                    mDate.setText(Util.formatDate(getContext(), post.getDate()));
-                    mBody.setText(post.getText());
+                    if (post != null) {
+                        mDate.setText(Util.formatDate(getContext(), post.getDate()));
+                        mBody.setText(post.getText());
 
-                    mUserRepository.loadById(post.getFrom_id(), new GenericCallback<User>() {
-                        @Override
-                        public void onFinished(User user) {
-                            mAuthor.setText(
-                                    String.format("%s %s", user.getFirst_name(), user.getLast_name()));
-                            GlideApp
-                                    .with(getContext())
-                                    .load(user.getPhoto_100())
-                                    .apply(RequestOptions.circleCropTransform())
-                                    .into(mUserPic);
-                        }
-                    });
+                        mUserRepository.loadById(post.getFrom_id(), new GenericCallback<User>() {
+                            @Override
+                            public void onFinished(User user) {
+                                mAuthor.setText(
+                                        String.format("%s %s", user.getFirst_name(), user.getLast_name()));
+                                if(getContext() != null) {
+                                    GlideApp
+                                            .with(getContext())
+                                            .load(user.getPhoto_100())
+                                            .apply(RequestOptions.circleCropTransform())
+                                            .into(mUserPic);
+                                }
+                            }
+                        });
+                    }
                 }
             });
 
@@ -147,8 +149,8 @@ public class PostFragment extends Fragment {
             refresh();
         }
 
-        mCommentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
-        mCommentViewModel.getAllComments().observe(this, new Observer<List<Comment>>() {
+        CommentViewModel commentViewModel = ViewModelProviders.of(this).get(CommentViewModel.class);
+        commentViewModel.getAllComments().observe(this, new Observer<List<Comment>>() {
             @Override
             public void onChanged(@Nullable final List<Comment> comments) {
                 // Update the cached copy of the comments in the adapter.

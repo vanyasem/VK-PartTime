@@ -39,7 +39,7 @@ public class ConfigurationChatFragment extends Fragment {
 
     private ItemListAdapter adapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_items, container, false);
@@ -56,7 +56,8 @@ public class ConfigurationChatFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 LoginDataManager.setChatId(adapter.get(position).getUid());
-                ((MainIntroActivity)getActivity()).next();
+                if(getActivity() != null)
+                    ((MainIntroActivity)getActivity()).next();
             }
         });
 
@@ -72,7 +73,7 @@ public class ConfigurationChatFragment extends Fragment {
     private VKList<VKApiDialog> dialogs;
     private List<Item> adapterItems;
 
-    private VKListCallback<VKApiDialog> dialogVKListCallback = new VKListCallback<VKApiDialog>() {
+    private final VKListCallback<VKApiDialog> dialogVKListCallback = new VKListCallback<VKApiDialog>() {
         @Override
         public void onFinished(VKList<VKApiDialog> dialogs) {
             ConfigurationChatFragment.this.dialogs = dialogs;
@@ -86,7 +87,7 @@ public class ConfigurationChatFragment extends Fragment {
             Users.getUsersBrief(userFullVKListCallback, getContext(), userIds);
         }
     };
-    private VKListCallback<VKApiUser> userFullVKListCallback = new VKListCallback<VKApiUser>() {
+    private final VKListCallback<VKApiUser> userFullVKListCallback = new VKListCallback<VKApiUser>() {
         @Override
         public void onFinished(VKList<VKApiUser> users) {
             for (int i = 0; i < dialogs.size(); i++) {
@@ -100,7 +101,7 @@ public class ConfigurationChatFragment extends Fragment {
                 else {
                     title = user.first_name + " " + user.last_name;
                 }
-                if(content.isEmpty()) {
+                if(content.isEmpty() && getContext() != null) {
                     content = getContext().getString(R.string.unsupported_media);
                 }
                 if(dialogs.get(i).chatId != null)

@@ -39,17 +39,15 @@ public class GroupFragment extends Fragment {
         // Required empty public constructor
     }
 
-    private PostViewModel mPostViewModel;
     private SwipeRefreshLayout refreshLayout;
     private PostListAdapter adapter;
-    private EmptyRecyclerView recyclerView;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View layout =  inflater.inflate(R.layout.fragment_group, container, false);
 
-        recyclerView = layout.findViewById(R.id.recyclerview);
+        EmptyRecyclerView recyclerView = layout.findViewById(R.id.recyclerview);
         adapter = new PostListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -57,15 +55,17 @@ public class GroupFragment extends Fragment {
         adapter.setOnPostClickListener(new PostListAdapter.PostClickListener() {
             @Override
             public void onPostClick(int position, View v) {
-                Bundle bundle = new Bundle();
-                bundle.putInt(PostFragment.EXTRA_ID, adapter.get(position).getUid());
-                Navigation.findNavController(
-                        getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post, bundle);
+                if(getActivity() != null) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt(PostFragment.EXTRA_ID, adapter.get(position).getUid());
+                    Navigation.findNavController(
+                            getActivity(), R.id.nav_host_fragment).navigate(R.id.view_post, bundle);
+                }
             }
         });
 
-        mPostViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
-        mPostViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
+        PostViewModel postViewModel = ViewModelProviders.of(this).get(PostViewModel.class);
+        postViewModel.getAllPosts().observe(this, new Observer<List<Post>>() {
             @Override
             public void onChanged(@Nullable final List<Post> posts) {
                 // Update the cached copy of the posts in the adapter.

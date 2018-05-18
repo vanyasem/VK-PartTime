@@ -50,8 +50,8 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     }
 
     private final LayoutInflater mInflater;
+    private final UserRepository mUserRepository;
     private List<Post> mPosts; // Cached copy of posts
-    private UserRepository mUserRepository;
 
     public PostListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);

@@ -29,8 +29,6 @@ public class TasksFragment extends Fragment {
     public TasksFragment() {
     }
 
-    private TaskViewModel mTaskViewModel;
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,8 +39,8 @@ public class TasksFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        mTaskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+        TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> tasks) {
                 // Update the cached copy of the tasks in the adapter.

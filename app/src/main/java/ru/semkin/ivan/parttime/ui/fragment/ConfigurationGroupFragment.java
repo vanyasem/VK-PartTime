@@ -37,7 +37,7 @@ public class ConfigurationGroupFragment extends Fragment {
 
     private ItemListAdapter adapter;
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View layout =  inflater.inflate(R.layout.fragment_items, container, false);
@@ -56,7 +56,9 @@ public class ConfigurationGroupFragment extends Fragment {
                 LoginDataManager.setGroupId(-adapter.get(position).getUid());
                 LoginDataManager.setLoggedIn(true);
                 MainActivity.openMain(getContext());
-                getActivity().finishAffinity();
+
+                if(getActivity() != null)
+                    getActivity().finishAffinity();
             }
         });
 

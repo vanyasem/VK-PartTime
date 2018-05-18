@@ -51,8 +51,8 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     }
 
     private final LayoutInflater mInflater;
+    private final UserRepository mUserRepository;
     private List<Comment> mComments; // Cached copy of comments
-    private UserRepository mUserRepository;
 
     public CommentsListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
