@@ -1,8 +1,10 @@
 package ru.semkin.ivan.parttime.data;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.support.annotation.Nullable;
 
 import com.vk.sdk.api.model.VKApiUser;
 import com.vk.sdk.api.model.VKList;
@@ -28,18 +30,24 @@ public class UserRepository {
         mUserDao = db.userDao();
     }
 
-    public void loadById(int id, final GenericCallback<User> callback) {
-        LiveData<User> db = mUserDao.loadById(id);
-        if(db.getValue() != null)
-            callback.onFinished(db.getValue());
-        else {
-            Users.getUsersBrief(new VKListCallback<VKApiUser>() {
-                @Override
-                public void onFinished(VKList<VKApiUser> items) {
-                    callback.onFinished(new User(items.get(0)));
+    public void loadById(final int id, final GenericCallback<User> callback) {
+        final LiveData<User> db = mUserDao.loadById(id);
+        db.observeForever(new Observer<User>() {
+            @Override
+            public void onChanged(@Nullable User sections){
+                if(db.getValue() != null)
+                    callback.onFinished(db.getValue());
+                else {
+                    Users.getUsersBrief(new VKListCallback<VKApiUser>() {
+                        @Override
+                        public void onFinished(VKList<VKApiUser> items) {
+                            callback.onFinished(new User(items.get(0)));
+                        }
+                    }, mContext, id);
                 }
-            }, mContext, id);
-        }
+                db.removeObserver(this);
+            }
+        });
     }
 
     public void insert(User... user) {
