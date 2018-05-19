@@ -55,6 +55,8 @@
         <item>Sat</item>
     </string-array>
     <string name="image_tasks">Tasks amount</string>
+    <string name="tasks_done_today">Tasks done today:</string>
+    <string name="tasks_left">Tasks left:</string>
 
 
     <!-- Strings related to Group -->

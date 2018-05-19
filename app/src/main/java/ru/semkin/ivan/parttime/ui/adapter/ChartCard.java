@@ -19,12 +19,10 @@ import com.db.chart.view.LineChartView;
 
 import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
 
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.data.TaskRepository;
 import ru.semkin.ivan.parttime.model.Task;
-import timber.log.Timber;
 
 
 public class ChartCard {
@@ -32,6 +30,9 @@ public class ChartCard {
     private final LineChartView mChart;
     private final Context mContext;
     private final String[] mLabels;
+    private final Calendar mCalendar = Calendar.getInstance();
+    private final int mWeekOfYear = mCalendar.get(Calendar.WEEK_OF_YEAR);
+    private final int mDayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 1;
     private float[] mValues = {0, 0, 0, 0, 0, 0, 0};
     private Tooltip mTip;
     private Runnable mBaseAction;
@@ -46,13 +47,7 @@ public class ChartCard {
         gatherData();
     }
 
-    private int mDayOfWeek = 0;
-
     private void gatherData() {
-        final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
-        mDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        final int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
-
         TaskRepository taskRepository = new TaskRepository(mContext);
         final LiveData<List<Task>> db = taskRepository.getAllDone();
         db.observeForever(new Observer<List<Task>>() {
@@ -61,9 +56,9 @@ public class ChartCard {
                 if(tasks != null) {
                     for (Task task: tasks) {
 
-                        calendar.setTimeInMillis(task.getDate() * 1000);
-                        if(calendar.get(Calendar.WEEK_OF_YEAR) == weekOfYear) {
-                            int dow = calendar.get(Calendar.DAY_OF_WEEK);
+                        mCalendar.setTimeInMillis(task.getDate() * 1000);
+                        if(mCalendar.get(Calendar.WEEK_OF_YEAR) == mWeekOfYear) {
+                            int dow = mCalendar.get(Calendar.DAY_OF_WEEK);
                             mValues[dow - 1]++;
                         }
                     }

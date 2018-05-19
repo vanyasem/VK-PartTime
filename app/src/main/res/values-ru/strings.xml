@@ -50,6 +50,8 @@
         <item>Сб</item>
     </string-array>
     <string name="image_tasks">Количество заданий</string>
+    <string name="tasks_done_today">Выполнено сегодня:</string>
+    <string name="tasks_left">Осталось:</string>
 
 
     <!-- Strings related to Group -->
