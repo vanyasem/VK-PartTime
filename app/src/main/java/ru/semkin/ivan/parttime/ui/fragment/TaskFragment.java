@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.api.request.Messages;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
@@ -44,19 +45,21 @@ public class TaskFragment extends Fragment {
 
     @BindView(R.id.recyclerview) EmptyRecyclerView recyclerView;
     @BindView(R.id.swipeRefreshLayout) SwipeRefreshLayout refreshLayout;
+    private View mLayout;
+    private TaskViewModel mTaskViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final View layout =  inflater.inflate(R.layout.fragment_tasks, container, false);
-        ButterKnife.bind(this, layout);
+        mLayout =  inflater.inflate(R.layout.fragment_tasks, container, false);
+        ButterKnife.bind(this, mLayout);
 
         final TaskListAdapter adapter = new TaskListAdapter(getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        final TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
-        taskViewModel.getAllActive().observe(this, new Observer<List<Task>>() {
+        mTaskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        mTaskViewModel.getAllActive().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> tasks) {
                 // Update the cached copy of the tasks in the mAdapter.
@@ -76,18 +79,7 @@ public class TaskFragment extends Fragment {
                         final Task swiped = adapter.get(viewHolder.getAdapterPosition());
                         swiped.setDone(true);
                         postDone(swiped);
-                        taskViewModel.markDone(swiped);
-
-                        Snackbar.make(layout,R.string.marked_done, Snackbar.LENGTH_LONG).
-                                setAction(R.string.undo, new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        swiped.setDone(false);
-                                        undoDone(swiped);
-                                        taskViewModel.markDone(swiped);
-                                    }
-
-                                }).show();
+                        mTaskViewModel.markDone(swiped);
                     }
                 };
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeCallback);
@@ -104,22 +96,50 @@ public class TaskFragment extends Fragment {
 
         ActivityUtil.setActionTitle(R.string.nav_tasks, (AppCompatActivity)getActivity());
 
-        return layout;
+        return mLayout;
     }
 
-    private void postDone(Task task) {
+    private void postDone(final Task task) {
         if(task.getType() == Task.TYPE_MESSAGE) {
-            Messages.send(null, "+", task.getUid());
+            Messages.send(new GenericCallback<Long>() {
+                @Override
+                public void onFinished(final Long item) {
+                    Snackbar.make(mLayout, R.string.marked_done, Snackbar.LENGTH_LONG).
+                            setAction(R.string.undo, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    task.setDone(false);
+                                    undoDone(task, item);
+                                    mTaskViewModel.markDone(task);
+                                }
+
+                            }).show();
+                }
+            }, "+", task.getUid());
         } else {
-            Wall.createComment(null, "+", task.getUid());
+            Wall.createComment(new GenericCallback<Long>() {
+                @Override
+                public void onFinished(final Long item) {
+                    Snackbar.make(mLayout, R.string.marked_done, Snackbar.LENGTH_LONG).
+                            setAction(R.string.undo, new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    task.setDone(false);
+                                    undoDone(task, item);
+                                    mTaskViewModel.markDone(task);
+                                }
+
+                            }).show();
+                }
+            }, "+", task.getUid());
         }
     }
 
-    private void undoDone(Task task) {
+    private void undoDone(Task task, long id) {
         if(task.getType() == Task.TYPE_MESSAGE) {
-
+            Messages.delete(null, id);
         } else {
-            
+            Wall.deleteComment(null, id);
         }
     }
 

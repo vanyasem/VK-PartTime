@@ -31,7 +31,6 @@ import butterknife.OnClick;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.api.request.GenericCallback;
-import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.api.request.Wall;
 import ru.semkin.ivan.parttime.data.UserRepository;
@@ -68,9 +67,9 @@ public class PostFragment extends Fragment {
     @OnClick(R.id.send_message)
     public void sendComment() {
         if(!editMessage.getText().toString().trim().isEmpty()) {
-            Wall.createComment(new SimpleCallback() {
+            Wall.createComment(new GenericCallback<Long>() {
                 @Override
-                public void onFinished() {
+                public void onFinished(Long id) {
                     editMessage.setText("");
                     refresh();
                 }

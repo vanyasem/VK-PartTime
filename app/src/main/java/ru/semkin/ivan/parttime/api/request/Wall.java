@@ -12,6 +12,8 @@ import com.vk.sdk.api.model.VKApiComment;
 import com.vk.sdk.api.model.VKApiPost;
 import com.vk.sdk.api.model.VKList;
 
+import org.json.JSONException;
+
 import ru.semkin.ivan.parttime.data.CommentRepository;
 import ru.semkin.ivan.parttime.data.PostRepository;
 import ru.semkin.ivan.parttime.data.TaskRepository;
@@ -99,7 +101,7 @@ public class Wall {
         });
     }
 
-    public static void createComment(final SimpleCallback callback,
+    public static void createComment(final GenericCallback<Long> callback,
                                    String message, long postId) {
         VKRequest request = VKApi.wall().addComment(
                 VKParameters.from(VKApiConst.MESSAGE, message,
@@ -108,8 +110,15 @@ public class Wall {
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
+                long id = -1;
+                try {
+                    id = response.json.getJSONObject("response").getLong("comment_id");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 if(callback != null)
-                    callback.onFinished();
+                    callback.onFinished(id);
             }
             @Override
             public void onError(VKError error) {
@@ -123,9 +132,8 @@ public class Wall {
         });
     }
 
-    public static void deleteComment(final SimpleCallback callback,
-                                     String message, long commentId) {
-        VKRequest request = VKApi.wall().addComment(
+    public static void deleteComment(final SimpleCallback callback, long commentId) {
+        VKRequest request = VKApi.wall().deleteComment(
                 VKParameters.from("comment_id", commentId,
                         VKApiConst.OWNER_ID, LoginDataManager.getGroupId()));
         request.executeWithListener(new VKRequest.VKRequestListener() {

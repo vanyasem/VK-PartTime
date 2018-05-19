@@ -27,8 +27,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.request.GenericCallback;
 import ru.semkin.ivan.parttime.api.request.Messages;
-import ru.semkin.ivan.parttime.api.request.SimpleCallback;
 import ru.semkin.ivan.parttime.api.request.VKListCallback;
 import ru.semkin.ivan.parttime.model.Message;
 import ru.semkin.ivan.parttime.ui.adapter.EmptyRecyclerView;
@@ -54,9 +54,9 @@ public class ChatFragment extends Fragment {
     @OnClick(R.id.send_message)
     public void sendMessage() {
         if(!editMessage.getText().toString().trim().isEmpty()) {
-            Messages.send(new SimpleCallback() {
+            Messages.send(new GenericCallback<Long>() {
                 @Override
-                public void onFinished() {
+                public void onFinished(Long id) {
                     editMessage.setText("");
                     refresh();
                 }

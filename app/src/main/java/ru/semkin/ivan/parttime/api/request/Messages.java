@@ -10,6 +10,8 @@ import com.vk.sdk.api.VKResponse;
 import com.vk.sdk.api.model.VKApiMessage;
 import com.vk.sdk.api.model.VKList;
 
+import org.json.JSONException;
+
 import ru.semkin.ivan.parttime.data.MessageRepository;
 import ru.semkin.ivan.parttime.data.TaskRepository;
 import ru.semkin.ivan.parttime.model.Message;
@@ -63,11 +65,11 @@ public class Messages {
         });
     }
 
-    public static void send(final SimpleCallback callback, String message) {
+    public static void send(final GenericCallback<Long> callback, String message) {
         send(callback, message, -1);
     }
 
-    public static void send(final SimpleCallback callback, String message, long replyTo) {
+    public static void send(final GenericCallback<Long> callback, String message, long replyTo) {
         VKRequest request;
         String field = VKApiConst.USER_ID;
         if(LoginDataManager.isGroupChat()) {
@@ -80,8 +82,15 @@ public class Messages {
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
+                long id = -1;
+                try {
+                    id = response.json.getLong("response");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
                 if(callback != null)
-                    callback.onFinished();
+                    callback.onFinished(id);
             }
             @Override
             public void onError(VKError error) {
