@@ -71,6 +71,7 @@
 
     <!-- Strings related to Post -->
     <string name="marked_done">Задание помечено, как выполненное</string>
+    <string name="undo">Отменить</string>
 
 
     <!-- No content placeholders -->

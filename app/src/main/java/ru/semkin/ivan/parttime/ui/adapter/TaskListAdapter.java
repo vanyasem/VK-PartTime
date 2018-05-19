@@ -61,6 +61,10 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         notifyDataSetChanged();
     }
 
+    public Task get(int position) {
+        return mTasks.get(position);
+    }
+
     // getItemCount() is called many times, and when it is first called,
     // mTasks has not been updated (means initially, it's null, and we can't return null).
     @Override

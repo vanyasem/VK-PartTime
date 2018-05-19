@@ -28,4 +28,8 @@ public class TaskViewModel extends AndroidViewModel {
     public LiveData<List<Task>> getAllActive() {
         return mRepository.getAllActive();
     }
+
+    public void markDone(Task task) {
+        mRepository.markDone(task);
+    }
 }

@@ -32,6 +32,10 @@ public class TaskRepository {
         return mTaskDao.getAllActive();
     }
 
+    public void markDone(Task task) {
+        new markDoneAsyncTask(mTaskDao).execute(task);
+    }
+
     public void insert(Task task) {
         new insertAsyncTask(mTaskDao).execute(task);
     }
@@ -47,6 +51,21 @@ public class TaskRepository {
         @Override
         protected Void doInBackground(final Task... params) {
             mAsyncTaskDao.insertAll(params[0]);
+            return null;
+        }
+    }
+
+    private static class markDoneAsyncTask extends AsyncTask<Task, Void, Void> {
+
+        private final TaskDao mAsyncTaskDao;
+
+        markDoneAsyncTask(TaskDao dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final Task... task) {
+            mAsyncTaskDao.markDone(task[0]);
             return null;
         }
     }

@@ -55,29 +55,7 @@ public class TaskFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        ItemTouchHelper.SimpleCallback swipeCallback =
-                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-                    @Override
-                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                        return false;
-                    }
-
-                    @Override
-                    public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-                        Snackbar.make(layout,"Deleted Saved Selection.", Snackbar.LENGTH_LONG).
-                                setAction("Undo", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View v) {
-                                        adapter.notifyDataSetChanged();
-                                    }
-
-                                }).show();
-                    }
-                };
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeCallback);
-        itemTouchHelper.attachToRecyclerView(recyclerView);
-
-        TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        final TaskViewModel taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         taskViewModel.getAllActive().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> tasks) {
@@ -86,6 +64,33 @@ public class TaskFragment extends Fragment {
             }
         });
 
+        ItemTouchHelper.SimpleCallback swipeCallback =
+                new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
+                        final Task swiped = adapter.get(viewHolder.getAdapterPosition());
+                        swiped.setDone(true);
+                        taskViewModel.markDone(swiped);
+
+                        Snackbar.make(layout,R.string.marked_done, Snackbar.LENGTH_LONG).
+                                setAction(R.string.undo, new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        swiped.setDone(false);
+                                        taskViewModel.markDone(swiped);
+                                    }
+
+                                }).show();
+                    }
+                };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -93,6 +98,7 @@ public class TaskFragment extends Fragment {
             }
         });
 
+        refresh();
 
         ActivityUtil.setActionTitle(R.string.nav_tasks, (AppCompatActivity)getActivity());
 
