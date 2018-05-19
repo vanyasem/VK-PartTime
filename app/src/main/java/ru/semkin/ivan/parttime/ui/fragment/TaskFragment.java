@@ -109,14 +109,18 @@ public class TaskFragment extends Fragment {
 
     private void postDone(Task task) {
         if(task.getType() == Task.TYPE_MESSAGE) {
-            Messages.send(null, "+");
+            Messages.send(null, "+", task.getUid());
         } else {
             Wall.createComment(null, "+", task.getUid());
         }
     }
 
     private void undoDone(Task task) {
+        if(task.getType() == Task.TYPE_MESSAGE) {
 
+        } else {
+            
+        }
     }
 
     private void refresh() {

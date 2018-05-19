@@ -64,6 +64,10 @@ public class Messages {
     }
 
     public static void send(final SimpleCallback callback, String message) {
+        send(callback, message, -1);
+    }
+
+    public static void send(final SimpleCallback callback, String message, long replyTo) {
         VKRequest request;
         String field = VKApiConst.USER_ID;
         if(LoginDataManager.isGroupChat()) {
@@ -71,8 +75,8 @@ public class Messages {
         }
         request = new VKRequest("messages.send",
                 VKParameters.from(VKApiConst.MESSAGE, message,
-                        field, LoginDataManager.getChatId()));
-
+                        field, LoginDataManager.getChatId(),
+                        "forward_messages", replyTo));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
