@@ -94,16 +94,12 @@ public class CommentsListAdapter extends RecyclerView.Adapter<CommentsListAdapte
     }
 
     public void setOnItemClickListener(CommentClickListener clickListener) {
-        this.mClickListener = clickListener;
+        this.mClickListener = clickListener; //todo implement
     }
 
     public void setItems(List<Comment> comments){
         mComments = comments;
         notifyDataSetChanged();
-    }
-
-    public Comment get(int position) {
-        return mComments.get(position);
     }
 
     // getItemCount() is called many times, and when it is first called,

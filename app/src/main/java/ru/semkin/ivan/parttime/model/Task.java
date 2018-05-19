@@ -10,10 +10,12 @@ import com.vk.sdk.api.model.VKApiPost;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 @Entity
 public class Task {
 
     public final static int TYPE_MESSAGE = 0;
+    @SuppressWarnings("WeakerAccess")
     public final static int TYPE_POST = 1;
 
     public final static int TS_MESSAGE = 86400;

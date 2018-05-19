@@ -14,6 +14,7 @@ import ru.semkin.ivan.parttime.model.Comment;
  */
 public class CommentViewModel extends AndroidViewModel {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final CommentRepository mRepository;
     private final LiveData<List<Comment>> mAllComments;
 

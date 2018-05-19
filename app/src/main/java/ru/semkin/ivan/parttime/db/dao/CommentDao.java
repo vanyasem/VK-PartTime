@@ -14,6 +14,7 @@ import ru.semkin.ivan.parttime.model.Comment;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 @Dao
 public interface CommentDao {
     @Query("SELECT * FROM comment")

@@ -14,6 +14,7 @@ import ru.semkin.ivan.parttime.model.Message;
  */
 public class MessageViewModel extends AndroidViewModel {
 
+    @SuppressWarnings("FieldCanBeLocal")
     private final MessageRepository mRepository;
     private final LiveData<List<Message>> mAllMessages;
 

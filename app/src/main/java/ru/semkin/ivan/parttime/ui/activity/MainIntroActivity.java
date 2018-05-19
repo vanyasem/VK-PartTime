@@ -30,7 +30,9 @@ public class MainIntroActivity extends IntroActivity {
     private boolean mBlocked = true;
     private final static int SLIDE_WELCOME = 0;
     private final static int SLIDE_LOGIN = 1;
+    @SuppressWarnings("unused")
     private final static int SLIDE_CONFIGURE_CHAT = 2;
+    @SuppressWarnings("unused")
     private final static int SLIDE_CONFIGURE_GROUP = 3;
 
     @Override

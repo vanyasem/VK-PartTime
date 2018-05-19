@@ -15,6 +15,7 @@ import ru.semkin.ivan.parttime.model.Task;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 @Dao
 public interface TaskDao {
     @Query("SELECT * FROM task")

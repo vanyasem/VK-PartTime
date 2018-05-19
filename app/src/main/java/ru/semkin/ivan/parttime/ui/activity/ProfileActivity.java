@@ -53,7 +53,7 @@ public class ProfileActivity extends BaseActivity {
     private String mFieldCity;
     private String mFieldProfilePic;
 
-    public void saveData(View view) { //todo implement someday
+    public void saveData(@SuppressWarnings("unused") View v) { //todo implement someday
         ProfileDataManager.setProfilePicture(mFieldProfilePic);
         ProfileDataManager.setUserName(mFieldName);
         ProfileDataManager.setUserStatus(mFieldStatus);

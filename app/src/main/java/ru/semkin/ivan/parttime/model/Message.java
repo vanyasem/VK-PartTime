@@ -9,6 +9,7 @@ import com.vk.sdk.api.model.VKApiMessage;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 @Entity
 public class Message {
 

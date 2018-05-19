@@ -33,7 +33,7 @@ public class ChartCard {
     private final Calendar mCalendar = Calendar.getInstance();
     private final int mWeekOfYear = mCalendar.get(Calendar.WEEK_OF_YEAR);
     private final int mDayOfWeek = mCalendar.get(Calendar.DAY_OF_WEEK) - 1;
-    private float[] mValues = {0, 0, 0, 0, 0, 0, 0};
+    private final float[] mValues = {0, 0, 0, 0, 0, 0, 0};
     private Tooltip mTip;
     private Runnable mBaseAction;
 

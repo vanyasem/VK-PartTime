@@ -13,6 +13,7 @@ import ru.semkin.ivan.parttime.model.Post;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 @Dao
 public interface PostDao {
     @Query("SELECT * FROM post")

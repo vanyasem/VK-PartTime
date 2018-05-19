@@ -97,6 +97,7 @@ public class ItemListAdapter extends RecyclerView.Adapter<ItemListAdapter.ItemVi
     }
 
     public interface ItemClickListener {
+        @SuppressWarnings("unused")
         void onItemClick(int position, View v);
     }
 }

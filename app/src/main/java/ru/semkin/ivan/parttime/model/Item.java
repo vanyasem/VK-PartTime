@@ -3,6 +3,7 @@ package ru.semkin.ivan.parttime.model;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
+@SuppressWarnings("unused")
 public class Item {
 
     public Item(long uid, String title, String content, String image, boolean isGroup) {

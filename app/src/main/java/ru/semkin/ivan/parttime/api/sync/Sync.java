@@ -33,8 +33,8 @@ public class Sync {
     public static Account account;
 
     public static final long SECONDS_PER_MINUTE = 60L;
-    public static long syncIntervalInMinutes = 360L;
-    public static long syncInterval;
+    public static final long SYNC_INTERVAL_IN_MINUTES = 360L;
+    public static final long SYNC_INTERVAL = SECONDS_PER_MINUTE * SYNC_INTERVAL_IN_MINUTES;
 
     public void initSync(Context context) {
         // Create the dummy account
@@ -45,7 +45,7 @@ public class Sync {
         // Inform the system that this account is eligible for auto sync when the network is up
         ContentResolver.setSyncAutomatically(account, authority, true);
         ContentResolver.setMasterSyncAutomatically(true);
-        ContentResolver.addPeriodicSync(account, authority, Bundle.EMPTY, syncInterval);
+        ContentResolver.addPeriodicSync(account, authority, Bundle.EMPTY, SYNC_INTERVAL);
     }
 
     /**

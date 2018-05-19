@@ -31,8 +31,6 @@
 
     <!-- Strings related to Profile -->
     <string name="title_profile">Profile</string>
-    <string name="save_and_exit">Save and exit</string>
-    <string name="cancel">Cancel</string>
     <string name="required">Required</string>
     <string name="not_specified">Not specified</string>
     <string name="profile_field_name">Name</string>

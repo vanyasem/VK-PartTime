@@ -16,16 +16,10 @@ import ru.semkin.ivan.parttime.model.Task;
 public class TaskRepository {
 
     private final TaskDao mTaskDao;
-    private final LiveData<List<Task>> mAllTasks;
 
     public TaskRepository(Context context) {
         PartTimeDatabase db = PartTimeDatabase.getDatabase(context);
         mTaskDao = db.taskDao();
-        mAllTasks = mTaskDao.getAll();
-    }
-
-    public LiveData<List<Task>> getAllTasks() {
-        return mAllTasks;
     }
 
     public LiveData<List<Task>> getAllActive() {

@@ -15,15 +15,11 @@ import ru.semkin.ivan.parttime.model.Task;
 public class TaskViewModel extends AndroidViewModel {
 
     private final TaskRepository mRepository;
-    private final LiveData<List<Task>> mAllTasks;
 
     public TaskViewModel(Application application) {
         super(application);
         mRepository = new TaskRepository(application);
-        mAllTasks = mRepository.getAllTasks();
     }
-
-    public LiveData<List<Task>> getAllTasks() { return mAllTasks; }
 
     public LiveData<List<Task>> getAllActive() {
         return mRepository.getAllActive();

@@ -10,7 +10,6 @@
     <include layout="@layout/content_profile" />
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="280dp"
         android:fitsSystemWindows="true"
@@ -18,7 +17,6 @@
         >
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"

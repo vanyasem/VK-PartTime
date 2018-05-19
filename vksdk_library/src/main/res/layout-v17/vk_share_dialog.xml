@@ -95,7 +95,6 @@
             android:fillViewport="true">
 
             <LinearLayout
-                android:id="@+id/postContentLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -160,7 +159,6 @@
         </ScrollView>
 
         <LinearLayout
-            android:id="@+id/postSettingsLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="@dimen/vk_share_settings_button_min_height"

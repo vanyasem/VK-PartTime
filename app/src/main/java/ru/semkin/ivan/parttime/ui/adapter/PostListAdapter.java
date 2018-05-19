@@ -112,6 +112,7 @@ public class PostListAdapter extends RecyclerView.Adapter<PostListAdapter.PostVi
     }
 
     public interface PostClickListener {
+        @SuppressWarnings("unused")
         void onPostClick(int position, View v);
     }
 }
