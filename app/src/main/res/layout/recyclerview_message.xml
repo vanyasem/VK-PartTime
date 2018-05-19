@@ -33,7 +33,7 @@
             android:text="@string/error_message"
             android:linksClickable="true"
             android:autoLink="web|email"
-            android:textColor="@android:color/white"
+            android:textColor="@android:color/black"
             />
 
         <TextView
