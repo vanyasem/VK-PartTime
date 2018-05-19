@@ -1,7 +1,9 @@
 package ru.semkin.ivan.parttime.ui.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -16,9 +18,12 @@ import android.widget.TextView;
 import com.bumptech.glide.request.RequestOptions;
 import com.vk.sdk.VKSdk;
 
+import java.lang.ref.WeakReference;
+
 import androidx.navigation.Navigation;
 import ru.semkin.ivan.parttime.GlideApp;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.db.PartTimeDatabase;
 import ru.semkin.ivan.parttime.prefs.DataManager;
 import ru.semkin.ivan.parttime.prefs.ProfileDataManager;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
@@ -161,13 +166,33 @@ public abstract class BaseDrawerActivity extends BaseActivity
         return true;
     }
 
-    private void logOut() {
-        DataManager.clear();
-        VKSdk.logout();
-        Intent i = getBaseContext().getPackageManager()
-                .getLaunchIntentForPackage(getBaseContext().getPackageName());
-        assert i != null;
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(i);
+    public void logOut() {
+        new insertAsyncTask(this).execute();
+    }
+
+    private static class insertAsyncTask extends AsyncTask<Void, Void, Void> {
+
+        private final WeakReference<Context> mWeakContext;
+
+        insertAsyncTask(Context context) {
+            mWeakContext = new WeakReference<>(context);
+        }
+
+        @Override
+        protected Void doInBackground(final Void... voids) {
+            DataManager.clear();
+            VKSdk.logout();
+            PartTimeDatabase.getDatabase(mWeakContext.get()).clearAllTables();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Intent i = mWeakContext.get().getPackageManager()
+                    .getLaunchIntentForPackage(mWeakContext.get().getPackageName());
+            assert i != null;
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            mWeakContext.get().startActivity(i);
+        }
     }
 }
