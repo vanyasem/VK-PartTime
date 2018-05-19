@@ -19,12 +19,8 @@ public interface TaskDao {
     @Query("SELECT * FROM task")
     LiveData<List<Task>> getAll();
 
-    @Query("SELECT * FROM task WHERE uid IN (:taskIds)")
-    LiveData<List<Task>> loadAllByIds(int[] taskIds);
-
-    @Query("SELECT * FROM task WHERE first_name LIKE :first AND "
-            + "last_name LIKE :last LIMIT 1")
-    LiveData<Task> findByName(String first, String last);
+    @Query("SELECT * FROM task WHERE done = 0")
+    LiveData<List<Task>> getAllActive();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Task... tasks);

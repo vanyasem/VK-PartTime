@@ -74,6 +74,9 @@
     <string name="image_post">Post\'s attachment</string>
 
 
+    <!-- Strings related to Post -->
+    <string name="marked_done">The task was marked as done</string>
+
     <!-- No content placeholders -->
     <string name="no_title">No title</string>
     <string name="no_content">No content</string>

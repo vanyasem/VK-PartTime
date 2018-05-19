@@ -19,9 +19,6 @@ public interface MessageDao {
     @Query("SELECT * FROM message")
     LiveData<List<Message>> getAll();
 
-    @Query("SELECT * FROM message WHERE uid IN (:userIds)")
-    LiveData<List<Message>> loadAllByIds(int[] userIds);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Message... messages);
 

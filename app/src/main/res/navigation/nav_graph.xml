@@ -14,7 +14,7 @@
         />
     <fragment
         android:id="@+id/nav_tasks"
-        android:name="ru.semkin.ivan.parttime.ui.fragment.TasksFragment"
+        android:name="ru.semkin.ivan.parttime.ui.fragment.TaskFragment"
         android:label="TasksFragment"
         tools:layout="@layout/fragment_tasks"
         />

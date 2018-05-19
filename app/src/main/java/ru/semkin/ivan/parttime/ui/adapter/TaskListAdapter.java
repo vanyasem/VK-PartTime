@@ -14,6 +14,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ru.semkin.ivan.parttime.R;
 import ru.semkin.ivan.parttime.model.Task;
+import ru.semkin.ivan.parttime.util.Util;
 
 /**
  * Created by Ivan Semkin on 5/11/18
@@ -46,8 +47,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
     public void onBindViewHolder(@NonNull TaskViewHolder holder, int position) {
         if (mTasks != null) {
             Task current = mTasks.get(position);
-            holder.taskBody.setText(current.getFirstName());
-            holder.taskDue.setText(current.getLastName());
+            holder.taskBody.setText(current.getBody());
+            holder.taskDue.setText(Util.formatDate(holder.taskDue.getContext(), current.getDue()));
         } else {
             // Covers the case of data not being ready yet.
             holder.taskBody.setText(R.string.no_content);

@@ -19,7 +19,7 @@ import ru.semkin.ivan.parttime.model.User;
 /**
  * Created by Ivan Semkin on 5/10/18
  */
-@Database(entities = {Task.class, Message.class, Post.class, Comment.class, User.class}, version = 4)
+@Database(entities = {Task.class, Message.class, Post.class, Comment.class, User.class}, version = 5)
 public abstract class PartTimeDatabase extends RoomDatabase {
 
     public abstract TaskDao taskDao();

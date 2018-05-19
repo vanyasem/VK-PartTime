@@ -14,8 +14,10 @@ import com.vk.sdk.api.model.VKList;
 
 import ru.semkin.ivan.parttime.data.CommentRepository;
 import ru.semkin.ivan.parttime.data.PostRepository;
+import ru.semkin.ivan.parttime.data.TaskRepository;
 import ru.semkin.ivan.parttime.model.Comment;
 import ru.semkin.ivan.parttime.model.Post;
+import ru.semkin.ivan.parttime.model.Task;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import timber.log.Timber;
 
@@ -29,7 +31,7 @@ public class Wall {
     public static void get(final VKListCallback<VKApiPost> callback,
                            final Context context) {
         VKRequest request = VKApi.wall().get(
-                VKParameters.from(VKApiConst.COUNT, "100",
+                VKParameters.from(VKApiConst.COUNT, "5",
                         VKApiConst.OWNER_ID, LoginDataManager.getGroupId()));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
@@ -41,8 +43,10 @@ public class Wall {
                 VKList<VKApiPost> posts = new VKList(response.json, VKApiPost.class);
 
                 PostRepository postRepository = new PostRepository(context);
+                TaskRepository taskRepository = new TaskRepository(context);
                 for (VKApiPost post: posts) {
                     postRepository.insert(new Post(post));
+                    taskRepository.insert(new Task(post));
                 }
 
                 if(callback != null)

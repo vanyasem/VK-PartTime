@@ -11,7 +11,9 @@ import com.vk.sdk.api.model.VKApiMessage;
 import com.vk.sdk.api.model.VKList;
 
 import ru.semkin.ivan.parttime.data.MessageRepository;
+import ru.semkin.ivan.parttime.data.TaskRepository;
 import ru.semkin.ivan.parttime.model.Message;
+import ru.semkin.ivan.parttime.model.Task;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import timber.log.Timber;
 
@@ -25,7 +27,7 @@ public class Messages {
     public static void getHistory(final VKListCallback<VKApiMessage> callback,
                                   final Context context) {
         VKRequest request = new VKRequest("messages.getHistory",
-                VKParameters.from(VKApiConst.COUNT, "200",
+                VKParameters.from(VKApiConst.COUNT, "5",
                         VKApiConst.USER_ID, LoginDataManager.getChatId()));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
@@ -37,8 +39,10 @@ public class Messages {
                 VKList<VKApiMessage> messages = new VKList(response.json, VKApiMessage.class);
 
                 MessageRepository messageRepository = new MessageRepository(context);
+                TaskRepository taskRepository = new TaskRepository(context);
                 for (VKApiMessage message: messages) {
                     messageRepository.insert(new Message(message));
+                    taskRepository.insert(new Task(message));
                 }
 
                 if(callback != null)

@@ -19,9 +19,6 @@ public interface CommentDao {
     @Query("SELECT * FROM comment")
     LiveData<List<Comment>> getAll();
 
-    @Query("SELECT * FROM comment WHERE uid = :postId")
-    LiveData<List<Comment>> loadAllByPostId(int postId);
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Comment... comments);
 

@@ -28,6 +28,10 @@ public class TaskRepository {
         return mAllTasks;
     }
 
+    public LiveData<List<Task>> getAllActive() {
+        return mTaskDao.getAllActive();
+    }
+
     public void insert(Task task) {
         new insertAsyncTask(mTaskDao).execute(task);
     }

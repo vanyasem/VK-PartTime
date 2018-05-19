@@ -4,25 +4,44 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import com.vk.sdk.api.model.VKApiMessage;
+import com.vk.sdk.api.model.VKApiPost;
+
 /**
  * Created by Ivan Semkin on 5/10/18
  */
 @Entity
 public class Task {
 
-    public Task(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Task(String body, long due, boolean done) {
+        this.body = body;
+        this.due = due;
+        this.done = done;
+    }
+
+    public Task(VKApiMessage message) {
+        this.uid = message.id;
+        this.body = message.body;
+        this.due = message.date + 216000000;
+    }
+
+    public Task(VKApiPost post) {
+        this.uid = post.id;
+        this.body = post.text;
+        this.due = post.date + 216000000;
     }
 
     @PrimaryKey(autoGenerate = true)
     private int uid;
 
-    @ColumnInfo(name = "first_name")
-    private String firstName;
+    @ColumnInfo(name = "body")
+    private String body;
 
-    @ColumnInfo(name = "last_name")
-    private String lastName;
+    @ColumnInfo(name = "due")
+    private long due;
+
+    @ColumnInfo(name = "done")
+    private boolean done;
 
     public int getUid() {
         return uid;
@@ -32,19 +51,27 @@ public class Task {
         this.uid = uid;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getBody() {
+        return body;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setBody(String body) {
+        this.body = body;
     }
 
-    public String getLastName() {
-        return lastName;
+    public long getDue() {
+        return due;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setDue(long due) {
+        this.due = due;
+    }
+
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
     }
 }

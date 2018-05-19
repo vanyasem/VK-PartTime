@@ -69,6 +69,10 @@
     <string name="image_post">Изображение в публикации</string>
 
 
+    <!-- Strings related to Post -->
+    <string name="marked_done">Задание помечено, как выполненное</string>
+
+
     <!-- No content placeholders -->
     <string name="no_title">Нет заголовка</string>
     <string name="no_content">Нет текста</string>
