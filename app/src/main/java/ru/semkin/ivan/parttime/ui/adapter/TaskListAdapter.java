@@ -48,7 +48,12 @@ public class TaskListAdapter extends RecyclerView.Adapter<TaskListAdapter.TaskVi
         if (mTasks != null) {
             Task current = mTasks.get(position);
             holder.taskBody.setText(current.getBody());
-            holder.taskDue.setText(Util.formatDate(holder.taskDue.getContext(), current.getDue()));
+            if(current.getType() == Task.TYPE_MESSAGE)
+                holder.taskDue.setText(Util.formatDate(
+                        holder.taskDue.getContext(), current.getDate() + Task.TS_MESSAGE));
+            else
+                holder.taskDue.setText(Util.formatDate(
+                    holder.taskDue.getContext(), current.getDate() + Task.TS_POST));
         } else {
             // Covers the case of data not being ready yet.
             holder.taskBody.setText(R.string.no_content);

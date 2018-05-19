@@ -32,6 +32,10 @@ public class TaskRepository {
         return mTaskDao.getAllActive();
     }
 
+    public LiveData<List<Task>> getAllDone() {
+        return mTaskDao.getAllDone();
+    }
+
     public void markDone(Task task) {
         new markDoneAsyncTask(mTaskDao).execute(task);
     }

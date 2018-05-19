@@ -1,8 +1,11 @@
 package ru.semkin.ivan.parttime.ui.adapter;
 
 import android.animation.PropertyValuesHolder;
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.graphics.Color;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.view.View;
 import android.view.animation.BounceInterpolator;
@@ -14,7 +17,14 @@ import com.db.chart.tooltip.Tooltip;
 import com.db.chart.util.Tools;
 import com.db.chart.view.LineChartView;
 
+import java.util.Calendar;
+import java.util.List;
+import java.util.Locale;
+
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.data.TaskRepository;
+import ru.semkin.ivan.parttime.model.Task;
+import timber.log.Timber;
 
 
 public class ChartCard {
@@ -22,7 +32,7 @@ public class ChartCard {
     private final LineChartView mChart;
     private final Context mContext;
     private final String[] mLabels;
-    private final float[] mValues = {3, 4, 4, 8, 6, 9, 7};
+    private float[] mValues = {0, 0, 0, 0, 0, 0, 0};
     private Tooltip mTip;
     private Runnable mBaseAction;
 
@@ -33,10 +43,39 @@ public class ChartCard {
     }
 
     public void init() {
-        show(new Runnable() {@Override public void run() { }});
+        gatherData();
+    }
+
+    private int mDayOfWeek = 0;
+
+    private void gatherData() {
+        final Calendar calendar = Calendar.getInstance(Locale.GERMANY);
+        mDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        final int weekOfYear = calendar.get(Calendar.WEEK_OF_YEAR);
+
+        TaskRepository taskRepository = new TaskRepository(mContext);
+        final LiveData<List<Task>> db = taskRepository.getAllDone();
+        db.observeForever(new Observer<List<Task>>() {
+            @Override
+            public void onChanged(@Nullable List<Task> tasks) {
+                if(tasks != null) {
+                    for (Task task: tasks) {
+
+                        calendar.setTimeInMillis(task.getDate() * 1000);
+                        if(calendar.get(Calendar.WEEK_OF_YEAR) == weekOfYear) {
+                            int dow = calendar.get(Calendar.DAY_OF_WEEK);
+                            mValues[dow - 1]++;
+                        }
+                    }
+                    show(new Runnable() {@Override public void run() { }});
+                }
+                db.removeObserver(this);
+            }
+        });
     }
 
     private void show(Runnable action) {
+
         // Tooltip
         mTip = new Tooltip(mContext, R.layout.linechart_three_tooltip, R.id.value);
 
@@ -56,20 +95,20 @@ public class ChartCard {
 
         // Data
         LineSet dataset = new LineSet(mLabels, mValues);
-        dataset.setColor(Color.parseColor("#b3b5bb"))
-                .setFill(mContext.getResources().getColor(R.color.colorPrimaryDark))
-                .setDotsColor(Color.parseColor("#ffc755"))
-                .setThickness(4)
-                .endAt(5);
-        mChart.addData(dataset);
-
-        dataset = new LineSet(mLabels, mValues);
         dataset.setColor(Color.parseColor("#758cbb"))
                 .setFill(mContext.getResources().getColor(R.color.colorPrimaryDark))
                 .setDotsColor(Color.parseColor("#758cbb"))
                 .setThickness(4)
                 .setDashed(new float[]{10f, 10f})
-                .beginAt(4);
+                .beginAt(mDayOfWeek - 1);
+        mChart.addData(dataset);
+
+        dataset = new LineSet(mLabels, mValues);
+        dataset.setColor(Color.parseColor("#b3b5bb"))
+                .setFill(mContext.getResources().getColor(R.color.colorPrimaryDark))
+                .setDotsColor(Color.parseColor("#ffc755"))
+                .setThickness(4)
+                .endAt(mDayOfWeek);
         mChart.addData(dataset);
 
         mBaseAction = action;
@@ -77,7 +116,7 @@ public class ChartCard {
             @Override
             public void run() {
                 mBaseAction.run();
-                mTip.prepare(mChart.getEntriesArea(0).get(3), mValues[3]);
+                mTip.prepare(mChart.getEntriesArea(0).get(mDayOfWeek), mValues[mDayOfWeek]);
                 mChart.showTooltip(mTip, true);
             }
         };

@@ -78,6 +78,8 @@
                         android:text="@string/loading"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
+                        android:linksClickable="true"
+                        android:autoLink="web|email"
                         />
 
                     <ImageView

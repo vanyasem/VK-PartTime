@@ -46,13 +46,13 @@
 
     <!-- Strings related to Home -->
     <string-array name="chart_days">
+        <item>Sun</item>
         <item>Mon</item>
         <item>Tue</item>
         <item>Wed</item>
         <item>Thu</item>
         <item>Fri</item>
         <item>Sat</item>
-        <item>Sun</item>
     </string-array>
     <string name="image_tasks">Tasks amount</string>
 

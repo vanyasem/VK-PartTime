@@ -23,6 +23,9 @@ public interface TaskDao {
     @Query("SELECT * FROM task WHERE done = 0")
     LiveData<List<Task>> getAllActive();
 
+    @Query("SELECT * FROM task WHERE done = 1")
+    LiveData<List<Task>> getAllDone();
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertAll(Task... tasks);
 

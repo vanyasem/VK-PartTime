@@ -13,22 +13,31 @@ import com.vk.sdk.api.model.VKApiPost;
 @Entity
 public class Task {
 
-    public Task(String body, long due, boolean done) {
+    public final static int TYPE_MESSAGE = 0;
+    public final static int TYPE_POST = 1;
+
+    public final static int TS_MESSAGE = 86400;
+    public final static int TS_POST = 172800;
+
+    public Task(String body, long date, int type, boolean done) {
         this.body = body;
-        this.due = due;
+        this.date = date;
+        this.type = type;
         this.done = done;
     }
 
     public Task(VKApiMessage message) {
         this.uid = message.id;
         this.body = message.body;
-        this.due = message.date + 216000000;
+        this.type = TYPE_MESSAGE;
+        this.date = message.date;
     }
 
     public Task(VKApiPost post) {
         this.uid = post.id;
         this.body = post.text;
-        this.due = post.date + 216000000;
+        this.type = TYPE_POST;
+        this.date = post.date;
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -37,8 +46,11 @@ public class Task {
     @ColumnInfo(name = "body")
     private String body;
 
-    @ColumnInfo(name = "due")
-    private long due;
+    @ColumnInfo(name = "date")
+    private long date;
+
+    @ColumnInfo(name = "type")
+    private int type;
 
     @ColumnInfo(name = "done")
     private boolean done;
@@ -59,12 +71,20 @@ public class Task {
         this.body = body;
     }
 
-    public long getDue() {
-        return due;
+    public long getDate() {
+        return date;
     }
 
-    public void setDue(long due) {
-        this.due = due;
+    public void setDate(long date) {
+        this.date = date;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public boolean isDone() {
