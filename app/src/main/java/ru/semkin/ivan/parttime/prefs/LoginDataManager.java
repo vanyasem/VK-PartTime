@@ -25,6 +25,16 @@ public class LoginDataManager extends DataManager {
     }
 
 
+    static public boolean isGroupChat() {
+        return sPreferences.getBoolean("isGroupChat", false);
+    }
+
+    static public void setGroupChat(boolean value) {
+        sPreferencesEditor.putBoolean("isGroupChat", value);
+        sPreferencesEditor.commit();
+    }
+
+
     static public long getGroupId() {
         return sPreferences.getLong("groupId", -1);
     }

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import androidx.navigation.Navigation;
 import ru.semkin.ivan.parttime.R;
+import ru.semkin.ivan.parttime.api.sync.Sync;
 import ru.semkin.ivan.parttime.ui.base.BaseDrawerActivity;
 import ru.semkin.ivan.parttime.util.ActivityUtil;
 
@@ -17,6 +18,10 @@ public class MainActivity extends BaseDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Sync sync = Sync.getInstance();
+        sync.initSync(this);
+        sync.startSync(this);
 
         // Broken Upstream
         //NavigationUI.setupWithNavController(navigationView,

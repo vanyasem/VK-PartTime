@@ -12,6 +12,7 @@ import ru.semkin.ivan.parttime.api.request.Groups;
 import ru.semkin.ivan.parttime.api.request.Messages;
 import ru.semkin.ivan.parttime.api.request.Users;
 import ru.semkin.ivan.parttime.api.request.Wall;
+import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 import timber.log.Timber;
 
 /**
@@ -62,9 +63,11 @@ public class SyncAdapter extends AbstractThreadedSyncAdapter {
                               ContentProviderClient provider, SyncResult syncResult) {
         Timber.i("Starting sync");
 
-        Users.getUserProfile(null);
-        Messages.getHistory(null, mContext);
-        Groups.getGroups(null);
-        Wall.get(null, mContext);
+        if(LoginDataManager.getLoggedIn()) {
+            Users.getUserProfile(null);
+            Groups.getGroups(null);
+            Messages.getHistory(null, mContext);
+            Wall.get(null, mContext);
+        }
     }
 }

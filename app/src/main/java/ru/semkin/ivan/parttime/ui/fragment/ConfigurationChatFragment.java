@@ -61,6 +61,7 @@ public class ConfigurationChatFragment extends Fragment {
             @Override
             public void onItemClick(int position, View v) {
                 LoginDataManager.setChatId(mAdapter.get(position).getUid());
+                LoginDataManager.setGroupChat(mAdapter.get(position).isGroup());
                 if(getActivity() != null)
                     ((MainIntroActivity)getActivity()).next();
             }
@@ -99,6 +100,7 @@ public class ConfigurationChatFragment extends Fragment {
                 String title;
                 String content = dialogs.get(i).message.body;
                 long id;
+                boolean group;
                 VKApiUser user = users.getById(dialogs.get(i).message.user_id);
 
                 if(!dialogs.get(i).message.title.isEmpty())
@@ -109,12 +111,16 @@ public class ConfigurationChatFragment extends Fragment {
                 if(content.isEmpty() && getContext() != null) {
                     content = getContext().getString(R.string.unsupported_media);
                 }
-                if(dialogs.get(i).chatId != null)
-                    id = Long.valueOf(dialogs.get(i).chatId) + 2000000000;
-                else
+                if(dialogs.get(i).chatId != null) {
+                    group = true;
+                    id = Long.valueOf(dialogs.get(i).chatId);
+                }
+                else {
+                    group = false;
                     id = dialogs.get(i).message.user_id;
+                }
 
-                adapterItems.add(new Item(id, title, content, user.photo_100));
+                adapterItems.add(new Item(id, title, content, user.photo_100, group));
             }
 
             mAdapter.setItems(adapterItems);

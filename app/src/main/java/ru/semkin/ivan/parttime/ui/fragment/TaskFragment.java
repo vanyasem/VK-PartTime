@@ -75,6 +75,7 @@ public class TaskFragment extends Fragment {
                     public void onSwiped(final RecyclerView.ViewHolder viewHolder, int direction) {
                         final Task swiped = adapter.get(viewHolder.getAdapterPosition());
                         swiped.setDone(true);
+                        postDone(swiped);
                         taskViewModel.markDone(swiped);
 
                         Snackbar.make(layout,R.string.marked_done, Snackbar.LENGTH_LONG).
@@ -82,6 +83,7 @@ public class TaskFragment extends Fragment {
                                     @Override
                                     public void onClick(View v) {
                                         swiped.setDone(false);
+                                        undoDone(swiped);
                                         taskViewModel.markDone(swiped);
                                     }
 
@@ -103,6 +105,18 @@ public class TaskFragment extends Fragment {
         ActivityUtil.setActionTitle(R.string.nav_tasks, (AppCompatActivity)getActivity());
 
         return layout;
+    }
+
+    private void postDone(Task task) {
+        if(task.getType() == Task.TYPE_MESSAGE) {
+            Messages.send(null, "+");
+        } else {
+            Wall.createComment(null, "+", task.getUid());
+        }
+    }
+
+    private void undoDone(Task task) {
+
     }
 
     private void refresh() {

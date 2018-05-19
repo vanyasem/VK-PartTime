@@ -5,6 +5,14 @@ package ru.semkin.ivan.parttime.model;
  */
 public class Item {
 
+    public Item(long uid, String title, String content, String image, boolean isGroup) {
+        this.uid = uid;
+        this.title = title;
+        this.content = content;
+        this.image = image;
+        this.isGroup = isGroup;
+    }
+
     public Item(long uid, String title, String content, String image) {
         this.uid = uid;
         this.title = title;
@@ -16,6 +24,7 @@ public class Item {
     private String title;
     private String content;
     private String image;
+    private boolean isGroup;
 
     public long getUid() {
         return uid;
@@ -47,5 +56,13 @@ public class Item {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public boolean isGroup() {
+        return isGroup;
+    }
+
+    public void setGroup(boolean group) {
+        isGroup = group;
     }
 }

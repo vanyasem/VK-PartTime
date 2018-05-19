@@ -122,4 +122,27 @@ public class Wall {
             }
         });
     }
+
+    public static void deleteComment(final SimpleCallback callback,
+                                     String message, long commentId) {
+        VKRequest request = VKApi.wall().addComment(
+                VKParameters.from("comment_id", commentId,
+                        VKApiConst.OWNER_ID, LoginDataManager.getGroupId()));
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                if(callback != null)
+                    callback.onFinished();
+            }
+            @Override
+            public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
+                //Do error stuff
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+            }
+        });
+    }
 }

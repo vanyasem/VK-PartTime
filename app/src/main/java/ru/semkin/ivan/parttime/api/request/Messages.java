@@ -26,9 +26,12 @@ public class Messages {
 
     public static void getHistory(final VKListCallback<VKApiMessage> callback,
                                   final Context context) {
+        long userId = LoginDataManager.getChatId();
+        if(LoginDataManager.isGroupChat())
+            userId += 2000000000L;
         VKRequest request = new VKRequest("messages.getHistory",
                 VKParameters.from(VKApiConst.COUNT, "5",
-                        VKApiConst.USER_ID, LoginDataManager.getChatId()));
+                        VKApiConst.USER_ID, userId));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {
@@ -61,9 +64,37 @@ public class Messages {
     }
 
     public static void send(final SimpleCallback callback, String message) {
-        VKRequest request = new VKRequest("messages.send",
+        VKRequest request;
+        String field = VKApiConst.USER_ID;
+        if(LoginDataManager.isGroupChat()) {
+            field = "chat_id";
+        }
+        request = new VKRequest("messages.send",
                 VKParameters.from(VKApiConst.MESSAGE, message,
-                        VKApiConst.USER_ID, LoginDataManager.getChatId()));
+                        field, LoginDataManager.getChatId()));
+
+        request.executeWithListener(new VKRequest.VKRequestListener() {
+            @Override
+            public void onComplete(VKResponse response) {
+                if(callback != null)
+                    callback.onFinished();
+            }
+            @Override
+            public void onError(VKError error) {
+                Timber.e(error.apiError.toString());
+                //Do error stuff
+            }
+            @Override
+            public void attemptFailed(VKRequest request, int attemptNumber, int totalAttempts) {
+                //I don't really believe in progress
+            }
+        });
+    }
+
+    public static void delete(final SimpleCallback callback, long messageId) {
+        VKRequest request = new VKRequest("messages.delete",
+                VKParameters.from("message_ids", messageId,
+                        "delete_for_all", "1"));
         request.executeWithListener(new VKRequest.VKRequestListener() {
             @Override
             public void onComplete(VKResponse response) {

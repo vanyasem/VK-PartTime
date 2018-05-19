@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import ru.semkin.ivan.parttime.api.sync.Sync;
 import ru.semkin.ivan.parttime.prefs.LoginDataManager;
 
 /**
@@ -17,9 +16,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if(LoginDataManager.getLoggedIn()) {
-            Sync sync = Sync.getInstance();
-            sync.initSync(this);
-            sync.startSync(this);
             MainActivity.openMain(this);
             finishAffinity();
         }
