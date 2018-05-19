@@ -46,9 +46,9 @@ public class Messages {
                 MessageRepository messageRepository = new MessageRepository(context);
                 TaskRepository taskRepository = new TaskRepository(context);
                 for (VKApiMessage message: messages) {
-                    if(!message.body.equals("+"))
-                        messageRepository.insert(new Message(message));
-                    taskRepository.insert(new Task(message));
+                    if (!message.body.equals("+"))
+                        taskRepository.insert(new Task(message));
+                    messageRepository.insert(new Message(message));
                 }
 
                 if(callback != null)
